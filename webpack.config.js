@@ -2,10 +2,8 @@ const webpack = require('webpack');
 const path = require('path');
 
 module.exports = {
-  entry: [
-    'babel-polyfill',
-    './src/index.js',
-  ],
+
+  entry: './src/index.js',
 
   output: {
     path: path.resolve(__dirname, 'build'),
@@ -14,15 +12,11 @@ module.exports = {
   },
 
   module: {
-    rules: [{
-      test: /\.js$/,
-      use: ['babel-loader'],
-      include: path.join(__dirname, 'src'),
-    },
-    {
-      test: [/\.vert$/, /\.frag$/],
-      use: 'raw-loader',
-    },
+    rules: [
+      {
+        test: [/\.vert$/, /\.frag$/],
+        use: 'raw-loader',
+      },
     ],
   },
 

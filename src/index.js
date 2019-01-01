@@ -1,24 +1,22 @@
-import 'phaser';
+import Phaser from 'phaser';
+import { width, height } from './config/config';
+import scenes from './scenes/scenes';
 
-var config = {
+const config = {
+  width,
+  height,
   type: Phaser.AUTO,
-  parent: 'phaser-example',
-  width: 800,
-  height: 600,
-  scene: {
-    preload: preload,
-    create: create
-  }
+  parent: 'phaser-game',
+  scene: scenes,
 };
 
-var game = new Phaser.Game(config);
-
-function preload ()
-{
-  this.load.image('logo', 'assets/logo.png');
+class Game extends Phaser.Game {
+  constructor() {
+    super(config);
+    this.scene.start('Boot');
+  }
 }
 
-function create ()
-{
-  var logo = this.add.image(400, 300, 'logo');
-}
+window.onload = () => {
+  window.game = new Game();
+};

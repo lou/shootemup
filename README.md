@@ -1,6 +1,6 @@
 # Phaser 3 ES6 Webpack Project Template
 
-A Phaser 3 ES^ Project Template
+A Phaser 3 ES6 Project Template. This template is based on photonstorm's original Phaser 3 Project Template that can be found here: https://github.com/photonstorm/phaser3-project-template.
 
 ### Requirements
 

@@ -9,8 +9,7 @@ export default class MainScene extends Phaser.Scene {
   create() {
     this.logo = this.add.image(width / 2, height / 2, 'logo');
     this.logo.setScale(0.5);
-    this.logo.setInteractive();
-    this.logo.on('pointerdown', () => {
+    this.input.on('pointerdown', () => {
       this.scene.start('GameOver');
     });
   }

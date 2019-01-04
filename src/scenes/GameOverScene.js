@@ -18,5 +18,15 @@ export default class GameOverScene extends Phaser.Scene {
       text: 'Again?',
       targetScene: 'Main',
     });
+
+    this.titleButton = new UIButton({
+      scene: this,
+      x: width / 2,
+      y: height * 0.8,
+      key: 'button1',
+      hoverKey: 'button2',
+      text: 'Main Menu',
+      targetScene: 'Title',
+    });
   }
 }

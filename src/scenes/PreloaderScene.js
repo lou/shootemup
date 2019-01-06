@@ -18,7 +18,7 @@ export default class PreloaderScene extends Phaser.Scene {
       scene: this,
       x: width / 2,
       y: height * 0.7,
-      color: '0x222222',
+      color: 0x222222,
     });
 
     this.progText = this.add.text(width / 2, height * 0.7, '0%', {

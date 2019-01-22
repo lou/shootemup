@@ -16,7 +16,13 @@ module.exports = {
   module: {
     rules: [{
       test: /\.js$/,
-      use: ['babel-loader'],
+      use: {
+        loader: 'babel-loader',
+        options: {
+          presets: ['@babel/preset-env'],
+          plugins: ['@babel/plugin-proposal-object-rest-spread']
+        }
+      },
       include: path.join(__dirname, 'src'),
     },
     {

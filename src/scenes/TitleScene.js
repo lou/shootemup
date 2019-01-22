@@ -16,7 +16,7 @@ export default class TitleScene extends Phaser.Scene {
       key: 'button1',
       hoverKey: 'button2',
       text: 'Play',
-      targetScene: 'Main',
+      targetScene: 'Game',
     });
   }
 }

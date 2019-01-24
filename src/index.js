@@ -10,9 +10,13 @@ const config = {
   scene: scenes,
   backgroundColor: '#030b14',
   physics: {
-    default: 'arcade',
-    arcade: {
-      // debug: trues
+    default: 'matter',
+    matter: {
+      debug: true,
+      gravity: {
+        x: 0,
+        y: 0
+      }
     }
   }
 }

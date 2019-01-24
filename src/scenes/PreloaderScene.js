@@ -48,6 +48,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('bomber', 'assets/images/enemies/bomber.png')
     this.load.image('helicopter', 'assets/images/enemies/helicopter/body.png')
     this.load.image('blades', 'assets/images/enemies/helicopter/blades.png')
+    this.load.json('shapes', 'assets/shapes.json')
   }
 
   onProgress(value) {

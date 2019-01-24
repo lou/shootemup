@@ -1,18 +1,18 @@
 import Phaser from 'phaser'
 import Bullet  from './Bullet'
 
-export default class Player extends Phaser.Physics.Arcade.Sprite {
+export default class Player extends Phaser.Physics.Matter.Sprite {
   constructor(scene, x, y, key) {
     super(scene, x, y, key)
     this.scene = scene
     scene.add.existing(this)
-    scene.physics.world.enable(this)
-    this.setCollideWorldBounds(true)
-    this.setCircle(this.width/2)
-    this.setMaxVelocity(250, 300)
+    // scene.world.enable(this)
+    // this.setCollideWorldBounds(true)
+    // this.setCircle(this.width/2)
+    // this.setMaxVelocity(250, 300)
     this.setTint(0x20567c)
     // this.setTintFill(0x000000, 0x000000, 0x00ff00, 0x00ff00)
-    this.lives = 3
+    this.lives = 103
     this.shield = false
     this.guns = 1
     this.invincible = false
@@ -27,8 +27,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       speed: 15
     })
 
-    this.bullets = scene.physics.add.group({ classType: Bullet, runChildUpdate: true })
-    this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true })
+    this.bullets = scene.add.group({ classType: Bullet, runChildUpdate: true })
+    this.bullets2 = scene.add.group({ classType: Bullet, runChildUpdate: true })
 
     this.shieldSprite = this.scene.add.sprite(x, y, 'shield')
 

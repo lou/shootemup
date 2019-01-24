@@ -18,17 +18,17 @@ export default class Kamikaze extends Enemy {
   move() {
     const { player } = this.scene
 
-    this.setVelocity(0, 0);
+    this.body.setVelocity(0, 0);
     this.setAngle(Phaser.Math.RadToDeg(Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y)) - 90)
     if (Math.round(this.x) < Math.round(player.x) - 5) {
-      this.setVelocityX(this.speed);
+      this.body.setVelocityX(this.speed);
     } else if (Math.round(this.x) > Math.round(player.x)) {
-      this.setVelocityX(-this.speed);
+      this.body.setVelocityX(-this.speed);
     }
     if (Math.round(this.y) < Math.round(player.y) - 5) {
-      this.setVelocityY(this.speed);
+      this.body.setVelocityY(this.speed);
     } else if (Math.round(this.y) > Math.round(player.y)) {
-      this.setVelocityY(-this.speed);
+      this.body.setVelocityY(-this.speed);
     }
   }
 }

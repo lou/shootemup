@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import { width, height } from './config/config'
 import scenes from './scenes/scenes'
+import ContainerLite from './plugins/ContainerLitePlugin'
 
 const config = {
   width,
@@ -12,7 +13,7 @@ const config = {
   physics: {
     default: 'arcade',
     arcade: {
-      // debug: trues
+      debug: true
     }
   }
 }

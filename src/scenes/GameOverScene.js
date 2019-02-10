@@ -8,24 +8,28 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(width / 2, height / 3, 'title');
+    const text = this.add.text(0, 0, "GAME OVER", {
+      fontFamily: 'Impact',
+      fontSize: '42px',
+      fill: '#FFF',
+      align: 'center'
+    })
+    text.setY(250)
+    text.setX(width/2 - text.width/2)
+
     this.gameButton = new UIButton({
       scene: this,
       x: width / 2,
-      y: height * 0.6,
-      key: 'button1',
-      hoverKey: 'button2',
-      text: 'Play Again?',
+      y: height * 0.5,
+      text: 'Play Again',
       targetScene: 'Game',
     });
 
     this.titleButton = new UIButton({
       scene: this,
       x: width / 2,
-      y: height * 0.8,
-      key: 'button1',
-      hoverKey: 'button2',
-      text: 'Main Menu',
+      y: height * 0.57,
+      text: 'Menu',
       targetScene: 'Title',
     });
   }

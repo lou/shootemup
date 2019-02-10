@@ -11,7 +11,6 @@ export default class PreloaderScene extends Phaser.Scene {
   preload() {
     // add logo image
     const logo = this.add.image(width / 2, height / 3, 'logo')
-    Align.scaleToGameWidth(logo, 0.4, width)
 
     // display progress bar
     this.bar = new Bar({
@@ -36,14 +35,12 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('shield', 'assets/images/shield.png')
     this.load.image('bullet', 'assets/images/bullet.png')
     this.load.image('hit', 'assets/images/hit.png')
+    this.load.image('splash', 'assets/images/splash.png')
     this.load.image('bonus', 'assets/images/bonus.png')
     this.load.image('life-icon', 'assets/images/bonuses/life.png')
     this.load.image('shield-icon', 'assets/images/bonuses/shield.png')
     this.load.image('gun-icon', 'assets/images/bonuses/bullet.png')
     this.load.image('thrust', 'assets/images/thrust.png')
-    this.load.image('title', 'assets/images/title.png')
-    this.load.image('button1', 'assets/images/ui/blue_button02.png')
-    this.load.image('button2', 'assets/images/ui/blue_button03.png')
     this.load.image('kamikaze', 'assets/images/enemies/planes/kamikaze.png')
     this.load.image('carrier', 'assets/images/enemies/planes/carrier.png')
     this.load.image('bomber', 'assets/images/enemies/planes/bomber.png')
@@ -51,6 +48,8 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('blades', 'assets/images/enemies/planes/helicopter/blades.png')
     this.load.image('clouds', 'assets/images/clouds/clouds.png')
     this.load.image('cruiser', 'assets/images/enemies/boats/cruiser.png')
+    this.load.image('touret', 'assets/images/enemies/boats/touret.png')
+    this.load.image('fire', 'assets/images/fire.png')
   }
 
   onProgress(value) {

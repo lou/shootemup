@@ -38,6 +38,7 @@ export default class Vehicle extends ContainerLite {
       this.started = true
     if (this.started && (this.y > height || this.x < -this.width || this.x > width))
       this.destroy()
+    super.update()
   }
 
   addLights() {

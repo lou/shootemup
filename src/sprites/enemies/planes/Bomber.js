@@ -5,6 +5,7 @@ export default class Bomber extends Plane {
     super(scene, 'bomber', {
       speed: 80,
       armor: 100,
+      points: 1,
       ...options
     })
   }

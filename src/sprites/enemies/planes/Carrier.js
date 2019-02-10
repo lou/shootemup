@@ -5,6 +5,7 @@ export default class Carrier extends Plane {
     super(scene, 'carrier', {
       speed: 50,
       armor: 60,
+      points: 1,
       ...options
     })
     this.body.immovable = true

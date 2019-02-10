@@ -150,7 +150,9 @@ class ContainerLite extends Zone {
             child.flipY = (!this.flipY) ? state.flipY : !state.flipY;
         }
 
-        child.rotation = state.rotation + this.rotation;
+        if (!child.rotatable) {
+            child.rotation = state.rotation + this.rotation;
+        }
 
         if (child.isRexContainerLite) {
             child.syncChildrenEnable = true;
@@ -263,6 +265,7 @@ class ContainerLite extends Zone {
     }
 
     _add(gameObject) {
+        gameObject.container = this
         this.children.add(gameObject);
 
         this.resetChildState(gameObject)
@@ -305,9 +308,6 @@ class ContainerLite extends Zone {
     }
 
     set rotation(value) {
-        if (this.rotation === value) {
-            return;
-        }
         super.rotation = value;
 
         this.syncPosition();

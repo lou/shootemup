@@ -11,12 +11,13 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     this.setCircle(this.width/2)
     this.setMaxVelocity(250, 300)
     this.setTint(0x20567c)
-    // this.setTintFill(0x000000, 0x000000, 0x00ff00, 0x00ff00)
+    this.setDepth(1)
     this.lives = 3
+    this.score = 0
     this.shield = false
     this.guns = 1
     this.invincible = false
-
+    this.lastFired = 0
     this.thrust = scene.add.particles('thrust').createEmitter({
       x: this.x - 2,
       y: this.y + 24,
@@ -76,9 +77,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     })
   }
 
-  hitByEnemy(enemy) {
+  hitBy(object) {
     if (!this.invincible) {
-      enemy.armor -= 20
+      // if (object instanceof Bullet)
+      object.armor -= 20
       if (this.shield) {
         this.shield = false
         this.invincible = true
@@ -100,21 +102,24 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     if (bullet) {
       bullet.fire(
         { x: this.x + this.angle + offset.x, y: this.y - 30 + offset.y, rotation: this.rotation },
-        { x: this.x + offset.x, y: -10 + offset.y }
+        { x: this.x + offset.x, y: - 10 + offset.y }
       )
     }
   }
 
-  fire() {
-    if (this.guns > 1){
-      this.fireGun(this.bullets, { x: +5, y: 5 })
-      this.fireGun(this.bullets2, { x: -5, y: 5 })
-    } else {
-      this.fireGun(this.bullets)
+  fire(time) {
+    if (time - this.lastFired > 30) {
+      if (this.guns > 1){
+        this.fireGun(this.bullets, { x: +5, y: 5 })
+        this.fireGun(this.bullets2, { x: -5, y: 5 })
+      } else {
+        this.fireGun(this.bullets)
+      }
+      this.lastFired = time
     }
   }
 
-  move(cursors) {
+  move(cursors, time) {
     this.setAcceleration(0, 0)
     const acceleration = 2000
     const deceleration = 10
@@ -150,7 +155,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       this.thrust.setLifespan(1)
 
     if (cursors.space.isDown) {
-      this.fire()
+      this.fire(time)
     }
 
     this.shieldSprite.setActive(this.shield).setVisible(this.shield)

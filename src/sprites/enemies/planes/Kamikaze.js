@@ -5,7 +5,8 @@ export default class Kamikaze extends Plane {
   constructor(scene, options) {
     super(scene, 'kamikaze', {
       speed: 100,
-      armor: 60,
+      armor: 10,
+      points: 1,
       collidable: true,
       lights: {
         side: { x: 18, y: 6 },
@@ -19,7 +20,7 @@ export default class Kamikaze extends Plane {
     const { player } = this.scene
 
     this.body.setVelocity(0, 0)
-    this.setRotation(Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y) - 1.5)
+    this.setRotation(Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y) - Math.PI/2)
     if (Math.round(this.x) < Math.round(player.x) - 5) {
       this.body.setVelocityX(this.speed);
     } else if (Math.round(this.x) > Math.round(player.x)) {

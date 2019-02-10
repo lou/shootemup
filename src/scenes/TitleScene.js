@@ -8,13 +8,17 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create() {
-    this.add.image(width / 2, height / 3, 'title');
+    const text = this.add.text(0, 0, "Gust of Night", {
+      fontFamily: 'Impact',
+      fontSize: '42px',
+      fill: '#FFF',
+      align: 'center'
+    })
+    text.setY(250)
+    text.setX(width/2 - text.width/2)
     this.gameButton = new UIButton({
       scene: this,
-      x: width / 2,
       y: height * 0.6,
-      key: 'button1',
-      hoverKey: 'button2',
       text: 'Play',
       targetScene: 'Game',
     });

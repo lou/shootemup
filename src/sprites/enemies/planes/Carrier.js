@@ -4,7 +4,7 @@ export default class Carrier extends Plane {
   constructor(scene, options) {
     super(scene, 'carrier', {
       speed: 50,
-      armor: 60,
+      armor: 30,
       points: 1,
       ...options
     })

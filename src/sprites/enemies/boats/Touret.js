@@ -36,7 +36,7 @@ export default class Touret extends Phaser.Physics.Arcade.Sprite {
     super(scene, options.x, options.y, 'touret')
     scene.add.existing(this)
     scene.physics.world.enable(this)
-    this.armor = 50
+    this.armor = 30
     this.points = parseInt(this.armor)
     this.body.setCircle(this.width/2)
     this.setOrigin(0.5)

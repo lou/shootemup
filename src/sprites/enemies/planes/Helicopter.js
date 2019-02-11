@@ -4,7 +4,7 @@ export default class Helicopter extends Plane {
   constructor(scene, options) {
     super(scene, 'helicopter', {
       speed: 50,
-      armor: 60,
+      armor: 20,
       points: 1,
       lights: {
         side: { x: 15, y: 3 },

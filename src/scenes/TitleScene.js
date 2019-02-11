@@ -8,7 +8,7 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create() {
-    const text = this.add.text(0, 0, "Gust of Night", {
+    const text = this.add.text(0, 0, "Rafale", {
       fontFamily: 'Impact',
       fontSize: '42px',
       fill: '#FFF',

@@ -1,7 +1,6 @@
 import Phaser from 'phaser'
 import { width, height } from './config/config'
 import scenes from './scenes/scenes'
-import ContainerLite from './plugins/ContainerLitePlugin'
 
 const config = {
   width,

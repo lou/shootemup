@@ -6,7 +6,7 @@ export default class Bullet extends Phaser.Physics.Arcade.Sprite {
     super(scene, 0, 0, 'bullet')
     this.force = 1
     this.tint = 0xfeecca
-    this.setScale(1)
+    this.setScale(1.5)
   }
 
   fire(shooter, target, options = { speed: 1000 }) {

@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
 import Bar from '../classes/components/Bar'
-import Align from '../classes/utils/Align'
 import { width, height } from '../config/config'
 
 export default class PreloaderScene extends Phaser.Scene {

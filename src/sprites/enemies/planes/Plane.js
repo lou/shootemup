@@ -84,7 +84,7 @@ export default class Plane extends Vehicle {
     super.destroy()
   }
 
-  hit(bullet) {
+  hitBy(bullet) {
     this.armor -= bullet.force
     this.scene.player.score += 1
     this.scene.hitParticles.createEmitter(hitEmitter(bullet))

@@ -117,14 +117,15 @@ export default class GameScene extends Phaser.Scene {
     this.player = new Player(this, width / 2, height - 100, 'plane')
     this.planes = this.physics.add.group({ runChildUpdate: true, classType: Plane })
     this.boats = this.physics.add.group({ runChildUpdate: true, classType: Boat })
+    this.enemies = this.physics.add.group([this.boats, this.planes])
     this.bonuses = this.physics.add.group({ runChildUpdate: true, classType: Bonus })
     this.projectiles = this.physics.add.group({ runChildUpdate: true, classType: Bullet })
 
     this.clouds = this.add.image(width/2, -600, 'clouds')
-    this.clouds.setScale(1).setAngle(-30)
-    // this.clouds.setAngle(90)
-    this.clouds.setDepth(10)
-    this.clouds.setTint(0x65afe3)
+      .setScale(1)
+      .setAngle(-30)
+      .setDepth(10)
+      .setTint(0x65afe3)
 
     // BAR
     this.add.image(30, 25, 'life-icon').setScale(0.5).setDepth(100)
@@ -150,20 +151,11 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.projectiles.getChildren(), (player, bullet) => {
       player.hitBy(bullet)
     })
-    this.physics.add.overlap(this.boats.getChildren(), this.player.bullets.getChildren(), (boat, bullet) => {
-      boat.hitBy(bullet)
-    })
-    this.physics.add.overlap(this.boats.getChildren(), this.player.bullets2.getChildren(), (boat, bullet) => {
-      boat.hitBy(bullet)
+    this.physics.add.overlap(this.enemies.getChildren(), this.player.bullets.getChildren(), (enemy, bullet) => {
+      enemy.hitBy(bullet)
     })
     this.physics.add.overlap(this.player, this.bonuses.getChildren(), (_, bonus) => {
       bonus.consume()
-    })
-    this.physics.add.overlap(this.planes.getChildren(), this.player.bullets.getChildren(), (plane, bullet) => {
-      plane.hit(bullet)
-    })
-    this.physics.add.overlap(this.planes.getChildren(), this.player.bullets2.getChildren(), (plane, bullet) => {
-      plane.hit(bullet)
     })
     this.physics.add.collider(this.planes)
     this.physics.add.collider(this.bonuses)
@@ -178,13 +170,27 @@ export default class GameScene extends Phaser.Scene {
 
     this.cursors = this.input.keyboard.createCursorKeys()
 
+
+    this.events.on('resume', () => {
+      // Reset cursors
+      this.cursors.left.isDown = false
+      this.cursors.right.isDown = false
+      this.cursors.up.isDown = false
+      this.cursors.down.isDown = false
+      this.cursors.space.isDown = false
+    })
     this.input.on('pointerdown', () => {
-      this.scene.start('GameOver')
+      this.scene.pause()
+      this.scene.launch('Pause')
     })
   }
 
   handleGameOver() {
     if (!this.player.lives) {
+      // Since there is a weird bug on nested groups
+      // We manually destroy them before launching Game Over scene
+      this.player.bullets.destroy()
+      this.enemies.destroy()
       this.scene.start('GameOver')
     }
   }

@@ -36,7 +36,7 @@ export default class Vehicle extends ContainerLite {
   update() {
     if (this.y >= 0 && this.x >= 0 && !this.started)
       this.started = true
-    if (this.started && (this.y > height || this.x < -this.width || this.x > width))
+    if (this.started && (this.y + this.height / 2 > height || this.x < -this.width || this.x + this.width / 2 > width))
       this.destroy()
     super.update()
   }

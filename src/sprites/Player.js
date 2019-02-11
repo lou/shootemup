@@ -28,8 +28,9 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       speed: 15
     })
 
-    this.bullets = scene.physics.add.group({ classType: Bullet, runChildUpdate: true })
+    this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true })
     this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true })
+    this.bullets = scene.physics.add.group([this.bullets1, this.bullets2])
 
     this.shieldSprite = this.scene.add.sprite(x, y, 'shield')
 
@@ -110,10 +111,10 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   fire(time) {
     if (time - this.lastFired > 30) {
       if (this.guns > 1){
-        this.fireGun(this.bullets, { x: +5, y: 5 })
+        this.fireGun(this.bullets1, { x: +5, y: 5 })
         this.fireGun(this.bullets2, { x: -5, y: 5 })
       } else {
-        this.fireGun(this.bullets)
+        this.fireGun(this.bullets1)
       }
       this.lastFired = time
     }
@@ -155,6 +156,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       this.thrust.setLifespan(1)
 
     if (cursors.space.isDown) {
+      console.log('fire')
       this.fire(time)
     }
 

@@ -191,15 +191,17 @@ export default class GameScene extends Phaser.Scene {
       // We manually destroy them before launching Game Over scene
       this.player.bullets.destroy()
       this.enemies.destroy()
+      this.scene.stop('Pause')
       this.scene.start('GameOver')
     }
   }
 
-  update(time, delta) {
+  update(time) {
     this.clouds.y += 1
     if (this.clouds.y - this.clouds.height / 2 > height) {
       this.clouds.y = -600
     }
+
     if (this.planes.getChildren().length <= 2) {
       this.startWave(this)
     }

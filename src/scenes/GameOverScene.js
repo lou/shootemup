@@ -22,7 +22,7 @@ export default class GameOverScene extends Phaser.Scene {
       x: width / 2,
       y: height * 0.5,
       text: 'Play Again',
-      targetScene: 'Game',
+      targetScene: 'Game'
     });
 
     this.titleButton = new UIButton({

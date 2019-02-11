@@ -8,12 +8,14 @@ export default class Helicopter extends Plane {
       points: 1,
       lights: {
         side: { x: 15, y: 3 },
-        bottom: { y: -30 }
+        bottom: { y: -28 }
       },
       ...options
     })
 
-    this.blades = scene.add.image(this.x, this.y, 'blades')
+    this.blades = scene.add.image(this.x, this.y + 5, 'blades')
+    this.blades.rotatable = true
+    this.add(this.blades)
     this.blades.setDepth(1)
     this.blades.setTint(0x65afe3)
 
@@ -32,8 +34,6 @@ export default class Helicopter extends Plane {
 
   update() {
     this.body.setVelocityY(this.speed)
-    this.blades.x = this.x
-    this.blades.y = this.y
 
     const { player } = this.scene
 

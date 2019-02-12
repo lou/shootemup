@@ -18,7 +18,7 @@ const consumeEmitter = object => ({
   }
 })
 
-export default class Bonus extends Phaser.Physics.Arcade.Sprite {
+export default class Bonus extends Phaser.Physics.Arcade.Image {
   constructor(scene, options = {}) {
     super(scene, options.x, options.y, 'bonus')
     this.scene = scene

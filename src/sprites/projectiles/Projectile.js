@@ -1,12 +1,23 @@
 import Phaser from 'phaser'
-import { width, height } from '../config/config'
+import { width, height } from '../../config/config'
 
-export default class Bullet extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene) {
-    super(scene, 0, 0, 'bullet')
-    this.force = 1
-    this.tint = 0xfeecca
-    this.setScale(0.7)
+export const hitEmitter = object => ({
+  x: object.x,
+  y: object.y,
+  scale: { start: 0.3, end: 0 },
+  rotate: { min: -180, max: 180 },
+  maxParticles: 1,
+  speed: 150,
+  lifespan: 100,
+  deathCallback: (hit) => {
+    hit.emitter.stop()
+  }
+})
+
+export default class Pojectile extends Phaser.Physics.Arcade.Image {
+  constructor(scene, key, options) {
+    super(scene, 0, 0, key)
+    this.force = options.force || 1
   }
 
   fire(shooter, target, options = { speed: 1000 }) {

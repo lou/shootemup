@@ -1,20 +1,6 @@
 import Phaser from 'phaser'
-
-const hitEmitter = object => ({
-  x: object.x,
-  y: object.y,
-  scale: { start: 0.2, end: 0 },
-  rotate: { start: 0, end: 90 },
-  alpha: { start: 1, end: 0.1 },
-  blendMode: 'ADD',
-  on: true,
-  maxParticles: 3,
-  speed: 150,
-  lifespan: 100,
-  deathCallback: (explosion) => {
-    explosion.emitter.stop()
-  }
-})
+import Weapon from '../../Weapon'
+import { hitEmitter } from '../../projectiles/Projectile'
 
 const fireEmitter = (object) => ({
   scale: { start: 0.2, end: 0.15 },
@@ -31,7 +17,7 @@ const fireEmitter = (object) => ({
   }
 })
 
-export default class Touret extends Phaser.Physics.Arcade.Sprite {
+export default class Touret extends Phaser.Physics.Arcade.Image {
   constructor(scene, options) {
     super(scene, options.x, options.y, 'touret')
     scene.add.existing(this)
@@ -43,9 +29,7 @@ export default class Touret extends Phaser.Physics.Arcade.Sprite {
     this.setDepth(0)
     this.rotatable = true
     this.setTint(0x20567c)
-    this.lastFired = 0
-    this.gunActive = true
-    this.fireSpeed = options.fireSpeed || 2000
+    this.weapon = new Weapon(scene, {x: options.x, y: options.y})
   }
 
   hitBy(bullet) {
@@ -57,27 +41,11 @@ export default class Touret extends Phaser.Physics.Arcade.Sprite {
     }
   }
 
-  fire(time) {
-    if (time - this.lastFired > this.fireSpeed) {
-      const { player } = this.scene
-      let bullet = this.scene.projectiles.get().setActive(true).setVisible(true)
-
-      if (bullet) {
-        bullet.fire(
-          { x: this.x, y: this.y, offset: 30, rotation: this.rotation },
-          { x: player.x, y: player.y },
-          { speed: 200 }
-        )
-      }
-      this.lastFired = time
-    }
-  }
-
   update() {
     const { player } = this.scene
 
     if (this.armor <= 0) {
-      this.gunActive = false
+      this.weapon.setActive(false)
       this.scene.player.score += this.points
       if (!this.fireEmitter) {
         this.fireEmitter = this.scene.fireParticles.createEmitter(fireEmitter(this))
@@ -87,12 +55,12 @@ export default class Touret extends Phaser.Physics.Arcade.Sprite {
         Phaser.Math.Angle.Between(player.x, player.y, this.x, this.y) + Math.PI/2
       )
     }
-    if (this.gunActive) {
-      this.scene.time.delayedCall(0, () => {
-        if (this.scene) {
-          this.fire(this.scene.time.now)
-        }
-      })
-    }
+    this.weapon.x = this.x
+    this.weapon.y = this.y
+  }
+
+  destroy() {
+    this.weapon.destroy()
+    super.destroy()
   }
 }

@@ -1,7 +1,7 @@
 import Phaser from 'phaser'
-import Bullet  from './Bullet'
+import Bullet  from './projectiles/Bullet'
 
-export default class Player extends Phaser.Physics.Arcade.Sprite {
+export default class Player extends Phaser.Physics.Arcade.Image {
   constructor(scene, x, y, key) {
     super(scene, x, y, key)
     this.scene = scene
@@ -156,7 +156,6 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       this.thrust.setLifespan(1)
 
     if (cursors.space.isDown) {
-      console.log('fire')
       this.fire(time)
     }
 

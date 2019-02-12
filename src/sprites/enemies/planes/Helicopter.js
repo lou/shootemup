@@ -1,4 +1,5 @@
 import Plane from './Plane'
+import Weapon from '../../Weapon'
 
 export default class Helicopter extends Plane {
   constructor(scene, options) {
@@ -25,6 +26,15 @@ export default class Helicopter extends Plane {
       duration: 150,
       repeat: -1
     })
+    this.add([
+      new Weapon(scene, {
+        x: options.x,
+        y: options.y + 20,
+        type: 'rockets',
+        fireSpeed: 1000,
+        speed: 400
+      })
+    ])
   }
 
   destroy() {
@@ -39,7 +49,6 @@ export default class Helicopter extends Plane {
 
     this.body.setVelocityY(50)
     this.setRotation(Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y) - Math.PI/2)
-
     super.update()
   }
 }

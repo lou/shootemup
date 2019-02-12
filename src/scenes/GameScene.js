@@ -5,81 +5,9 @@ import { planes } from '../sprites/enemies/planes'
 import { boats } from '../sprites/enemies/boats'
 import Plane from '../sprites/enemies/planes/Plane'
 import Boat from '../sprites/enemies/boats/Boat'
-import { width, height } from '../config/config'
-import Bullet  from '../sprites/Bullet'
-
-const config = {
-  waves: [{
-    enemies: [{
-      type: 'Plane::Bomber',
-      x: 360,
-      y: -300,
-    },{
-      type: 'Plane::Carrier',
-      x: 190,
-      y: -90,
-      bonus: 'Gun'
-    }, {
-      type: 'Plane::Carrier',
-      x: 100,
-      y: -100,
-    },{
-      type: 'Plane::Carrier',
-      x: 150,
-      y: -160,
-    },{
-      type: 'Plane::Carrier',
-      x: 250,
-      y: -190,
-    },{
-      type: 'Plane::Carrier',
-      x: 300,
-      y: -200,
-    },{
-      type: 'Plane::Carrier',
-      x: 300,
-      y: -300,
-    },{
-      type: 'Plane::Carrier',
-      x: 500,
-      y: -900,
-    },{
-      type: 'Plane::Carrier',
-      x: 300,
-      y: -600,
-    },{
-      type: 'Plane::Carrier',
-      x: 100,
-      y: -100,
-    },{
-      type: 'Plane::Carrier',
-      x: 300,
-      y: -500,
-    }, {
-      type: 'Plane::Carrier',
-      x: 500,
-      y: -780,
-    }, {
-      type: 'Plane::Kamikaze',
-      x: 600,
-      y: -600,
-      bonus: 'Shield'
-    }, {
-      type: 'Plane::Helicopter',
-      x: 500,
-      y: -100,
-      bonus: 'Life'
-    }, {
-      type: 'Boat::Cruiser',
-      y: 250,
-      x: -70
-    }, {
-      type: 'Boat::Cruiser',
-      y: 50,
-      x: -70
-    }]
-  }]
-}
+import { width, height, config } from '../config/config'
+import Bullet  from '../sprites/projectiles/Bullet'
+import Rocket  from '../sprites/projectiles/Rocket'
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -119,7 +47,9 @@ export default class GameScene extends Phaser.Scene {
     this.boats = this.physics.add.group({ runChildUpdate: true, classType: Boat })
     this.enemies = this.physics.add.group([this.boats, this.planes])
     this.bonuses = this.physics.add.group({ runChildUpdate: true, classType: Bonus })
-    this.projectiles = this.physics.add.group({ runChildUpdate: true, classType: Bullet })
+    this.bullets = this.physics.add.group({ runChildUpdate: true, classType: Bullet })
+    this.rockets = this.physics.add.group({ runChildUpdate: true, classType: Rocket })
+    this.projectiles = this.physics.add.group([this.bullets, this.rockets])
 
     this.clouds = this.add.image(width/2, -600, 'clouds')
       .setScale(1)
@@ -140,16 +70,14 @@ export default class GameScene extends Phaser.Scene {
       color: '#FFF',
     }).setDepth(100).setOrigin(1, 0)
 
-
-
     this.startWave()
 
     // Colliders
     this.physics.add.overlap(this.player, this.planes.getChildren(), (player, enemy) => {
       player.hitBy(enemy)
     })
-    this.physics.add.overlap(this.player, this.projectiles.getChildren(), (player, bullet) => {
-      player.hitBy(bullet)
+    this.physics.add.overlap(this.player, this.projectiles.getChildren(), (player, projectile) => {
+      player.hitBy(projectile)
     })
     this.physics.add.overlap(this.enemies.getChildren(), this.player.bullets.getChildren(), (enemy, bullet) => {
       enemy.hitBy(bullet)
@@ -191,6 +119,7 @@ export default class GameScene extends Phaser.Scene {
       // We manually destroy them before launching Game Over scene
       this.player.bullets.destroy()
       this.enemies.destroy()
+      this.projectiles.destroy()
       this.scene.stop('Pause')
       this.scene.start('GameOver')
     }

@@ -1,21 +1,6 @@
 import Vehicle from '../Vehicle'
 import { bonuses }  from '../../bonuses'
-
-const hitEmitter = object => ({
-  x: object.x,
-  y: object.y,
-  scale: { start: 0.2, end: 0 },
-  rotate: { start: 0, end: 90 },
-  alpha: { start: 1, end: 0.1 },
-  blendMode: 'ADD',
-  on: true,
-  maxParticles: 3,
-  speed: 150,
-  lifespan: 100,
-  deathCallback: (explosion) => {
-    explosion.emitter.stop()
-  }
-})
+import { hitEmitter } from '../../projectiles/Projectile'
 
 const splashEmitter = (object) => {
   return ({

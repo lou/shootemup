@@ -7,7 +7,7 @@ import Plane from '../sprites/enemies/planes/Plane'
 import Boat from '../sprites/enemies/boats/Boat'
 import { width, height, config } from '../config/config'
 import Bullet  from '../sprites/projectiles/Bullet'
-import Rocket  from '../sprites/projectiles/Rocket'
+import Missile  from '../sprites/projectiles/Missile'
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -48,8 +48,8 @@ export default class GameScene extends Phaser.Scene {
     this.enemies = this.physics.add.group([this.boats, this.planes])
     this.bonuses = this.physics.add.group({ runChildUpdate: true, classType: Bonus })
     this.bullets = this.physics.add.group({ runChildUpdate: true, classType: Bullet })
-    this.rockets = this.physics.add.group({ runChildUpdate: true, classType: Rocket })
-    this.projectiles = this.physics.add.group([this.bullets, this.rockets])
+    this.missiles = this.physics.add.group({ runChildUpdate: true, classType: Missile })
+    this.projectiles = this.physics.add.group([this.bullets, this.missiles])
 
     this.clouds = this.add.image(width/2, -600, 'clouds')
       .setScale(1)
@@ -95,6 +95,7 @@ export default class GameScene extends Phaser.Scene {
     this.bonusParticles = this.add.particles('bonus')
     this.fireParticles = this.add.particles('fire')
     this.fireParticles.setDepth(1)
+    this.smokeParticles = this.add.particles('smoke')
 
     this.cursors = this.input.keyboard.createCursorKeys()
 

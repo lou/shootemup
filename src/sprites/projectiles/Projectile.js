@@ -6,7 +6,7 @@ export const hitEmitter = object => ({
   y: object.y,
   scale: { start: 0.3, end: 0 },
   rotate: { min: -180, max: 180 },
-  maxParticles: 1,
+  maxParticles: 2,
   speed: 150,
   lifespan: 100,
   deathCallback: (hit) => {

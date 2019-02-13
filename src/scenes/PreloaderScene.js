@@ -33,6 +33,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('light', 'assets/images/light.png')
     this.load.image('shield', 'assets/images/shield.png')
     this.load.image('bullet', 'assets/images/bullet.png')
+    this.load.image('missile', 'assets/images/missile.png')
     this.load.image('hit', 'assets/images/hit.png')
     this.load.image('splash', 'assets/images/splash.png')
     this.load.image('bonus', 'assets/images/bonus.png')
@@ -49,6 +50,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('cruiser', 'assets/images/enemies/boats/cruiser.png')
     this.load.image('touret', 'assets/images/enemies/boats/touret.png')
     this.load.image('fire', 'assets/images/fire.png')
+    this.load.image('smoke', 'assets/images/smoke.png')
   }
 
   onProgress(value) {

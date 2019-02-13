@@ -2,8 +2,7 @@
 A Shoot'em Up game coded with Phaser 3
 
 # TODO
-- [ ] Rockets
-- [ ] Camera
+- [ ] Missiles
 - [ ] Fullscreen
 - [ ] Mobile
 - [ ] Waves
@@ -13,4 +12,4 @@ A Shoot'em Up game coded with Phaser 3
 - [ ] Editor
 - [ ] More boats
 - [ ] More planes
-
+- [ ] Camera ?

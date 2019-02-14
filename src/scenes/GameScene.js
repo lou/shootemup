@@ -47,7 +47,7 @@ export default class GameScene extends Phaser.Scene {
     this.worldBounds.setOrigin(0, 0)
     this.physics.world.enable(this.worldBounds)
 
-    const ocean = this.add.tileSprite(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height, 'ocean')
+    const ocean = this.add.tileSprite(0, 0, this.physics.world.bounds.width*2, this.physics.world.bounds.height*2, 'ocean')
     ocean.setTint(0x030b14)
 
     this.player = new Player(this, this.physics.world.bounds.width / 2, this.physics.world.bounds.height - 100, 'plane')
@@ -60,7 +60,6 @@ export default class GameScene extends Phaser.Scene {
     this.missiles = this.physics.add.group({ runChildUpdate: true, classType: Missile })
     this.projectiles = this.physics.add.group([this.bullets, this.missiles])
     this.destroyables = this.physics.add.group([this.planes, this.boats, this.player.bullets1, this.player.bullets2, this.bullets, this.missiles, this.bonuses])
-    this.outsideZone = this.physics.add.group([this.worldBoundsTop, this.worldBoundsBottom, this.worldBoundsLeft, this.worldBoundsRight])
 
     this.clouds = this.add.image(this.physics.world.bounds.width/2, -600, 'clouds')
       .setScale(1)
@@ -157,6 +156,7 @@ export default class GameScene extends Phaser.Scene {
       this.player.bullets.destroy()
       this.enemies.destroy()
       this.projectiles.destroy()
+      this.destroyables.destroy()
       this.scene.stop('Pause')
       this.scene.start('GameOver')
     }

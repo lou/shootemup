@@ -74,7 +74,7 @@ export default class GameScene extends Phaser.Scene {
       fontSize: '18px',
       color: '#FFF'
     }).setDepth(100).setScrollFactor(0)
-    this.scoreText = this.add.text(this.physics.world.bounds.width - 15, 20, this.player.score, {
+    this.scoreText = this.add.text(width - 30, 20, this.player.score, {
       fontFamily: 'Arial',
       fontSize: '18px',
       color: '#FFF',

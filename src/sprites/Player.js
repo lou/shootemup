@@ -17,7 +17,6 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.shield = false
     this.guns = 1
     this.invincible = false
-    this.lastFired = 0
     this.thrust = scene.add.particles('thrust').createEmitter({
       x: this.x - 2,
       y: this.y + 24,
@@ -80,7 +79,6 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
   hitBy(object) {
     if (!this.invincible) {
-      // if (object instanceof Bullet)
       object.armor -= 20
       if (this.shield) {
         this.shield = false
@@ -108,15 +106,12 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     }
   }
 
-  fire(time) {
-    if (time - this.lastFired > 30) {
-      if (this.guns > 1){
-        this.fireGun(this.bullets1, { x: +5, y: 5 })
-        this.fireGun(this.bullets2, { x: -5, y: 5 })
-      } else {
-        this.fireGun(this.bullets1)
-      }
-      this.lastFired = time
+  fire() {
+    if (this.guns > 1){
+      this.fireGun(this.bullets1, { x: +5, y: 5 })
+      this.fireGun(this.bullets2, { x: -5, y: 5 })
+    } else {
+      this.fireGun(this.bullets1)
     }
   }
 
@@ -156,7 +151,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       this.thrust.setLifespan(1)
 
     if (cursors.space.isDown) {
-      this.fire(time)
+      this.fire()
     }
 
     this.shieldSprite.setActive(this.shield).setVisible(this.shield)

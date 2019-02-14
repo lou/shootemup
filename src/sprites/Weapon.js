@@ -7,15 +7,15 @@ export default class Weapon extends Phaser.GameObjects.Zone {
     scene.add.existing(this)
     scene.physics.world.enable(this)
     this.lastFired = 0
-    this.fireSpeed = options.fireSpeed || 1000
     this.type = options.type || 'bullets'
+    this.fireSpeed = options.fireSpeed || 1000
     this.speed = options.speed || 200
   }
 
   fire(time) {
     if (time - this.lastFired > this.fireSpeed) {
       const { player } = this.scene
-      const bullet = this.scene[this.type].get()
+      const bullet = this.scene[this.type].get().setVisible(true).setActive(true)
 
       if (bullet) {
         bullet.fire(

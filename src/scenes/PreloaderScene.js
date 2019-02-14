@@ -48,6 +48,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('blades', 'assets/images/enemies/planes/helicopter/blades.png')
     this.load.image('clouds', 'assets/images/clouds/clouds.png')
     this.load.image('cruiser', 'assets/images/enemies/boats/cruiser.png')
+    this.load.image('frigate', 'assets/images/enemies/boats/frigate.png')
     this.load.image('touret', 'assets/images/enemies/boats/touret.png')
     this.load.image('fire', 'assets/images/fire.png')
     this.load.image('smoke', 'assets/images/smoke.png')

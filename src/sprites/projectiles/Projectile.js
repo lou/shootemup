@@ -1,5 +1,4 @@
 import Phaser from 'phaser'
-import { width, height } from '../../config/config'
 
 export const hitEmitter = object => ({
   x: object.x,
@@ -32,8 +31,9 @@ export default class Pojectile extends Phaser.Physics.Arcade.Image {
   }
 
   update() {
-    if (this.y > height || this.y < 0 || this.x < -this.width || this.x > width) {
-      this.destroy()
+    if (this.active.false) {
+      this.setVelocity(0, 0)
     }
+    this.scene.destroyOnOutOfBounds(this, false)
   }
 }

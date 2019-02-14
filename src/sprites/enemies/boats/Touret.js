@@ -1,6 +1,7 @@
 import Phaser from 'phaser'
 import Weapon from '../../Weapon'
 import { hitEmitter } from '../../projectiles/Projectile'
+import { width, height } from '../../../config/config'
 
 const fireEmitter = (object) => ({
   scale: { start: 0.2, end: 0.15 },
@@ -29,7 +30,7 @@ export default class Touret extends Phaser.Physics.Arcade.Image {
     this.setDepth(0)
     this.rotatable = true
     this.setTint(0x20567c)
-    this.weapon = new Weapon(scene, {x: options.x, y: options.y})
+    this.weapon = new Weapon(scene, options)
   }
 
   hitBy(bullet) {
@@ -37,7 +38,7 @@ export default class Touret extends Phaser.Physics.Arcade.Image {
       this.scene.hitParticles.createEmitter(hitEmitter(bullet))
       this.armor -= bullet.force
       this.scene.player.score += 1
-      bullet.destroy()
+      bullet.setActive(false).setVisible(false)
     }
   }
 

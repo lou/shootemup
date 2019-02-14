@@ -20,7 +20,7 @@ const smokeEmitter = (object) => {
 export default class Missile extends Projectile {
   constructor(scene) {
     super(scene, 'missile', {
-      force: 10
+      force: 10,
     })
     this.firedAt = 0
     this.setTint(0x20567c)
@@ -33,9 +33,10 @@ export default class Missile extends Projectile {
     this.smokeEmitter = smokeEmitter({
       x: this.x,
       y: this.y,
-      lifespan: time - this.firedAt < 50 ? 1000 : 250,
+      lifespan: time - this.firedAt < 50 ? 500 : 250,
       rotation: this.rotation
     })
     this.scene.smokeParticles.createEmitter(this.smokeEmitter)
+    super.update()
   }
 }

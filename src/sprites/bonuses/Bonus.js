@@ -25,6 +25,7 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
     this.speed = options.speed || 50
     this.image = scene.add.sprite(options.x, options.y, options.type)
     this.image.setScale(0.6)
+    this.started = true
     scene.add.existing(this)
   }
 
@@ -32,26 +33,19 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
     this.setCircle(this.width/2)
     this.setScale(0.5)
     this.rotation += 0.01
-    this.move()
-    if (this.y > height || this.x < -this.width || this.x > width)
-      this.delete()
-  }
-
-  move() {
     this.setVelocityY(this.speed)
     this.image.x = this.x + 1
     this.image.y = this.y + 1
+    this.scene.destroyOnOutOfBounds(this)
   }
 
-  delete() {
+  destroy() {
     this.image.destroy()
-    if (this.scene)
-      this.scene.bonuses.remove(this)
-    this.destroy()
+    super.destroy()
   }
 
   consume() {
     this.scene.bonusParticles.createEmitter(consumeEmitter(this));
-    this.delete()
+    this.destroy()
   }
 }

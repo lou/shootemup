@@ -73,7 +73,7 @@ export default class Plane extends Vehicle {
     this.armor -= bullet.force
     this.scene.player.score += 1
     this.scene.hitParticles.createEmitter(hitEmitter(bullet))
-    bullet.destroy()
+    bullet.setActive(false).setVisible(false)
   }
 
   addLights() {

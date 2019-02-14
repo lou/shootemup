@@ -4,7 +4,7 @@ import Weapon from '../../Weapon'
 export default class Helicopter extends Plane {
   constructor(scene, options) {
     super(scene, 'helicopter', {
-      speed: 50,
+      speed: 400,
       armor: 20,
       points: 1,
       lights: {

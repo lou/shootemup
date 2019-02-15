@@ -10,7 +10,8 @@ const fireEmitter = (object) => ({
   maxParticles: 10,
   radial: true,
   x: object.x,
-  y: object.y
+  y: object.y,
+  tint: 0xfffbde
 })
 
 export const hitEmitter = object => ({
@@ -33,6 +34,7 @@ export default class Pojectile extends Phaser.Physics.Arcade.Image {
     this.lifespan = options.lifespan
     this.explosive = options.explosive
     this.firedAt = null
+    this.setDepth(2)
   }
 
   fire(shooter, target, options = { speed: 1000 }) {
@@ -57,7 +59,7 @@ export default class Pojectile extends Phaser.Physics.Arcade.Image {
 
     if (this.lifespan && time - this.firedAt >= Phaser.Math.Between(this.lifespan.min, this.lifespan.max)) {
       if (this.explosive) {
-        this.scene.fireParticles.createEmitter(fireEmitter(this))
+        this.scene.fireParticles.setDepth(1.9).createEmitter(fireEmitter(this))
         this.destroy()
       }
     }

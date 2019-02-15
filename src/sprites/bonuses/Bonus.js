@@ -26,6 +26,7 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
     this.image = scene.add.sprite(options.x, options.y, options.type)
     this.image.setScale(0.6)
     this.started = true
+    this.setDepth(4)
     scene.add.existing(this)
   }
 

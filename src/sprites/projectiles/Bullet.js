@@ -5,6 +5,6 @@ export default class Bullet extends Projectile {
     super(scene, 'bullet', {
       force: 1
     })
-    this.setScale(0.75)
+    this.setScale(0.5)
   }
 }

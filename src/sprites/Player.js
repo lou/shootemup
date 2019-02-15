@@ -11,8 +11,8 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.setCircle(this.width/2)
     this.setMaxVelocity(250, 300)
     this.setTint(0x20567c)
-    this.setDepth(1)
-    this.lives = 3
+    this.setDepth(2)
+    this.lives = 30
     this.score = 0
     this.shield = false
     this.guns = 1
@@ -27,8 +27,8 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       speed: 15
     })
 
-    this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true })
-    this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true })
+    this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
+    this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
     this.bullets = scene.physics.add.group([this.bullets1, this.bullets2])
 
     this.shieldSprite = this.scene.add.sprite(x, y, 'shield')

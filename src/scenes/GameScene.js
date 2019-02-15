@@ -51,7 +51,7 @@ export default class GameScene extends Phaser.Scene {
     ocean.setTint(0x030b14)
 
     this.player = new Player(this, this.physics.world.bounds.width / 2, this.physics.world.bounds.height - 100, 'plane')
-    this.cameras.main.startFollow(this.player, true, 0.2, 0.2)
+    this.cameras.main.startFollow(this.player, true, 1, 1)
     this.planes = this.physics.add.group({ runChildUpdate: true, classType: Plane })
     this.boats = this.physics.add.group({ runChildUpdate: true, classType: Boat })
     this.enemies = this.physics.add.group([this.boats, this.planes])
@@ -115,11 +115,9 @@ export default class GameScene extends Phaser.Scene {
 
     // Particles
     this.hitParticles = this.add.particles('hit')
-    this.hitParticles.setDepth(1)
     this.splashParticles = this.add.particles('splash')
     this.bonusParticles = this.add.particles('bonus')
     this.fireParticles = this.add.particles('fire')
-    this.fireParticles.setDepth(1)
     this.smokeParticles = this.add.particles('smoke')
 
     this.cursors = this.input.keyboard.createCursorKeys()

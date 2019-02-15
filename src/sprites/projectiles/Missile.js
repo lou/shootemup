@@ -31,6 +31,6 @@ export default class Missile extends Projectile {
       lifespan: 600,
       rotation: this.rotation
     })
-    this.scene.smokeParticles.createEmitter(this.smokeEmitter)
+    this.scene.smokeParticles.setDepth(2.2).createEmitter(this.smokeEmitter)
   }
 }

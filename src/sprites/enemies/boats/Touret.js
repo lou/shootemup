@@ -26,7 +26,7 @@ export default class Touret extends Phaser.Physics.Arcade.Image {
     this.points = parseInt(this.armor)
     this.body.setCircle(this.width/2)
     this.setOrigin(0.5)
-    this.setDepth(0)
+    this.setDepth(1.5)
     this.rotatable = true
     this.setTint(0x20567c)
     this.weapon = new Weapon(scene, { ...options, lifespan: 500 })
@@ -34,7 +34,7 @@ export default class Touret extends Phaser.Physics.Arcade.Image {
 
   hitBy(bullet) {
     if (this.armor >= 0) {
-      this.scene.hitParticles.createEmitter(hitEmitter(bullet))
+      this.scene.hitParticles.setDepth(1.6).createEmitter(hitEmitter(bullet))
       this.armor -= bullet.force
       this.scene.player.score += 1
       bullet.setActive(false).setVisible(false)

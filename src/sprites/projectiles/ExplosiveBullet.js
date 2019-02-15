@@ -7,6 +7,6 @@ export default class ExplosiveBullet extends Projectile {
       lifespan: { min: 1000, max: 3000 },
       explosive: true
     })
-    this.setScale(0.75)
+    this.setScale(0.9)
   }
 }

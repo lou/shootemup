@@ -28,10 +28,10 @@ export default class Plane extends Vehicle {
     this.points = parseInt(this.armor)
     this.bonus = options.bonus || false
     this.enemyParticles = scene.add.particles(key)
-    this.vehicle.setDepth(1)
-    this.lightBottom.setDepth(1)
-    this.lightLeft.setDepth(1)
-    this.lightRight.setDepth(1)
+    this.vehicle.setDepth(2)
+    this.lightBottom.setDepth(2)
+    this.lightLeft.setDepth(2)
+    this.lightRight.setDepth(2)
   }
 
   update() {

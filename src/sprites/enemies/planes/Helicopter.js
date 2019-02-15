@@ -17,7 +17,7 @@ export default class Helicopter extends Plane {
     this.blades = scene.add.image(this.x, this.y + 5, 'blades')
     this.blades.rotatable = true
     this.add(this.blades)
-    this.blades.setDepth(1)
+    this.blades.setDepth(2.1)
     this.blades.setTint(0x65afe3)
 
     scene.tweens.add({

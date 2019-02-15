@@ -20,7 +20,6 @@ export default class Frigate extends Boat {
 
   update() {
     this.body.setVelocityY(this.speed*0.8)
-    this.tourets.forEach(touret => touret.update())
     super.update()
   }
 }

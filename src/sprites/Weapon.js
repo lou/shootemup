@@ -10,6 +10,7 @@ export default class Weapon extends Phaser.GameObjects.Zone {
     this.type = options.type || 'bullets'
     this.fireSpeed = options.fireSpeed || 1000
     this.speed = options.speed || 200
+    this.range = options.range || 500
   }
 
   fire(time) {
@@ -29,7 +30,8 @@ export default class Weapon extends Phaser.GameObjects.Zone {
   }
 
   preUpdate() {
-    if (this.active) {
+    const distanceOfPlayer = Phaser.Math.Distance.Between(this.x, this.y, this.scene.player.x, this.scene.player.y)
+    if (this.active && distanceOfPlayer <= this.range) {
       this.scene.time.delayedCall(0, () => {
         if (this.scene) {
           this.fire(this.scene.time.now)

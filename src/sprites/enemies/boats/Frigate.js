@@ -19,7 +19,7 @@ export default class Frigate extends Boat {
   }
 
   update() {
-    this.body.setVelocityY(this.speed*0.8)
+    this.body.setVelocityY(this.speed)
     super.update()
   }
 }

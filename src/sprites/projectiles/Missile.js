@@ -4,16 +4,13 @@ const smokeEmitter = (object) => {
   return ({
     x: object.x,
     y: object.y,
-    scale: { start: 0.035, end: 0.035 },
-    alpha: { start: 1, end: 0 },
+    scale: { start: 0.038, end: 0.028 },
+    alpha: { start: 1, end: 0.1 },
     rotate: { min: -180, max: 180 },
     blendMode: 'ADD',
     maxParticles: 3,
     lifespan: object.lifespan,
-    tint: 0xb6d2f0,
-    deathCallback: (explosion) => {
-      explosion.emitter.stop()
-    }
+    tint: 0xb6d2f0
   })
 }
 
@@ -27,16 +24,13 @@ export default class Missile extends Projectile {
     this.smokeEmitter
   }
 
-  update(time) {
-    if (!this.smokeEmitter)
-      this.firedAt = time
+  preUpdate() {
     this.smokeEmitter = smokeEmitter({
       x: this.x,
       y: this.y,
-      lifespan: time - this.firedAt < 50 ? 500 : 250,
+      lifespan: 600,
       rotation: this.rotation
     })
     this.scene.smokeParticles.createEmitter(this.smokeEmitter)
-    super.update()
   }
 }

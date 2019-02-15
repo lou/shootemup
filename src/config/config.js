@@ -86,6 +86,7 @@ export const config = {
       type: 'Boat::Frigate',
       y: -50,
       x: 400
-    }]
+    }
+  ]
   }]
 }

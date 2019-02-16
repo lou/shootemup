@@ -18,6 +18,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.guns = 1
     this.invincible = false
     this.thrust = scene.add.particles('thrust').createEmitter({
+      name: 'thrust',
       x: this.x - 2,
       y: this.y + 24,
       scale: { start: 2, end: 0 },

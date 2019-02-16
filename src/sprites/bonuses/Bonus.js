@@ -1,22 +1,4 @@
 import Phaser from 'phaser'
-import { width, height } from '../../config/config'
-
-const consumeEmitter = object => ({
-  x: object.x,
-  y: object.y,
-  scale: { start: 0.2, end: 0 },
-  rotate: { start: 0, end: 90 },
-  alpha: { start: 1, end: 0.5 },
-  blendMode: 'ADD',
-  on: true,
-  maxParticles: 5,
-  speed: 100,
-  radius: true,
-  lifespan: 500,
-  deathCallback: (explosion) => {
-    explosion.emitter.stop()
-  }
-})
 
 export default class Bonus extends Phaser.Physics.Arcade.Image {
   constructor(scene, options = {}) {
@@ -28,6 +10,7 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
     this.started = true
     this.setDepth(4.1)
     scene.add.existing(this)
+    this.bonusParticles = this.scene.add.particles('bonus')
   }
 
   update() {
@@ -46,7 +29,24 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
   }
 
   consume() {
-    this.scene.bonusParticles.createEmitter(consumeEmitter(this));
+    this.bonusParticles.createEmitter({
+      name: 'bonus',
+      x: this.x,
+      y: this.y,
+      scale: { start: 0.2, end: 0 },
+      rotate: { start: 0, end: 90 },
+      alpha: { start: 1, end: 0.5 },
+      blendMode: 'ADD',
+      on: true,
+      maxParticles: 5,
+      speed: 100,
+      radius: true,
+      lifespan: 500,
+      deathCallback: (explosion) => {
+        explosion.emitter.stop()
+        this.bonusParticles.destroy()
+      }
+    })
     this.destroy()
   }
 }

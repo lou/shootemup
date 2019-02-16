@@ -52,6 +52,7 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('touret', 'assets/images/enemies/boats/touret.png')
     this.load.image('fire', 'assets/images/fire.png')
     this.load.image('smoke', 'assets/images/smoke.png')
+    this.load.image('particle', 'assets/images/particle.png')
   }
 
   onProgress(value) {

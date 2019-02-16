@@ -1,32 +1,5 @@
 import Phaser from 'phaser'
 
-
-const fireEmitter = (object) => ({
-  scale: { start: 0.6, end: 0.6 },
-  speed: 10,
-  rotate: { min: -180, max: 180 },
-  lifespan: { min: 100, max: 500 },
-  alpha: { start: 1, end: 0 },
-  maxParticles: 10,
-  radial: true,
-  x: object.x,
-  y: object.y,
-  tint: 0xfffbde
-})
-
-export const hitEmitter = object => ({
-  x: object.x,
-  y: object.y,
-  scale: { start: 0.3, end: 0 },
-  rotate: { min: -180, max: 180 },
-  maxParticles: 2,
-  speed: 150,
-  lifespan: 100,
-  deathCallback: (hit) => {
-    hit.emitter.stop()
-  }
-})
-
 export default class Pojectile extends Phaser.Physics.Arcade.Image {
   constructor(scene, key, options) {
     super(scene, 0, 0, key)
@@ -35,6 +8,43 @@ export default class Pojectile extends Phaser.Physics.Arcade.Image {
     this.explosive = options.explosive
     this.firedAt = null
     this.setDepth(2)
+    if (this.explosive) {
+      this.explosionParticles = this.scene.add.particles('fire')
+      this.explosionEmitter = this.explosionParticles.setDepth(1.9).createEmitter({
+        name: 'explosion',
+        scale: { start: 0.6, end: 0.6 },
+        speed: 10,
+        rotate: { min: -180, max: 180 },
+        lifespan: { min: 100, max: 500 },
+        alpha: { start: 1, end: 0 },
+        maxParticles: 10,
+        radial: true,
+        tint: 0xfffbde,
+        on: false
+      })
+    } else {
+      this.hitParticles = this.scene.add.particles('hit')
+      this.hitEmitter = this.hitParticles.createEmitter({
+        name: 'hit',
+        scale: { start: 0.3, end: 0 },
+        rotate: { min: -180, max: 180 },
+        speed: { min: 10, max: 150 },
+        lifespan: 150,
+        on: false,
+        tint: 0xfff5db,
+        blendMode: 'SCREEN'
+      })
+    }
+  }
+
+  hit(enemy) {
+    if (enemy.active) {
+      enemy.armor -= this.force
+      this.scene.player.score += 1
+      this.hitParticles.setDepth(enemy.depth + 1)
+      this.hitEmitter.explode(1, this.x, this.y)
+      this.setActive(false).setVisible(false)
+    }
   }
 
   fire(shooter, target, options = { speed: 1000 }) {
@@ -59,9 +69,21 @@ export default class Pojectile extends Phaser.Physics.Arcade.Image {
 
     if (this.lifespan && time - this.firedAt >= Phaser.Math.Between(this.lifespan.min, this.lifespan.max)) {
       if (this.explosive) {
-        this.scene.fireParticles.setDepth(1.9).createEmitter(fireEmitter(this))
+        this.explosionEmitter.start()
+        this.explosionEmitter.setPosition(this.x, this.y)
         this.destroy()
       }
     }
+  }
+
+  destroy() {
+    if (this.explosive) {
+      this.scene.time.delayedCall(500, () => {
+        this.explosionParticles.destroy()
+      })
+    } else {
+      this.hitParticles.destroy()
+    }
+    super.destroy()
   }
 }

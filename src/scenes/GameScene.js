@@ -5,6 +5,7 @@ import { planes } from '../sprites/enemies/planes'
 import { boats } from '../sprites/enemies/boats'
 import Plane from '../sprites/enemies/planes/Plane'
 import Boat from '../sprites/enemies/boats/Boat'
+import Touret from '../sprites/enemies/boats/Touret'
 import { config, width, height } from '../config/config'
 import ExplosiveBullet  from '../sprites/projectiles/ExplosiveBullet'
 import Missile  from '../sprites/projectiles/Missile'
@@ -54,7 +55,8 @@ export default class GameScene extends Phaser.Scene {
     this.cameras.main.startFollow(this.player, true, 1, 1)
     this.planes = this.physics.add.group({ runChildUpdate: true, classType: Plane })
     this.boats = this.physics.add.group({ runChildUpdate: true, classType: Boat })
-    this.enemies = this.physics.add.group([this.boats, this.planes])
+    this.tourets = this.physics.add.group({ runChildUpdate: true, classType: Touret })
+    this.enemies = this.physics.add.group([this.tourets, this.planes])
     this.bonuses = this.physics.add.group({ runChildUpdate: true, classType: Bonus })
     this.bullets = this.physics.add.group({ runChildUpdate: true, classType: ExplosiveBullet })
     this.missiles = this.physics.add.group({ runChildUpdate: true, classType: Missile })
@@ -99,7 +101,8 @@ export default class GameScene extends Phaser.Scene {
     })
     this.physics.add.overlap(this.enemies.getChildren(), this.player.bullets.getChildren(), (enemy, bullet) => {
       if (bullet.active) {
-        enemy.hitBy(bullet)
+        bullet.hit(enemy)
+        // enemy.hitBy(bullet)
       }
     })
     this.physics.add.overlap(this.player, this.bonuses.getChildren(), (_, bonus) => {
@@ -112,13 +115,6 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.planes)
     this.physics.add.collider(this.boats)
     this.physics.add.collider(this.bonuses)
-
-    // Particles
-    this.hitParticles = this.add.particles('hit')
-    this.splashParticles = this.add.particles('splash')
-    this.bonusParticles = this.add.particles('bonus')
-    this.fireParticles = this.add.particles('fire')
-    this.smokeParticles = this.add.particles('smoke')
 
     this.cursors = this.input.keyboard.createCursorKeys()
 
@@ -174,12 +170,11 @@ export default class GameScene extends Phaser.Scene {
       this.clouds.y = -600
     }
 
-    if (this.planes.getChildren().length <= 2) {
+    if (this.planes.getChildren().length <= 0) {
       this.startWave(this)
     }
     this.player.move(this.cursors, time)
     this.updateInfos()
     this.handleGameOver()
-    // console.log(this.physics.world.bodies)
   }
 }

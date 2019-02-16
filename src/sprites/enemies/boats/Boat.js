@@ -15,12 +15,4 @@ export default class Boat extends Vehicle {
     super.destroy()
   }
 
-  // hitBy(bullet) {
-  //   this.tourets.forEach(touret => {
-  //     if (touret.getBounds().contains(bullet.x, bullet.y)) {
-  //       touret.hitBy(bullet)
-  //     }
-  //   })
-  // }
-
 }

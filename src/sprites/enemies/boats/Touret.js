@@ -7,7 +7,7 @@ export default class Touret extends Phaser.Physics.Arcade.Image {
     scene.add.existing(this)
     scene.physics.world.enable(this)
     scene.tourets.add(this)
-    this.armor = 30
+    this.armor = 120
     this.points = parseInt(this.armor)
     this.body.setCircle(this.width/2)
     this.setOrigin(0.5)

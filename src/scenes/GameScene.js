@@ -170,7 +170,7 @@ export default class GameScene extends Phaser.Scene {
       this.clouds.y = -600
     }
 
-    if (this.planes.getChildren().length <= 0) {
+    if (this.planes.getChildren().length <= 3) {
       this.startWave(this)
     }
     this.player.move(this.cursors, time)

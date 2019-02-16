@@ -1,6 +1,6 @@
 import Phaser from 'phaser'
 
-export default class Pojectile extends Phaser.Physics.Arcade.Image {
+export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, key, options) {
     super(scene, 0, 0, key)
     this.force = options.force || 1
@@ -15,7 +15,7 @@ export default class Pojectile extends Phaser.Physics.Arcade.Image {
         scale: { start: 0.6, end: 0.6 },
         speed: 10,
         rotate: { min: -180, max: 180 },
-        lifespan: { min: 100, max: 500 },
+        lifespan: { min: 100, max: 600 },
         alpha: { start: 1, end: 0 },
         maxParticles: 10,
         radial: true,
@@ -69,10 +69,9 @@ export default class Pojectile extends Phaser.Physics.Arcade.Image {
 
     if (this.lifespan && time - this.firedAt >= Phaser.Math.Between(this.lifespan.min, this.lifespan.max)) {
       if (this.explosive) {
-        this.explosionEmitter.start()
-        this.explosionEmitter.setPosition(this.x, this.y)
-        this.destroy()
+        this.explosionEmitter.explode(10, this.x, this.y)
       }
+      this.destroy()
     }
   }
 

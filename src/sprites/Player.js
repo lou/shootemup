@@ -12,6 +12,11 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.setMaxVelocity(250, 300)
     this.setTint(0x20567c)
     this.setDepth(2)
+    this.shadow = scene.add.image(this.x+10, this.y+10, key)
+      .setScale(0.9)
+      .setDepth(1.9)
+      .setAlpha(0.5)
+      .setTint(0x030b14)
     this.lives = 30
     this.score = 0
     this.shield = false
@@ -121,6 +126,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     const acceleration = 2000
     const deceleration = 10
 
+    this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
     this.setAngle(0)
     this.thrust.setLifespan(100)
     this.thrust.setPosition(this.x - 2, this.y + 24)

@@ -86,7 +86,19 @@ export const config = {
       type: 'Boat::Frigate',
       y: -50,
       x: 400
-    }
+    },
+    {
+      type: 'Plane::Helicopter',
+      x: 700,
+      y: -50,
+      bonus: 'Life'
+    },
+    {
+      type: 'Plane::Kamikaze',
+      x: 700,
+      y: -100,
+      bonus: 'Shield'
+    },
   ]
   }]
 }

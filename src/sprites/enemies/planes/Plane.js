@@ -9,6 +9,11 @@ export default class Plane extends Vehicle {
     this.bonus = options.bonus || false
     this.enemyParticles = scene.add.particles(key)
     this.splashParticles = scene.add.particles('splash')
+    this.shadow = scene.add.image(this.x+10, this.y+10, key)
+      .setScale(0.9)
+      .setDepth(1.9)
+      .setAlpha(0.5)
+      .setTint(0x030b14)
     this.vehicle.setDepth(2)
     this.lightBottom.setDepth(2)
     this.lightLeft.setDepth(2)
@@ -46,6 +51,7 @@ export default class Plane extends Vehicle {
   }
 
   preUpdate() {
+    this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
     if (this.armor <= 0) {
       this.enemyEmitter.setPosition(this.x, this.y).start()
       this.destroy()

@@ -66,6 +66,7 @@ export default class Plane extends Vehicle {
         new bonuses[this.bonus](this.scene, { x: this.x, y: this.y })
       )
     }
+    this.shadow.destroy()
     super.destroy()
   }
 }

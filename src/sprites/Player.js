@@ -47,6 +47,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       repeat: 3,
       yoyo: true,
       onComplete: () => {
+        this.setTint(0x20567c)
         this.invincible = false
       }
     });
@@ -86,12 +87,14 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   hitBy(object) {
     if (!this.invincible) {
       object.armor -= 20
+      this.setTint(0xff5252)
       if (this.shield) {
         this.shield = false
         this.invincible = true
         this.scene.time.delayedCall(
           600,
           _ => {
+            this.setTint(0x20567c)
             this.invincible = false
           }
         )

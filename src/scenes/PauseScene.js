@@ -8,7 +8,7 @@ export default class PauseScene extends Phaser.Scene {
 
   create() {
     this.pauseText = this.add.text(width*0.5-21, height*0.5-21, '▶', {
-      fontFamily: 'Impact',
+      fontFamily: 'Arial Black',
       fontSize: '42px',
       color: '#FFF'
     })

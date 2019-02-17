@@ -9,7 +9,7 @@ export default class GameOverScene extends Phaser.Scene {
 
   create() {
     const text = this.add.text(0, 0, "GAME OVER", {
-      fontFamily: 'Impact',
+      fontFamily: 'Arial Black',
       fontSize: '42px',
       fill: '#FFF',
       align: 'center'

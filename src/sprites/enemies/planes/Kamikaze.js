@@ -14,6 +14,7 @@ export default class Kamikaze extends Plane {
       },
       ...options
     });
+    this.killOnHit = true
   }
 
   update() {

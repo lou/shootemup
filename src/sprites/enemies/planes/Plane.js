@@ -50,11 +50,15 @@ export default class Plane extends Vehicle {
 
   }
 
+  kill() {
+    this.enemyEmitter.setPosition(this.x, this.y).start()
+    this.destroy()
+  }
+
   preUpdate() {
     this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
     if (this.armor <= 0) {
-      this.enemyEmitter.setPosition(this.x, this.y).start()
-      this.destroy()
+      this.kill()
     }
   }
 

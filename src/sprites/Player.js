@@ -86,7 +86,11 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
   hitBy(object) {
     if (!this.invincible) {
-      object.armor -= 20
+      if (object.killOnHit) {
+        object.kill()
+      } else {
+        object.armor -= 20
+      }
       this.setTint(0xff5252)
       if (this.shield) {
         this.shield = false

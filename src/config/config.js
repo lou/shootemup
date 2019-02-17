@@ -1,5 +1,5 @@
-export const width = 375*1.6
-export const height = 667*1.2
+export const width = 800
+export const height = 1000
 
 export const config = {
   waves: [{

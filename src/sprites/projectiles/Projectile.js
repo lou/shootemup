@@ -76,7 +76,7 @@ export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
   }
 
   destroy() {
-    if (this.explosive) {
+    if (this.explosive && this.scene) {
       this.scene.time.delayedCall(500, () => {
         this.explosionParticles.destroy()
       })

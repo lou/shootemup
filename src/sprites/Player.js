@@ -22,22 +22,21 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.shield = false
     this.guns = 1
     this.invincible = false
-    this.thrust = scene.add.particles('thrust').createEmitter({
+    this.thrust = scene.add.particles('particle').setDepth(1.9).createEmitter({
       name: 'thrust',
-      x: this.x - 2,
-      y: this.y + 24,
-      scale: { start: 2, end: 0 },
+      scale: { start: 0.2, end: 0 },
       blendMode: 'ADD',
-      on: true,
-      maxParticles: 100,
-      speed: 15
+      speed: 100,
+      lifespan: 200,
+      angle: { min: 85, max: 95 },
+      on: true
     })
 
     this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
     this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
     this.bullets = scene.physics.add.group([this.bullets1, this.bullets2])
 
-    this.shieldSprite = this.scene.add.sprite(x, y, 'shield')
+    this.shieldSprite = this.scene.add.sprite(x, y, 'bonus').setScale(0.8)
 
     // TWEENS
     this.invincibleAnimation = scene.tweens.add({
@@ -55,11 +54,9 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     this.shieldAnimation = scene.tweens.add({
       targets: this.shieldSprite,
-      alpha: 0.1,
       angle: 360,
-      duration: 2000,
+      duration: 5000,
       repeat: -1,
-      yoyo: true
     });
   }
 
@@ -149,8 +146,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
     this.setAngle(0)
-    this.thrust.setLifespan(100)
-    this.thrust.setPosition(this.x - 2, this.y + 24)
+    this.thrust.setPosition(this.x, this.y + 15)
     if (cursors.up.isDown) {
       this.setAccelerationY(-acceleration)
     } else if (cursors.down.isDown) {
@@ -175,8 +171,10 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         this.body.velocity.x = Math.min(0, this.body.velocity.x + deceleration)
     }
 
-    if (this.body.velocity.y >= 0)
+    this.thrust.setLifespan(100)
+    if (this.body.velocity.y > 0) {
       this.thrust.setLifespan(1)
+    }
 
     if (cursors.space.isDown) {
       this.fire()

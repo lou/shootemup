@@ -94,15 +94,14 @@ export default class GameScene extends Phaser.Scene {
 
     // Colliders
     this.physics.add.overlap(this.player, this.planes.getChildren(), (player, enemy) => {
-      player.hitBy(enemy)
+      player.hitByPlane(enemy)
     })
     this.physics.add.overlap(this.player, this.projectiles.getChildren(), (player, projectile) => {
-      player.hitBy(projectile)
+      player.hitByProjectile(projectile)
     })
     this.physics.add.overlap(this.enemies.getChildren(), this.player.bullets.getChildren(), (enemy, bullet) => {
       if (bullet.active) {
         bullet.hit(enemy)
-        // enemy.hitBy(bullet)
       }
     })
     this.physics.add.overlap(this.player, this.bonuses.getChildren(), (_, bonus) => {

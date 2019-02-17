@@ -75,6 +75,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   }
 
   takeLife() {
+    this.scene.cameras.main.shake(300, 0.01);
     this.lives -= 1
     this.invincible = true
 
@@ -84,13 +85,9 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     })
   }
 
-  hitBy(object) {
+  hit(onHit) {
     if (!this.invincible) {
-      if (object.killOnHit) {
-        object.kill()
-      } else {
-        object.armor -= 20
-      }
+      onHit()
       this.setTint(0xff5252)
       if (this.shield) {
         this.shield = false
@@ -103,9 +100,26 @@ export default class Player extends Phaser.Physics.Arcade.Image {
           }
         )
       }
-      else
+      else {
         this.takeLife()
+      }
     }
+  }
+
+  hitByProjectile(projectile) {
+    this.hit(() => {
+      projectile.destroy()
+    })
+  }
+
+  hitByPlane(plane) {
+    this.hit(() => {
+      if (plane.killOnHit) {
+        plane.kill()
+      } else {
+        plane.armor -= 20
+      }
+    })
   }
 
   fireGun(bullets, offset = { x: 0, y: 0 }) {

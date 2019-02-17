@@ -40,7 +40,6 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('life-icon', 'assets/images/bonuses/life.png')
     this.load.image('shield-icon', 'assets/images/bonuses/shield.png')
     this.load.image('gun-icon', 'assets/images/bonuses/bullet.png')
-    this.load.image('thrust', 'assets/images/thrust.png')
     this.load.image('kamikaze', 'assets/images/enemies/planes/kamikaze.png')
     this.load.image('carrier', 'assets/images/enemies/planes/carrier.png')
     this.load.image('bomber', 'assets/images/enemies/planes/bomber.png')

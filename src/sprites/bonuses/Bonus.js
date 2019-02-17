@@ -10,7 +10,19 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
     this.started = true
     this.setDepth(4.1)
     scene.add.existing(this)
-    this.bonusParticles = this.scene.add.particles('bonus')
+    this.bonusParticles = this.scene.add.particles('bonus').setDepth(2)
+    this.bonusEmitter = this.bonusParticles.createEmitter({
+      name: 'bonus',
+      scale: { start: 0.3, end: 0.1 },
+      rotate: { min: -180, max: 180 },
+      alpha: { start: 1, end: 0.5 },
+      speed: { min: 20, max: 100 },
+      on: false,
+      radius: true,
+      lifespan: 700,
+      deathCallback: () => this.bonusParticles.destroy()
+    })
+
   }
 
   update() {
@@ -29,24 +41,7 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
   }
 
   consume() {
-    this.bonusParticles.createEmitter({
-      name: 'bonus',
-      x: this.x,
-      y: this.y,
-      scale: { start: 0.2, end: 0 },
-      rotate: { start: 0, end: 90 },
-      alpha: { start: 1, end: 0.5 },
-      blendMode: 'ADD',
-      on: true,
-      maxParticles: 5,
-      speed: 100,
-      radius: true,
-      lifespan: 500,
-      deathCallback: (explosion) => {
-        explosion.emitter.stop()
-        this.bonusParticles.destroy()
-      }
-    })
+    this.bonusEmitter.explode(10, this.x, this.y)
     this.destroy()
   }
 }

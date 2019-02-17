@@ -17,7 +17,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       .setDepth(1.9)
       .setAlpha(0.5)
       .setTint(0x030b14)
-    this.lives = 3
+    this.lives = 30
     this.score = 0
     this.shield = false
     this.guns = 1

@@ -1,10 +1,10 @@
-import Phaser from 'phaser';
-import { width, height } from '../config/config';
-import UIButton from '../classes/components/UIButton';
+import Phaser from 'phaser'
+import { width, height } from '../config/config'
+import UIButton from '../classes/components/UIButton'
 
 export default class TitleScene extends Phaser.Scene {
   constructor() {
-    super('Title');
+    super('Title')
   }
 
   create() {
@@ -21,6 +21,15 @@ export default class TitleScene extends Phaser.Scene {
       y: height * 0.6,
       text: 'Play',
       targetScene: 'Game',
-    });
+    })
+
+    this.fullScreenButton = new UIButton({
+      scene: this,
+      y: height * 0.7,
+      text: 'Fullscreen',
+      onClick: () => {
+        this.scale.toggleFullscreen()
+      }
+    })
   }
 }

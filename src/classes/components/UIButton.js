@@ -8,7 +8,7 @@ export default class UIButton extends Phaser.GameObjects.Container {
     this.targetScene = config.targetScene; // the scene we will transition to when the player clicks the button
     this.y = config.y; // the y position of our container
     this.text = config.text; // the text that will be displayed on our button
-
+    this.onClick = config.onClick
     this.createButton();
     this.scene.add.existing(this); // add this container to the Phaser Scene
   }
@@ -29,7 +29,11 @@ export default class UIButton extends Phaser.GameObjects.Container {
       .setFixedSize(300, 20)
 
     this.gameText.on('pointerdown', () => {
-      this.scene.scene.start(this.targetScene);
+      if (this.onClick) {
+        this.onClick()
+      } else {
+        this.scene.scene.start(this.targetScene);
+      }
     });
 
     this.gameText.on('pointerover', () => {

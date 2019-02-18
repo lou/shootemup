@@ -5,11 +5,17 @@ A Shoot'em Up game coded with Phaser 3
 - [x] Missiles
 - [x] Camera
 - [ ] Fullscreen
+- [ ] Player missiles with bonus
+- [ ] Vehicles should start based on time not distance
+- [ ] Handle collisions between vehicles types
+- [ ] Better pause menu
+- [ ] Particles on touret fire
+- [ ] Particles on Player hit by projectile
+- [ ] Editor
 - [ ] Mobile
 - [ ] Waves
 - [ ] Better graphics
 - [ ] Weather engine
-- [ ] Top scores
-- [ ] Editor
+- [ ] Leaderboard
 - [ ] More boats
 - [ ] More planes

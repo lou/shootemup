@@ -9,6 +9,10 @@ const config = {
   parent: 'phaser-game',
   scene: scenes,
   backgroundColor: '#030b14',
+  scale: {
+    mode: Phaser.Scale.FIT,
+    autoCenter: Phaser.Scale.CENTER_BOTH
+  },
   physics: {
     default: 'arcade',
     arcade: {

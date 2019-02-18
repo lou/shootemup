@@ -40,6 +40,7 @@ export default class GameScene extends Phaser.Scene {
   }
 
   create() {
+    this.started = true
     this.physics.world.setBounds(0, 0, width*1.5, height*1.5)
     this.cameras.main.setBounds(0, 0, width*1.5, height*1.5)
 
@@ -89,6 +90,18 @@ export default class GameScene extends Phaser.Scene {
       fontSize: '18px',
       color: '#FFF',
     }).setDepth(100).setOrigin(1, 0).setScrollFactor(0)
+    this.menuText = this.add.text(width / 2, 20, 'MENU', {
+      fontFamily: 'Arial',
+      fontSize: '18px',
+      color: '#FFF',
+    }).setDepth(100)
+      .setOrigin(0.5, 0)
+      .setScrollFactor(0)
+      .setInteractive()
+      .on('pointerdown', () => {
+        this.scene.pause()
+        this.scene.run('Menu')
+      })
 
     this.startWave()
 
@@ -125,10 +138,6 @@ export default class GameScene extends Phaser.Scene {
       this.cursors.up.isDown = false
       this.cursors.down.isDown = false
       this.cursors.space.isDown = false
-    })
-    this.input.on('pointerdown', () => {
-      this.scene.pause()
-      this.scene.launch('Pause')
     })
   }
 

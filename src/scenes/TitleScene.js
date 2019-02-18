@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
-import { width, height } from '../config/config'
-import UIButton from '../classes/components/UIButton'
+import { width } from '../config/config'
 
 export default class TitleScene extends Phaser.Scene {
   constructor() {
@@ -14,25 +13,7 @@ export default class TitleScene extends Phaser.Scene {
       fill: '#FFF',
       align: 'center'
     })
-    text.setY(250)
-    text.setX(width/2 - text.width/2)
-    this.gameButton = new UIButton({
-      scene: this,
-      y: height * 0.6,
-      text: 'Play',
-      targetScene: 'Game',
-    })
-
-    this.fullScreenButton = new UIButton({
-      scene: this,
-      y: height * 0.7,
-      text: 'Fullscreen',
-      onClick: () => this.scale.toggleFullscreen()
-    })
-
-    window.document.addEventListener('fullscreenchange', () => {
-      if (!document.fullscreenElement)
-        this.scale.stopFullscreen()
-    })
+    text.setY(250).setX(width/2 - text.width/2)
+    this.scene.run('Menu')
   }
 }

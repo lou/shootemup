@@ -27,9 +27,12 @@ export default class TitleScene extends Phaser.Scene {
       scene: this,
       y: height * 0.7,
       text: 'Fullscreen',
-      onClick: () => {
-        this.scale.toggleFullscreen()
-      }
+      onClick: () => this.scale.toggleFullscreen()
+    })
+
+    window.document.addEventListener('fullscreenchange', () => {
+      if (!document.fullscreenElement)
+        this.scale.stopFullscreen()
     })
   }
 }

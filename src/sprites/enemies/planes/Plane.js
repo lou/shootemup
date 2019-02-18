@@ -10,7 +10,7 @@ export default class Plane extends Vehicle {
     this.enemyParticles = scene.add.particles(key)
     this.splashParticles = scene.add.particles('splash')
     this.shadow = scene.add.image(this.x+10, this.y+10, key)
-      .setScale(0.9)
+      .setScale(0.6)
       .setDepth(1.9)
       .setAlpha(0.5)
       .setTint(0x030b14)

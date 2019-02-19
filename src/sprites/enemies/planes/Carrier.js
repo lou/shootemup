@@ -8,11 +8,9 @@ export default class Carrier extends Plane {
       points: 1,
       ...options
     })
-    this.body.immovable = true
   }
 
-  update() {
-    this.body.setVelocityY(this.speed)
-    super.update()
+  preUpdate() {
+    this.body.setVelocityY(this.speed).setImmovable()
   }
 }

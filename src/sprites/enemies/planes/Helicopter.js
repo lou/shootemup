@@ -42,13 +42,12 @@ export default class Helicopter extends Plane {
     super.destroy()
   }
 
-  update() {
-    this.body.setVelocityY(this.speed)
+  preUpdate() {
+    this.body.setVelocityY(this.speed).setImmovable()
 
     const { player } = this.scene
 
     this.body.setVelocityY(50)
     this.setRotation(Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y) - Math.PI/2)
-    super.update()
   }
 }

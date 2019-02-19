@@ -10,8 +10,7 @@ export default class Bomber extends Plane {
     })
   }
 
-  update() {
-    this.body.setVelocityY(this.speed)
-    super.update()
+  preUpdate() {
+    this.body.setVelocityY(this.speed).setImmovable()
   }
 }

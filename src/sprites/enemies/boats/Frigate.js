@@ -10,7 +10,7 @@ export default class Frigate extends Boat {
         bottom: { y: -60 }
       },
       ...options
-    });
+    })
     this.tourets = [
       new Touret(scene, { x: options.x - 7, y: options.y + 25, fireSpeed: 1000 }),
       new Touret(scene, { x: options.x + 7, y: options.y + 25, fireSpeed: 1000 }),
@@ -19,8 +19,7 @@ export default class Frigate extends Boat {
     this.add(this.tourets)
   }
 
-  update() {
-    this.body.setVelocityY(this.speed)
-    super.update()
+  preUpdate() {
+    this.body.setVelocityY(this.speed).setImmovable()
   }
 }

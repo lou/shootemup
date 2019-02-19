@@ -12,7 +12,7 @@ export const config = {
     {
       type: 'Plane::Carrier',
       x: 290,
-      y: 190,
+      y: -190,
       bonus: 'Gun'
     },
     {
@@ -47,8 +47,8 @@ export const config = {
     },
     {
       type: 'Boat::Frigate',
-      x: 300,
-      y: -600,
+      x: 700,
+      y: -100,
     },
     {
       type: 'Plane::Carrier',
@@ -73,8 +73,8 @@ export const config = {
     },
     {
       type: 'Boat::Cruiser',
-      y: 250,
-      x: -70
+      y: -150,
+      x: 300
     },
     {
       type: 'Plane::Helicopter',
@@ -84,7 +84,7 @@ export const config = {
     },
     {
       type: 'Boat::Frigate',
-      y: -50,
+      y: -150,
       x: 400
     },
     {

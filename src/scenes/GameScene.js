@@ -94,8 +94,8 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.worldBounds, this.destroyables.getChildren(), (_, sprite) => {
       sprite.started = true
     })
-    this.physics.add.collider(this.planes)
     this.physics.add.collider(this.boats)
+    this.physics.add.collider(this.planes)
     this.physics.add.collider(this.bonuses)
 
     this.cursors = this.input.keyboard.createCursorKeys()

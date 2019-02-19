@@ -79,25 +79,28 @@ export default class GameScene extends Phaser.Scene {
       .setTint(0x65afe3)
 
     // BAR
-    this.add.image(30, 30, 'life-icon').setScale(0.5).setDepth(100).setScrollFactor(0)
-    this.livesText = this.add.text(42, 20, this.player.lives, {
+    this.add.image(30, 43, 'life-icon').setScale(0.6).setDepth(100).setScrollFactor(0)
+    this.livesText = this.add.text(45, 30, this.player.lives, {
       fontFamily: 'Arial',
-      fontSize: '18px',
+      fontSize: '24px',
       color: '#FFF'
     }).setDepth(100).setScrollFactor(0)
-    this.scoreText = this.add.text(width - 30, 20, this.player.score, {
+    this.scoreText = this.add.text(width - 30, 30, this.player.score, {
       fontFamily: 'Arial',
-      fontSize: '18px',
+      fontSize: '24px',
       color: '#FFF',
     }).setDepth(100).setOrigin(1, 0).setScrollFactor(0)
-    this.menuText = this.add.text(width / 2, 20, 'MENU', {
+    this.menuText = this.add.text(width / 2, 30, 'MENU', {
       fontFamily: 'Arial',
       fontSize: '18px',
-      color: '#FFF',
+      color: '#000',
+      backgroundColor: '#FFF',
+      padding: {top:10, left: 20},
     }).setDepth(100)
       .setOrigin(0.5, 0)
       .setScrollFactor(0)
       .setInteractive()
+      .setAlpha(0.8)
       .on('pointerdown', () => {
         this.scene.pause()
         this.scene.run('Menu')

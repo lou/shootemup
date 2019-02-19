@@ -64,7 +64,7 @@ export default class Plane extends Vehicle {
 
   destroy() {
     this.scene.planes.remove(this)
-    this.scene.player.score += this.points
+    this.scene.events.emit('addScore', this.points)
     if (this.bonus) {
       this.scene.bonuses.add(
         new bonuses[this.bonus](this.scene, { x: this.x, y: this.y })

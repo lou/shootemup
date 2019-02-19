@@ -40,7 +40,7 @@ export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
   hit(enemy) {
     if (enemy.active) {
       enemy.armor -= this.force
-      this.scene.player.score += 1
+      this.scene.events.emit('addScore', 1)
       this.hitParticles.setDepth(enemy.depth + 1)
       this.hitEmitter.explode(1, this.x, this.y)
       this.setActive(false).setVisible(false)

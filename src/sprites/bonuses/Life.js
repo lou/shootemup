@@ -7,7 +7,7 @@ export default class Life extends Bonus {
   }
 
   consume() {
-    this.scene.player.lives += 1
+    this.scene.events.emit('addLife', 1)
     super.consume()
   }
 }

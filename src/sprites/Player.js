@@ -17,7 +17,6 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       .setDepth(1.9)
       .setAlpha(0.5)
       .setTint(0x030b14)
-    this.lives = 30
     this.score = 0
     this.shield = false
     this.guns = 1
@@ -73,7 +72,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
   takeLife() {
     this.scene.cameras.main.shake(300, 0.01);
-    this.lives -= 1
+    this.scene.events.emit('addLife', -1)
     this.invincible = true
 
     // Add a delay call to prevent Tween not calling restart immediatly

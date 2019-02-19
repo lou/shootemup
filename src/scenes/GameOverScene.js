@@ -16,21 +16,34 @@ export default class GameOverScene extends Phaser.Scene {
     })
     text.setY(250)
     text.setX(width/2 - text.width/2)
+    const infoScene = this.scene.get('Info')
 
-    this.gameButton = new UIButton({
+    infoScene.menuText.destroy()
+
+    new UIButton({
       scene: this,
       x: width / 2,
       y: height * 0.5,
       text: 'Play Again',
-      targetScene: 'Game'
-    });
+      onClick: _ => {
+        this.scene.stop('Game')
+        this.scene.stop('Info')
+        this.scene.start('Game')
+      }
+    })
 
-    this.titleButton = new UIButton({
+    new UIButton({
       scene: this,
       x: width / 2,
-      y: height * 0.57,
+      y: height * 0.6,
       text: 'Menu',
-      targetScene: 'Title',
-    });
+      onClick: _ => {
+        this.scene.get('Game').started = false
+        this.scene.stop('Game')
+        this.scene.stop('Info')
+        this.scene.stop('GameOver')
+        this.scene.start('Title')
+      }
+    })
   }
 }

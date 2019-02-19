@@ -4,11 +4,13 @@ A Shoot'em Up game coded with Phaser 3
 # TODO
 - [x] Missiles
 - [x] Camera
-- [ ] Fullscreen
-- [ ] Player missiles with bonus
+- [x] Fullscreen
+- [x] Better pause menu
+- [x] Refacto info bar with scene
+- [ ] Player bullets range
 - [ ] Vehicles should start based on time not distance
+- [ ] Player missiles with bonus
 - [ ] Handle collisions between vehicles types
-- [ ] Better pause menu
 - [ ] Particles on touret fire
 - [ ] Particles on Player hit by projectile
 - [ ] Editor

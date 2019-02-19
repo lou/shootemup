@@ -24,7 +24,7 @@ export default class Touret extends Phaser.Physics.Arcade.Image {
     if (this.armor <= 0) {
       this.setActive(false)
       this.weapon.setActive(false)
-      this.scene.player.score += this.points
+      this.scene.events.emit('addScore', this.points)
     } else {
       this.setRotation(
         Phaser.Math.Angle.Between(player.x, player.y, this.x, this.y) + Math.PI/2

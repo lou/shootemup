@@ -13,7 +13,6 @@ import Missile  from '../sprites/projectiles/Missile'
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game')
-    this.score = 0
     this.wave = {
       index: 0
     }
@@ -34,12 +33,8 @@ export default class GameScene extends Phaser.Scene {
     })
   }
 
-  updateInfos() {
-    this.livesText.setText(this.player.lives.toLocaleString())
-    this.scoreText.setText(this.player.score.toLocaleString())
-  }
-
   create() {
+    this.scene.launch('Info')
     this.started = true
     this.physics.world.setBounds(0, 0, width*1.5, height*1.5)
     this.cameras.main.setBounds(0, 0, width*1.5, height*1.5)
@@ -77,34 +72,6 @@ export default class GameScene extends Phaser.Scene {
       .setAngle(-30)
       .setDepth(10)
       .setTint(0x65afe3)
-
-    // BAR
-    this.add.image(30, 43, 'life-icon').setScale(0.6).setDepth(100).setScrollFactor(0)
-    this.livesText = this.add.text(45, 30, this.player.lives, {
-      fontFamily: 'Arial',
-      fontSize: '24px',
-      color: '#FFF'
-    }).setDepth(100).setScrollFactor(0)
-    this.scoreText = this.add.text(width - 30, 30, this.player.score, {
-      fontFamily: 'Arial',
-      fontSize: '24px',
-      color: '#FFF',
-    }).setDepth(100).setOrigin(1, 0).setScrollFactor(0)
-    this.menuText = this.add.text(width / 2, 30, 'MENU', {
-      fontFamily: 'Arial',
-      fontSize: '18px',
-      color: '#000',
-      backgroundColor: '#FFF',
-      padding: {top:10, left: 20},
-    }).setDepth(100)
-      .setOrigin(0.5, 0)
-      .setScrollFactor(0)
-      .setInteractive()
-      .setAlpha(0.8)
-      .on('pointerdown', () => {
-        this.scene.pause()
-        this.scene.run('Menu')
-      })
 
     this.startWave()
 
@@ -162,19 +129,6 @@ export default class GameScene extends Phaser.Scene {
     }
   }
 
-  handleGameOver() {
-    if (!this.player.lives) {
-      // Since there is a weird bug on nested groups
-      // We manually destroy them before launching Game Over scene
-      this.player.bullets.destroy()
-      this.enemies.destroy()
-      this.projectiles.destroy()
-      this.destroyables.destroy()
-      this.scene.stop('Pause')
-      this.scene.start('GameOver')
-    }
-  }
-
   update(time) {
     this.clouds.y += 1
     if (this.clouds.y - this.clouds.height > this.physics.world.bounds.height) {
@@ -185,7 +139,5 @@ export default class GameScene extends Phaser.Scene {
       this.startWave(this)
     }
     this.player.move(this.cursors, time)
-    this.updateInfos()
-    this.handleGameOver()
   }
 }

@@ -7,10 +7,10 @@ A Shoot'em Up game coded with Phaser 3
 - [x] Fullscreen
 - [x] Better pause menu
 - [x] Refacto info bar with scene
+- [x] Handle collisions between vehicles types
 - [ ] Player bullets range
 - [ ] Vehicles should start based on time not distance
 - [ ] Player missiles with bonus
-- [ ] Handle collisions between vehicles types
 - [ ] Particles on touret fire
 - [ ] Particles on Player hit by projectile
 - [ ] Editor

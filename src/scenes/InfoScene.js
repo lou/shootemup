@@ -1,6 +1,5 @@
 import Phaser from 'phaser'
 import { width, height } from '../config/config'
-import UIButton from '../classes/components/UIButton'
 
 export default class InfoScene extends Phaser.Scene {
   constructor() {
@@ -13,26 +12,26 @@ export default class InfoScene extends Phaser.Scene {
     this.game = this.scene.get('Game')
     this.graphics = this.add.graphics()
     this.graphics.fillStyle(0x000000, 1)
-    this.graphics.fillRect(0, 0, width, 40).setAlpha(0.7)
+    this.graphics.fillRect(0, height-59, width, 60).setAlpha(0.7)
 
-    this.add.image(30, 19, 'life-icon').setScale(0.6)
-    this.livesText = this.add.text(45, 7, this.lives, {
+    this.add.image(30, height - 32, 'life-icon').setScale(0.6)
+    this.livesText = this.add.text(45, height - 45, this.lives, {
       fontFamily: 'Arial',
-      fontSize: '21px',
+      fontSize: '24px',
       color: '#FFF'
     })
 
-    this.scoreText = this.add.text(width - 30, 7, this.score, {
+    this.scoreText = this.add.text(width - 30, height - 45, this.score, {
       fontFamily: 'Arial',
-      fontSize: '21px',
+      fontSize: '24px',
       color: '#FFF',
     }).setOrigin(1, 0)
-    this.menuText = this.add.text(width / 2, 7, 'MENU', {
+    this.menuText = this.add.text(width / 2, height - 42, 'MENU', {
       fontFamily: 'Arial',
       fontSize: '18px',
       color: '#000',
       backgroundColor: '#FFF',
-      padding: { top: 2, left: 10 },
+      padding: { top: 4, left: 10 },
     }).setOrigin(0.5, 0)
       .setInteractive()
       .on('pointerdown', () => {

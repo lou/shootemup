@@ -148,7 +148,7 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.vehicles.every(vehicle => vehicle.started)) {
       this.vehicles = this.vehicles.map(vehicle => ({ ...vehicle, started: false }))
-      this.time.delayedCall(30000, () => {
+      this.time.delayedCall(10000, () => {
         this.startWave()
       })
     }

@@ -23,18 +23,20 @@ export default class GameScene extends Phaser.Scene {
     }[start.from]
   }
 
-  startEnemies(time, offset) {
-    this.vehicles.filter(enemy => !enemy.started && (enemy.start.time + offset <= time)).forEach(enemy => {
-      const { type, start, ...options } = enemy
-      const [namespace, className] = type.split('::')
-      this.vehicles[enemy.id].started = true
-      if (namespace === 'Plane') {
-        let plane = new planes[className](this, {...this.enemyStartPosition(start), ...options })
-        this.planes.add(plane)
-      } else if (namespace === 'Boat') {
-        let boat = new boats[className](this, {...this.enemyStartPosition(start), ...options })
-        this.boats.add(boat)
-      }
+  startWave() {
+    this.vehicles.forEach(enemy => {
+      this.time.delayedCall(enemy.start.time, () => {
+        const { type, start, ...options } = enemy
+        const [namespace, className] = type.split('::')
+        this.vehicles[enemy.id].started = true
+        if (namespace === 'Plane') {
+          let plane = new planes[className](this, {...this.enemyStartPosition(start), ...options })
+          this.planes.add(plane)
+        } else if (namespace === 'Boat') {
+          let boat = new boats[className](this, {...this.enemyStartPosition(start), ...options })
+          this.boats.add(boat)
+        }
+      })
     })
   }
 
@@ -116,6 +118,8 @@ export default class GameScene extends Phaser.Scene {
       this.cursors.down.isDown = false
       this.cursors.space.isDown = false
     })
+
+    this.startWave()
   }
 
   destroyOnOutOfBounds(sprite, destroy = true) {
@@ -137,16 +141,16 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update(time) {
-
     this.clouds.y += 1
     if (this.clouds.y - this.clouds.height > this.physics.world.bounds.height) {
       this.clouds.y = -600
     }
 
-    this.startEnemies(time, this.wave.index * 30000)
     if (this.vehicles.every(vehicle => vehicle.started)) {
       this.vehicles = this.vehicles.map(vehicle => ({ ...vehicle, started: false }))
-      this.wave.index += 1
+      this.time.delayedCall(30000, () => {
+        this.startWave()
+      })
     }
     this.player.move(this.cursors, time)
   }

@@ -7,7 +7,7 @@ export default class InfoScene extends Phaser.Scene {
   }
 
   create() {
-    this.lives = 10
+    this.lives = 1
     this.score = 0
     this.game = this.scene.get('Game')
     this.graphics = this.add.graphics()

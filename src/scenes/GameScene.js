@@ -13,27 +13,35 @@ import Missile  from '../sprites/projectiles/Missile'
 export default class GameScene extends Phaser.Scene {
   constructor() {
     super('Game')
-    this.wave = {
-      index: 0
-    }
   }
 
-  startWave() {
-    config.waves[this.wave.index].enemies.forEach(options => {
-      const { type, ...otherOptions } = options
-      const [namespace, className] = type.split('::')
+  enemyStartPosition(start) {
+    return {
+      top: { y: -150, x: start.distance },
+      left: { y: start.distance, x: -150 },
+      right: { y: start.distance, x: this.physics.world.bounds.width + 150 }
+    }[start.from]
+  }
 
+  startEnemies(time, offset) {
+    this.vehicles.filter(enemy => !enemy.started && (enemy.start.time + offset <= time)).forEach(enemy => {
+      const { type, start, ...options } = enemy
+      const [namespace, className] = type.split('::')
+      this.vehicles[enemy.id].started = true
       if (namespace === 'Plane') {
-        let plane = new planes[className](this, otherOptions)
+        let plane = new planes[className](this, {...this.enemyStartPosition(start), ...options })
         this.planes.add(plane)
       } else if (namespace === 'Boat') {
-        let boat = new boats[className](this, otherOptions)
+        let boat = new boats[className](this, {...this.enemyStartPosition(start), ...options })
         this.boats.add(boat)
       }
     })
   }
 
   create() {
+    this.wave = {
+      index: 0
+    }
     this.scene.launch('Info')
     this.started = true
     this.physics.world.setBounds(0, 0, width*1.5, height*1.5)
@@ -43,6 +51,8 @@ export default class GameScene extends Phaser.Scene {
     this.worldBounds.onOverlap = true
     this.worldBounds.setOrigin(0, 0)
     this.physics.world.enable(this.worldBounds)
+
+    this.vehicles = config.waves[this.wave.index].enemies.map((enemy, index) => ({ id: index, ...enemy }))
 
     const ocean = this.add.tileSprite(0, 0, this.physics.world.bounds.width*2, this.physics.world.bounds.height*2, 'ocean')
     ocean.setTint(0x030b14)
@@ -73,8 +83,6 @@ export default class GameScene extends Phaser.Scene {
       .setDepth(10)
       .setTint(0x65afe3)
 
-    this.startWave()
-
     // Colliders
     this.physics.add.overlap(this.player, this.planes.getChildren(), (player, enemy) => {
       player.hitByPlane(enemy)
@@ -99,7 +107,6 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.collider(this.bonuses)
 
     this.cursors = this.input.keyboard.createCursorKeys()
-
 
     this.events.on('resume', () => {
       // Reset cursors
@@ -130,13 +137,16 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update(time) {
+
     this.clouds.y += 1
     if (this.clouds.y - this.clouds.height > this.physics.world.bounds.height) {
       this.clouds.y = -600
     }
 
-    if (this.planes.getChildren().length <= 3) {
-      this.startWave(this)
+    this.startEnemies(time, this.wave.index * 30000)
+    if (this.vehicles.every(vehicle => vehicle.started)) {
+      this.vehicles = this.vehicles.map(vehicle => ({ ...vehicle, started: false }))
+      this.wave.index += 1
     }
     this.player.move(this.cursors, time)
   }

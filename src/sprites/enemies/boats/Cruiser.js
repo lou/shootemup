@@ -17,9 +17,11 @@ export default class Cruiser extends Boat {
     this.add(this.tourets)
   }
 
-  preUpdate() {
+  update() {
     this.setAngle(-60)
     this.body.setVelocityX(this.speed)
       .setVelocityY(this.speed)
+      .setImmovable()
+    super.update()
   }
 }

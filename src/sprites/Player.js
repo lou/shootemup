@@ -21,15 +21,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.shield = false
     this.guns = 1
     this.invincible = false
-    this.thrust = scene.add.particles('particle').setDepth(1.9).createEmitter({
-      name: 'thrust',
-      scale: { start: 0.2, end: 0 },
-      blendMode: 'ADD',
-      speed: 100,
-      lifespan: 200,
-      angle: { min: 85, max: 95 },
-      on: true
-    })
+    this.thruster = scene.add.image(this.x, this.y, 'thruster').setScale(0.5).setDepth(1.9)
 
     this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
     this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
@@ -151,7 +143,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
     this.setAngle(0)
-    this.thrust.setPosition(this.x, this.y + 15)
+    this.thruster.setPosition(this.x, this.y + 25)
     if (cursors.up.isDown) {
       this.setAccelerationY(-acceleration)
     } else if (cursors.down.isDown) {
@@ -174,11 +166,6 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         this.body.velocity.x = Math.max(0, this.body.velocity.x - deceleration)
       else if (this.body.velocity.x < 0)
         this.body.velocity.x = Math.min(0, this.body.velocity.x + deceleration)
-    }
-
-    this.thrust.setLifespan(100)
-    if (this.body.velocity.y > 0) {
-      this.thrust.setLifespan(1)
     }
 
     if (cursors.space.isDown) {

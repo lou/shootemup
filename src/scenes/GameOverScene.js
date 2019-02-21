@@ -26,8 +26,6 @@ export default class GameOverScene extends Phaser.Scene {
       y: height * 0.5,
       text: 'Play Again',
       onClick: _ => {
-        this.scene.stop('Game')
-        this.scene.stop('Info')
         this.scene.start('Game')
       }
     })
@@ -41,7 +39,6 @@ export default class GameOverScene extends Phaser.Scene {
         this.scene.get('Game').started = false
         this.scene.stop('Game')
         this.scene.stop('Info')
-        this.scene.stop('GameOver')
         this.scene.start('Title')
       }
     })

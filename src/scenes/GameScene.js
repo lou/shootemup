@@ -78,6 +78,7 @@ export default class GameScene extends Phaser.Scene {
       this.missiles,
       this.bonuses
     ])
+    this.hittables = this.physics.add.group([this.bullets, this.missiles, this.planes])
 
     this.clouds = this.add.image(this.physics.world.bounds.width/2, -600, 'clouds')
       .setScale(1)
@@ -86,11 +87,9 @@ export default class GameScene extends Phaser.Scene {
       .setTint(0x65afe3)
 
     // Colliders
-    this.physics.add.overlap(this.player, this.planes.getChildren(), (player, enemy) => {
-      player.hitByPlane(enemy)
-    })
-    this.physics.add.overlap(this.player, this.projectiles.getChildren(), (player, projectile) => {
-      player.hitByProjectile(projectile)
+    this.physics.add.overlap(this.player, this.hittables.getChildren(), (player, enemy) => {
+      if (!player.invincible)
+        player.hitBy(enemy)
     })
     this.physics.add.overlap(this.enemies.getChildren(), this.player.bullets.getChildren(), (enemy, bullet) => {
       if (bullet.active) {
@@ -117,6 +116,11 @@ export default class GameScene extends Phaser.Scene {
       this.cursors.up.isDown = false
       this.cursors.down.isDown = false
       this.cursors.space.isDown = false
+    })
+
+    this.events.on('shutdown', () => {
+      this.events.off('addScore')
+      this.events.off('addLife')
     })
 
     this.startWave()

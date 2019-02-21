@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import Bullet  from './projectiles/Bullet'
+import Projectile from './projectiles/Projectile'
 
 export default class Player extends Phaser.Physics.Arcade.Image {
   constructor(scene, x, y, key) {
@@ -17,7 +18,6 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       .setDepth(1.9)
       .setAlpha(0.5)
       .setTint(0x030b14)
-    this.score = 0
     this.shield = false
     this.guns = 1
     this.invincible = false
@@ -71,7 +71,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   }
 
   takeLife() {
-    this.scene.cameras.main.shake(300, 0.01);
+    this.scene.cameras.main.shake(300, 0.01)
     this.scene.events.emit('addLife', -1)
     this.invincible = true
 
@@ -82,23 +82,29 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   }
 
   hit(onHit) {
-    if (!this.invincible) {
-      onHit()
-      this.setTint(0xff5252)
-      if (this.shield) {
-        this.shield = false
-        this.invincible = true
-        this.scene.time.delayedCall(
-          600,
-          _ => {
-            this.setTint(0x20567c)
-            this.invincible = false
-          }
-        )
-      }
-      else {
-        this.takeLife()
-      }
+    onHit()
+    this.setTint(0xff5252)
+    if (this.shield) {
+      this.shield = false
+      this.invincible = true
+      this.scene.time.delayedCall(
+        600,
+        _ => {
+          this.setTint(0x20567c)
+          this.invincible = false
+        }
+      )
+    }
+    else {
+      this.takeLife()
+    }
+  }
+
+  hitBy(object) {
+    if (object instanceof Projectile) {
+      this.hitByProjectile(object)
+    } else {
+      this.hitByPlane(object)
     }
   }
 

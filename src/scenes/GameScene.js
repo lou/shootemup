@@ -123,7 +123,32 @@ export default class GameScene extends Phaser.Scene {
       this.events.off('addLife')
     })
 
-    this.startWave()
+    // this.startWave()
+
+     // Follower
+     const points = [
+      0, 0, 500, 500, 550, 1000, 1400, 300
+    ]
+
+    const curve = new Phaser.Curves.Spline(points)
+    const graphics = this.add.graphics()
+    graphics.lineStyle(1, 0xffffff, 1)
+    curve.draw(graphics, 30)
+    console.log(curve)
+    graphics.fillStyle(0x00ff00, 0.5)
+    for (var i = 0; i < curve.points.length; i++)
+    {
+        graphics.fillCircle(curve.points[i].x, curve.points[i].y, 10);
+    }
+    this.cruiser = this.add.follower(curve, 0, 0, 'cruiser');
+    this.cruiser.startFollow({
+      duration: 40000,
+      rotateToPath: true,
+      verticalAdjust: true,
+      rotationOffset: -90,
+      yoyo: true,
+      repeat: -1
+    })
   }
 
   destroyOnOutOfBounds(sprite, destroy = true) {

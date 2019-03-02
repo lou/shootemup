@@ -15,25 +15,17 @@ export default class GameScene extends Phaser.Scene {
     super('Game')
   }
 
-  enemyStartPosition(start) {
-    return {
-      top: { y: -150, x: start.distance },
-      left: { y: start.distance, x: -150 },
-      right: { y: start.distance, x: this.physics.world.bounds.width + 150 }
-    }[start.from]
-  }
-
   startWave() {
     this.vehicles.forEach(enemy => {
-      this.time.delayedCall(enemy.start.time, () => {
+      this.time.delayedCall(enemy.startAt, () => {
         const { type, start, ...options } = enemy
         const [namespace, className] = type.split('::')
         this.vehicles[enemy.id].started = true
         if (namespace === 'Plane') {
-          let plane = new planes[className](this, {...this.enemyStartPosition(start), ...options })
+          let plane = new planes[className](this, options)
           this.planes.add(plane)
         } else if (namespace === 'Boat') {
-          let boat = new boats[className](this, {...this.enemyStartPosition(start), ...options })
+          let boat = new boats[className](this, options)
           this.boats.add(boat)
         }
       })
@@ -103,8 +95,17 @@ export default class GameScene extends Phaser.Scene {
     this.physics.add.overlap(this.worldBounds, this.destroyables.getChildren(), (_, sprite) => {
       sprite.started = true
     })
-    this.physics.add.collider(this.boats)
-    this.physics.add.collider(this.planes)
+    this.physics.add.overlap(this.boats.getChildren(), this.boats.getChildren(), (boat1, boat2) => {
+      if (boat1.follower.isFollowing()) {
+        boat1.follower.pauseFollow()
+        boat2.follower.resumeFollow()
+        this.time.delayedCall(3000, () => {
+          boat1.follower.resumeFollow()
+        })
+      }
+    })
+
+    // this.physics.add.collider(this.planes)
     this.physics.add.collider(this.bonuses)
 
     this.cursors = this.input.keyboard.createCursorKeys()
@@ -123,32 +124,7 @@ export default class GameScene extends Phaser.Scene {
       this.events.off('addLife')
     })
 
-    // this.startWave()
-
-     // Follower
-     const points = [
-      0, 0, 500, 500, 550, 1000, 1400, 300
-    ]
-
-    const curve = new Phaser.Curves.Spline(points)
-    const graphics = this.add.graphics()
-    graphics.lineStyle(1, 0xffffff, 1)
-    curve.draw(graphics, 30)
-    console.log(curve)
-    graphics.fillStyle(0x00ff00, 0.5)
-    for (var i = 0; i < curve.points.length; i++)
-    {
-        graphics.fillCircle(curve.points[i].x, curve.points[i].y, 10);
-    }
-    this.cruiser = this.add.follower(curve, 0, 0, 'cruiser');
-    this.cruiser.startFollow({
-      duration: 40000,
-      rotateToPath: true,
-      verticalAdjust: true,
-      rotationOffset: -90,
-      yoyo: true,
-      repeat: -1
-    })
+    this.startWave()
   }
 
   destroyOnOutOfBounds(sprite, destroy = true) {
@@ -177,7 +153,7 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.vehicles.every(vehicle => vehicle.started)) {
       this.vehicles = this.vehicles.map(vehicle => ({ ...vehicle, started: false }))
-      this.time.delayedCall(10000, () => {
+      this.time.delayedCall(30000, () => {
         this.startWave()
       })
     }

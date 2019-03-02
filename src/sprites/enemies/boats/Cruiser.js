@@ -12,16 +12,16 @@ export default class Cruiser extends Boat {
       ...options
     });
     this.tourets = [
-      new Touret(scene, { x: options.x, y: options.y + 15, fireSpeed: 1000 }),
+      new Touret(scene, { x: options.path[0], y: options.path[1] + 15, fireSpeed: 1000 }),
     ]
     this.add(this.tourets)
   }
 
-  update() {
-    this.setAngle(-60)
-    this.body.setVelocityX(this.speed)
-      .setVelocityY(this.speed)
-      .setImmovable()
-    super.update()
-  }
+  // update() {
+  //   this.setAngle(-60)
+  //   this.body.setVelocityX(this.speed)
+  //     .setVelocityY(this.speed)
+  //     .setImmovable()
+  //   super.update()
+  // }
 }

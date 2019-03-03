@@ -4,9 +4,10 @@ import Weapon from '../../Weapon'
 export default class Helicopter extends Plane {
   constructor(scene, options) {
     super(scene, 'helicopter', {
-      speed: 400,
+      speed: 60,
       armor: 100,
       points: 1,
+      keepRotation: true,
       lights: {
         side: { x: 15, y: 3 },
         bottom: { y: -28 }
@@ -28,8 +29,8 @@ export default class Helicopter extends Plane {
     })
     this.add([
       new Weapon(scene, {
-        x: options.x,
-        y: options.y + 30,
+        x: options.path[0],
+        y: options.path[1] + 30,
         type: 'missiles',
         fireSpeed: 2000,
         speed: 400
@@ -43,12 +44,12 @@ export default class Helicopter extends Plane {
   }
 
   update() {
-    this.body.setVelocityY(this.speed).setImmovable()
-
-    const { player } = this.scene
-
-    this.body.setVelocityY(50)
-    this.setRotation(Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y) - Math.PI/2)
+    this.setRotation(
+      Phaser.Math.Angle.Between(
+        this.x, this.y,
+        this.scene.player.x, this.scene.player.y
+      ) - Math.PI/2
+    )
     super.update()
   }
 }

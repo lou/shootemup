@@ -9,9 +9,4 @@ export default class Carrier extends Plane {
       ...options
     })
   }
-
-  update() {
-    this.body.setVelocityY(this.speed).setImmovable()
-    super.update()
-  }
 }

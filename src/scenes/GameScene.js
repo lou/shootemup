@@ -15,25 +15,25 @@ export default class GameScene extends Phaser.Scene {
     super('Game')
   }
 
-  enemyStartPosition(start) {
-    return {
-      top: { y: -150, x: start.distance },
-      left: { y: start.distance, x: -150 },
-      right: { y: start.distance, x: this.physics.world.bounds.width + 150 }
-    }[start.from]
-  }
+  // enemyStartPosition(start) {
+  //   return {
+  //     top: { y: -150, x: start.distance },
+  //     left: { y: start.distance, x: -150 },
+  //     right: { y: start.distance, x: this.physics.world.bounds.width + 150 }
+  //   }[start.from]
+  // }
 
   startWave() {
     this.vehicles.forEach(enemy => {
-      this.time.delayedCall(enemy.start.time, () => {
+      this.time.delayedCall(enemy.startAt || 0, () => {
         const { type, start, ...options } = enemy
         const [namespace, className] = type.split('::')
         this.vehicles[enemy.id].started = true
         if (namespace === 'Plane') {
-          let plane = new planes[className](this, {...this.enemyStartPosition(start), ...options })
+          let plane = new planes[className](this, options)
           this.planes.add(plane)
         } else if (namespace === 'Boat') {
-          let boat = new boats[className](this, {...this.enemyStartPosition(start), ...options })
+          let boat = new boats[className](this, options)
           this.boats.add(boat)
         }
       })
@@ -48,11 +48,6 @@ export default class GameScene extends Phaser.Scene {
     this.started = true
     this.physics.world.setBounds(0, 0, width*1.5, height*1.5)
     this.cameras.main.setBounds(0, 0, width*1.5, height*1.5)
-
-    this.worldBounds = this.add.zone(0, 0, this.physics.world.bounds.width, this.physics.world.bounds.height)
-    this.worldBounds.onOverlap = true
-    this.worldBounds.setOrigin(0, 0)
-    this.physics.world.enable(this.worldBounds)
 
     this.vehicles = config.waves[this.wave.index].enemies.map((enemy, index) => ({ id: index, ...enemy }))
 
@@ -100,9 +95,6 @@ export default class GameScene extends Phaser.Scene {
       bonus.consume()
     })
 
-    this.physics.add.overlap(this.worldBounds, this.destroyables.getChildren(), (_, sprite) => {
-      sprite.started = true
-    })
     this.physics.add.collider(this.boats)
     this.physics.add.collider(this.planes)
     this.physics.add.collider(this.bonuses)
@@ -152,7 +144,7 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.vehicles.every(vehicle => vehicle.started)) {
       this.vehicles = this.vehicles.map(vehicle => ({ ...vehicle, started: false }))
-      this.time.delayedCall(10000, () => {
+      this.time.delayedCall(30000, () => {
         this.startWave()
       })
     }

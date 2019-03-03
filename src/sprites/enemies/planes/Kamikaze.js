@@ -18,20 +18,13 @@ export default class Kamikaze extends Plane {
   }
 
   update() {
-    const { player } = this.scene
-
-    this.body.setVelocity(0, 0)
-    this.setRotation(Phaser.Math.Angle.Between(this.x, this.y, player.x, player.y) - Math.PI/2)
-    if (Math.round(this.x) < Math.round(player.x) - 5) {
-      this.body.setVelocityX(this.speed);
-    } else if (Math.round(this.x) > Math.round(player.x)) {
-      this.body.setVelocityX(-this.speed);
-    }
-    if (Math.round(this.y) < Math.round(player.y) - 5) {
-      this.body.setVelocityY(this.speed);
-    } else if (Math.round(this.y) > Math.round(player.y)) {
-      this.body.setVelocityY(-this.speed);
-    }
+    this.setRotation(
+      Phaser.Math.Angle.Between(
+        this.x, this.y,
+        this.scene.player.x, this.scene.player.y
+      ) - Math.PI/2
+    )
+    this.scene.physics.moveTo(this, this.scene.player.x, this.scene.player.y, this.speed)
     super.update()
   }
 }

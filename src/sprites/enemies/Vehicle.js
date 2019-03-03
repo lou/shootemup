@@ -8,12 +8,14 @@ export default class Vehicle extends ContainerLite {
 
     super(
       scene,
-      options.x,
-      options.y,
+      options.path[0],
+      options.path[1],
       vehicleImage.width + bodyOffset,
       vehicleImage.height + bodyOffset
     )
 
+    this.keepRotation = options.keepRotation
+    this.path = options.path
     this.scene = scene
     this.speed = options.speed
     this.started = false
@@ -23,7 +25,7 @@ export default class Vehicle extends ContainerLite {
       duration: Phaser.Math.Between(900, 1900),
       ...options.lights
     }
-    this.vehicle = scene.add.image(options.x, options.y, key)
+    this.vehicle = scene.add.image(options.path[0], options.path[1], key)
     this.vehicle.setTint(0x20567c)
     this.addLights()
     this.add([this.vehicle, this.lightBottom, this.lightLeft, this.lightRight])
@@ -33,6 +35,14 @@ export default class Vehicle extends ContainerLite {
   }
 
   update() {
+    if (this.path[2]) {
+      if (!this.keepRotation) {
+        this.setRotation(
+          Phaser.Math.Angle.Between(this.path[0], this.path[1], this.path[2], this.path[3]) - Math.PI/2
+        )
+      }
+      this.scene.physics.moveTo(this, this.path[2], this.path[3], this.speed)
+    }
     this.scene.destroyOnOutOfBounds(this)
   }
 

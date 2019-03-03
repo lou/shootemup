@@ -7,120 +7,101 @@ export const config = {
       enemies: [
       {
         type: 'Plane::Bomber',
-        start: {
-          time: 0,
-          from: 'top',
-          distance: 300
-        },
+        path: [300, -150, 300, height*1.5+150],
         bonus: 'Gun'
       },
       {
         type: 'Plane::Bomber',
-        start: {
-          time: 0,
-          from: 'top',
-          distance: 700
-        },
-        bonus: 'Gun'
+        startAt: 20000,
+        path: [500, -150, 500, height*1.5+150],
       },
       {
         type: 'Plane::Carrier',
-        start: {
-          time: 5000,
-          from: 'top',
-          distance: 300
-        }
+        startAt: 7000,
+        path: [600, -150, 600, height*1.5+150],
       },
       {
         type: 'Plane::Carrier',
-        start: {
-          time: 5500,
-          from: 'top',
-          distance: 350
-        }
+        startAt: 5000,
+        path: [500, -150, 500, height*1.5+150],
       },
       {
         type: 'Plane::Carrier',
-        start: {
-          time: 5500,
-          from: 'top',
-          distance: 250
-        }
+        startAt: 7000,
+        path: [400, -150, 400, height*1.5+150],
       },
       {
         type: 'Boat::Cruiser',
-        start: {
-          time: 0,
-          from: 'left',
-          distance: 100
-        }
+        startAt: 2000,
+        path: [0-150, 800, width*1.5+150, 1000]
       },
       {
         type: 'Boat::Cruiser',
-        start: {
-          time: 0,
-          from: 'left',
-          distance: 200
-        }
-      },      {
-        type: 'Boat::Frigate',
-        start: {
-          time: 0,
-          from: 'top',
-          distance: 500
-        }
+        startAt: 0,
+        path: [0-150, 1000, width*1.5+150, 1500]
+      },
+      {
+        type: 'Boat::Cruiser',
+        startAt: 10000,
+        path: [-150, 800, width*1.5+150, 1000]
+      },
+      {
+        type: 'Boat::Cruiser',
+        startAt: 10000,
+        path: [-150, 1000, width*1.5+150, 1500]
       },
       {
         type: 'Boat::Frigate',
-        start: {
-          time: 4000,
-          from: 'top',
-          distance: 850
-        }
+        startAt: 0,
+        path: [800, -150, 900, height*1.5+150],
+      },
+      {
+        type: 'Boat::Frigate',
+        startAt: 0,
+        path: [600, -150, 700, height*1.5+150],
+      },
+      {
+        type: 'Boat::Frigate',
+        startAt: 0,
+        path: [550, -150, 650, height*1.5+150],
+      },
+      {
+        type: 'Boat::Frigate',
+        path: [width*1.5+150, 600, -150, 800],
       },
       {
         type: 'Plane::Helicopter',
-        start: {
-          time: 500,
-          from: 'top',
-          distance: 750
-        }
+        startAt: 8000,
+        path: [550, -150, 650, height*1.5+150],
       },
       {
         type: 'Plane::Helicopter',
-        start: {
-          time: 10000,
-          from: 'top',
-          distance: 550
-        },
+        startAt: 0,
+        path: [width*1.5+150, 600, -150, 800],
+      },
+      {
+        type: 'Plane::Helicopter',
+        startAt: 8000,
+        path: [450, -150, 450, height*1.5+150],
         bonus: 'Life'
       },
       {
         type: 'Plane::Helicopter',
-        start: {
-          time: 9000,
-          from: 'top',
-          distance: 450
-        }
+        startAt: 0,
+        path: [450, -150, 450, height*1.5+150]
       },
       {
         type: 'Plane::Kamikaze',
-        start: {
-          time: 5000,
-          from: 'top',
-          distance: 700
-        },
+        startAt: 0,
+        path: [500, -150],
         bonus: 'Shield'
       },
       {
         type: 'Plane::Kamikaze',
-        start: {
-          time: 3000,
-          from: 'top',
-          distance: 100
-        }
-      },
-
+        startAt: 5000,
+        path: [500, -150],
+        bonus: 'Shield'
+      }
     ]
   }]
 }

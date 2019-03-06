@@ -9,15 +9,15 @@ A Shoot'em Up game coded with Phaser 3
 - [x] Refacto info bar with scene
 - [x] Handle collisions between vehicles types
 - [x] Vehicles should start based on time not distance
-- [ ] Editor
+- [x] Smoke on touret killed
+- [ ] Player should downgrade on hit
+- [ ] Map Editor
 - [ ] Player bullets range
 - [ ] Player missiles with bonus
 - [ ] Mobile controls
-- [ ] Waves
 - [ ] Leaderboard
-- [ ] Smoke on touret killed
-- [ ] Particles on touret fire
 - [ ] Particles on Player hit by projectile
+- [ ] Particles on touret fire
 - [ ] More boats
 - [ ] More planes
 - [ ] Better graphics

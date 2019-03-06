@@ -21,19 +21,18 @@ export default class Touret extends Phaser.Physics.Arcade.Image {
     this.smokeEmitter = this.smokeParticles.setDepth(2.2).createEmitter({
       name: 'smoke',
       blendMode: 'SCREEN',
-      scale: { start: 0.1, end: 0.3 },
-      speed: 10,
-      rotate: { min: -90, max: 90 },
-      lifespan: 3000,
-      alpha: { start: 0.15, end: 0 },
+      scale: { start: 0.3, end: 1 },
+      speed: 8,
+      rotate: { min: -180, max: 180 },
+      lifespan: 4500,
+      alpha: { start: 1, end: 0 },
       maxParticles: 1,
       radial: true,
-      tint: 0xfffbde,
       on: false,
       follow: this,
-      frequency: 50,
+      frequency: 30,
       maxParticles: 1,
-      tint: 0x65afe3
+      tint: 0x20567c
     }).reserve(100)
     this.hitParticles = this.scene.add.particles('hit').setDepth(1.6)
     this.hitEmitter = this.hitParticles.createEmitter(hitConfig)

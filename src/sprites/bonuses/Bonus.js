@@ -36,7 +36,6 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
   }
 
   destroy() {
-    this.bonusParticles.destroy()
     this.image.destroy()
     super.destroy()
   }

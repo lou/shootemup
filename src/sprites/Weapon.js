@@ -32,7 +32,7 @@ export default class Weapon extends Phaser.GameObjects.Zone {
       bullet.fire(
         { x: this.x, y: this.y, offset: 30, rotation: this.rotation },
         { x: player.x, y: player.y },
-        { speed: this.speed, lifespan: this.lifespan }
+        { speed: this.speed }
       )
     }
   }

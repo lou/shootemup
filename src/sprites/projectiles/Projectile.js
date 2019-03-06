@@ -56,7 +56,7 @@ export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
 
     if (this.lifespan && time - this.firedAt >= Phaser.Math.Between(this.lifespan.min, this.lifespan.max)) {
       if (this.explosive) {
-        this.explosionEmitter.explode(10, this.x, this.y)
+        this.explosionEmitter.explode(20, this.x, this.y)
       }
       this.destroy()
     }

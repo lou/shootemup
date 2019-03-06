@@ -15,14 +15,6 @@ export default class GameScene extends Phaser.Scene {
     super('Game')
   }
 
-  // enemyStartPosition(start) {
-  //   return {
-  //     top: { y: -150, x: start.distance },
-  //     left: { y: start.distance, x: -150 },
-  //     right: { y: start.distance, x: this.physics.world.bounds.width + 150 }
-  //   }[start.from]
-  // }
-
   startWave() {
     this.vehicles.forEach(enemy => {
       this.time.delayedCall(enemy.startAt || 0, () => {
@@ -75,13 +67,12 @@ export default class GameScene extends Phaser.Scene {
     ])
     this.hittables = this.physics.add.group([this.bullets, this.missiles, this.planes])
 
-    this.clouds = this.add.image(this.physics.world.bounds.width/2, -600, 'clouds')
+    this.clouds = this.add.image(this.physics.world.bounds.width/2, 500, 'clouds')
       .setScale(1)
       .setAngle(-30)
       .setDepth(10)
       .setTint(0x65afe3)
 
-    // Colliders
     this.physics.add.overlap(this.player, this.hittables.getChildren(), (player, enemy) => {
       if (!player.invincible)
         player.hitBy(enemy)

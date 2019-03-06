@@ -12,6 +12,7 @@ export default class Boat extends Vehicle {
 
   destroy() {
     this.scene.boats.remove(this)
+    this.tourets.forEach(touret => touret.destroy())
     super.destroy()
   }
 

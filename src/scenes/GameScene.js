@@ -112,12 +112,20 @@ export default class GameScene extends Phaser.Scene {
   destroyOnOutOfBounds(sprite, destroy = true) {
     const size = Math.max(sprite.width, sprite.height)
 
+    if (!sprite.started && (
+      sprite.y > 0 &&
+      sprite.y < this.physics.world.bounds.height &&
+      sprite.x > 0 &&
+      sprite.x < this.physics.world.bounds.width
+    )) {
+      sprite.started = true
+    }
     if (sprite.started && (
-      sprite.y - size > this.physics.world.bounds.height ||
-      sprite.x - size > this.physics.world.bounds.width ||
-      sprite.y < -size ||
-      sprite.x < -size)
-    ) {
+      sprite.y - size - 0 > this.physics.world.bounds.height ||
+      sprite.x - size - 0 > this.physics.world.bounds.width ||
+      sprite.y < -size - 0 ||
+      sprite.x < -size - 0
+    )) {
       if (destroy) {
         sprite.destroy()
       }

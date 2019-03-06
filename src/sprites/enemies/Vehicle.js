@@ -13,12 +13,10 @@ export default class Vehicle extends ContainerLite {
       vehicleImage.width + bodyOffset,
       vehicleImage.height + bodyOffset
     )
-
     this.keepRotation = options.keepRotation
     this.path = options.path
     this.scene = scene
     this.speed = options.speed
-    this.started = false
     this.lights = {
       bottom: { y: -25 },
       side: { y: -6, x: 25 },

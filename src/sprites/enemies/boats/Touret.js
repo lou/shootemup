@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import Weapon from '../../Weapon'
+import { hitConfig } from '../../projectiles/Projectile'
 
 export default class Touret extends Phaser.Physics.Arcade.Image {
   constructor(scene, options) {

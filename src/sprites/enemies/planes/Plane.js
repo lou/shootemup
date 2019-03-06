@@ -1,5 +1,6 @@
 import Vehicle from '../Vehicle'
 import { bonuses }  from '../../bonuses'
+import { hitConfig } from '../../projectiles/Projectile'
 
 export default class Plane extends Vehicle {
   constructor(scene, key, options = {}) {
@@ -27,6 +28,9 @@ export default class Plane extends Vehicle {
       speed: { min: 0, max: 1 },
       tint: 0x20567c,
       on: false,
+      deathCallback: () => {
+        this.splashParticles.destroy()
+      }
     });
 
     this.enemyEmitter = this.enemyParticles.createEmitter({
@@ -42,16 +46,16 @@ export default class Plane extends Vehicle {
       deathCallback: (particles) => {
         this.splashEmitter.explode(30, particles.x, particles.y)
         this.enemyParticles.destroy()
-        scene.time.delayedCall(2000, () => {
-          this.splashParticles.destroy()
-        })
       }
     })
-
+    this.hitParticles = this.scene.add.particles('hit').setDepth(1.6)
+    this.hitEmitter = this.hitParticles.createEmitter(hitConfig)
   }
 
   kill() {
     this.enemyEmitter.setPosition(this.x, this.y).start()
+    this.hitParticles.destroy()
+    this.scene.events.emit('addScore', this.points)
     this.destroy()
   }
 

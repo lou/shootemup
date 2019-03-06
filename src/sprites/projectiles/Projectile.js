@@ -12,37 +12,24 @@ export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
       this.explosionParticles = this.scene.add.particles('fire')
       this.explosionEmitter = this.explosionParticles.setDepth(1.9).createEmitter({
         name: 'explosion',
-        scale: { start: 0.6, end: 0.6 },
-        speed: 10,
+        scale: { start: 0.1, end: 0.6 },
+        speed: 20,
         rotate: { min: -180, max: 180 },
-        lifespan: { min: 100, max: 600 },
+        lifespan: 500,
         alpha: { start: 1, end: 0 },
-        maxParticles: 10,
+        maxParticles: 30,
         radial: true,
         tint: 0xfffbde,
         on: false
-      })
-    } else {
-      this.hitParticles = this.scene.add.particles('hit')
-      this.hitEmitter = this.hitParticles.createEmitter({
-        name: 'hit',
-        scale: { start: 0.3, end: 0 },
-        rotate: { min: -180, max: 180 },
-        speed: { min: 10, max: 150 },
-        lifespan: 150,
-        on: false,
-        tint: 0xfff5db,
-        blendMode: 'SCREEN'
       })
     }
   }
 
   hit(enemy) {
     if (enemy.active) {
-      enemy.armor -= this.force
       this.scene.events.emit('addScore', 1)
-      this.hitParticles.setDepth(enemy.depth + 1)
-      this.hitEmitter.explode(1, this.x, this.y)
+      enemy.armor -= this.force
+      enemy.hitEmitter.explode(1, this.x, this.y)
       this.setActive(false).setVisible(false)
     }
   }
@@ -82,9 +69,18 @@ export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
           this.explosionParticles.destroy()
         })
       }
-    } else {
-      this.hitParticles.destroy()
     }
     super.destroy()
   }
+}
+
+export const hitConfig = {
+  name: 'hit',
+  scale: { start: 0.3, end: 0 },
+  rotate: { min: -180, max: 180 },
+  speed: { min: 10, max: 150 },
+  lifespan: 150,
+  on: false,
+  tint: 0xfff5db,
+  blendMode: 'SCREEN',
 }

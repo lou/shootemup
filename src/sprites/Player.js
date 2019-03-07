@@ -138,7 +138,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   }
 
   fireGun(bullets, offset = { x: 0, y: 0 }) {
-    let bullet = bullets.get().setActive(true).setVisible(true)
+    let bullet = bullets.get()
 
     if (bullet) {
       bullet.fire(
@@ -149,7 +149,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   }
 
   fireMissiles() {
-    let missile = this.missiles.get().setActive(true).setVisible(true)
+    let missile = this.missiles.get()
 
     if (missile) {
       missile.fire(

@@ -8,7 +8,6 @@ export default class Missile extends Projectile {
     })
     this.firedAt = 0
     this.setTint(0x65afe3)
-    this.destroyable = true
     this.smokeParticles = this.scene.add.particles('particle').setDepth(2)
     this.smokeEmitter = this.smokeParticles.createEmitter({
       name: 'missile_trail',

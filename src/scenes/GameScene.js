@@ -117,12 +117,7 @@ export default class GameScene extends Phaser.Scene {
       sprite.y < -size - 0 ||
       sprite.x < -size - 0
     )) {
-      if (destroy) {
-        sprite.destroy()
-      }
-      else {
-        sprite.setVisible(false).setActive(false)
-      }
+      sprite.destroy()
     }
   }
 

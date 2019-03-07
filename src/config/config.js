@@ -100,7 +100,7 @@ export const config = {
         type: 'Plane::Kamikaze',
         startAt: 5000,
         path: [500, -150],
-        bonus: 'Shield'
+        bonus: 'Missile'
       }
     ]
   }]

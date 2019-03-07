@@ -6,6 +6,7 @@ export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
     this.force = options.force || 1
     this.lifespan = options.lifespan
     this.explosive = options.explosive
+    this.speed = options.speed || 1000
     this.firedAt = null
     this.setDepth(2)
     if (this.explosive) {
@@ -30,17 +31,21 @@ export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
       this.scene.events.emit('addScore', 1)
       enemy.armor -= this.force
       enemy.hitEmitter.explode(1, this.x, this.y)
-      this.setActive(false).setVisible(false)
+      if (this.destroyable) {
+        this.destroy()
+      } else {
+        this.setActive(false).setVisible(false)
+      }
     }
   }
 
-  fire(shooter, target, options = { speed: 1000 }) {
+  fire(shooter, target) {
     this.setPosition(shooter.x, shooter.y)
     const angle = Math.atan((target.x-this.x) / (target.y-this.y))
     const direction = target.y > this.y ? 1 : -1
 
-    this.setVelocityX(options.speed*Math.sin(angle)*direction)
-    this.setVelocityY(options.speed*Math.cos(angle)*direction)
+    this.setVelocityX(this.speed*Math.sin(angle)*direction)
+    this.setVelocityY(this.speed*Math.cos(angle)*direction)
 
     this.rotation = Phaser.Math.Angle.BetweenPoints(shooter, target) - Math.PI/2
   }

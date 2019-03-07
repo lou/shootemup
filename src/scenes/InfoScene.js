@@ -48,10 +48,9 @@ export default class InfoScene extends Phaser.Scene {
         this.lives += life
         this.livesText.setText(this.lives.toLocaleString())
         if (this.lives <= 0) {
-          this.game.player.bullets.destroy()
+          this.game.player.projectiles.destroy()
           this.game.enemies.destroy()
           this.game.projectiles.destroy()
-          this.game.destroyables.destroy()
           this.game.hittables.destroy()
           this.scene.pause('Game')
           this.scene.launch('GameOver')

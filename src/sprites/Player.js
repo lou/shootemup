@@ -1,5 +1,6 @@
 import Phaser from 'phaser'
 import Bullet  from './projectiles/Bullet'
+import Missile  from './projectiles/Missile'
 import Projectile from './projectiles/Projectile'
 
 export default class Player extends Phaser.Physics.Arcade.Image {
@@ -20,12 +21,16 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       .setTint(0x030b14)
     this.shield = false
     this.guns = 1
+    this.missilesActivated = false
     this.invincible = false
     this.thruster = scene.add.image(this.x, this.y, 'thruster').setScale(0.5).setDepth(1.9)
 
     this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
     this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
-    this.bullets = scene.physics.add.group([this.bullets1, this.bullets2])
+    this.missiles = scene.physics.add.group({ classType: Missile, runChildUpdate: true }).setDepth(2)
+    this.projectiles = scene.physics.add.group([this.bullets1, this.bullets2, this.missiles])
+
+    this.missileLastFire = 1
 
     this.shieldSprite = this.scene.add.sprite(x, y, 'bonus').setScale(0.8)
 
@@ -49,6 +54,14 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       duration: 5000,
       repeat: -1,
     });
+    this.missilesTimer = this.scene.time.addEvent({
+      delay: 800,
+      callback: () => {
+        if (this.missilesActivated) this.fireMissiles()
+      },
+      loop: true
+    })
+    this.missilesTimer.paused = true
   }
 
   moveShield() {
@@ -127,6 +140,18 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     }
   }
 
+  fireMissiles() {
+    let missile = this.missiles.get().setActive(true).setVisible(true)
+
+    if (missile) {
+      missile.fire(
+        { x: this.x + 18 * this.missileLastFire, y: this.y + 20, rotation: this.rotation },
+        { x: this.x + 18 * this.missileLastFire, y: 0 }
+      )
+      this.missileLastFire *= -1
+    }
+  }
+
   fire() {
     if (this.guns > 1){
       this.fireGun(this.bullets1, { x: +5, y: 5 })
@@ -134,6 +159,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     } else {
       this.fireGun(this.bullets1)
     }
+    this.missilesTimer.paused = false
   }
 
   move(cursors, time) {
@@ -170,6 +196,10 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     if (cursors.space.isDown) {
       this.fire()
+    }
+
+    if (cursors.space.isUp) {
+      this.missilesTimer.paused = true
     }
 
     this.shieldSprite.setActive(this.shield).setVisible(this.shield)

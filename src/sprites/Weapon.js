@@ -27,12 +27,12 @@ export default class Weapon extends Phaser.GameObjects.Zone {
   fire() {
     const { player } = this.scene
     const bullet = this.scene[this.type].get().setVisible(true).setActive(true)
+    bullet.speed = this.speed
 
     if (bullet) {
       bullet.fire(
         { x: this.x, y: this.y, offset: 30, rotation: this.rotation },
-        { x: player.x, y: player.y },
-        { speed: this.speed }
+        { x: player.x, y: player.y }
       )
     }
   }

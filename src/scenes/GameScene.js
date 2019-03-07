@@ -56,15 +56,6 @@ export default class GameScene extends Phaser.Scene {
     this.bullets = this.physics.add.group({ runChildUpdate: true, classType: ExplosiveBullet })
     this.missiles = this.physics.add.group({ runChildUpdate: true, classType: Missile })
     this.projectiles = this.physics.add.group([this.bullets, this.missiles])
-    this.destroyables = this.physics.add.group([
-      this.planes,
-      this.boats,
-      this.player.bullets1,
-      this.player.bullets2,
-      this.bullets,
-      this.missiles,
-      this.bonuses
-    ])
     this.hittables = this.physics.add.group([this.bullets, this.missiles, this.planes])
 
     this.clouds = this.add.image(this.physics.world.bounds.width/2, 500, 'clouds')
@@ -77,7 +68,7 @@ export default class GameScene extends Phaser.Scene {
       if (!player.invincible)
         player.hitBy(enemy)
     })
-    this.physics.add.overlap(this.enemies.getChildren(), this.player.bullets.getChildren(), (enemy, bullet) => {
+    this.physics.add.overlap(this.enemies.getChildren(), this.player.projectiles.getChildren(), (enemy, bullet) => {
       if (bullet.active) {
         bullet.hit(enemy)
       }

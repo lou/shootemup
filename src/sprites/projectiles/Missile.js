@@ -4,26 +4,26 @@ export default class Missile extends Projectile {
   constructor(scene) {
     super(scene, 'missile', {
       force: 10,
+      speed: 400
     })
     this.firedAt = 0
     this.setTint(0x65afe3)
-    this.smokeParticles = this.scene.add.particles('particle')
+    this.destroyable = true
+    this.smokeParticles = this.scene.add.particles('particle').setDepth(2)
     this.smokeEmitter = this.smokeParticles.createEmitter({
       name: 'missile_trail',
-      scale: { start: 0.2, end: 0.1 },
+      scale: { start: 0.22, end: 0 },
       alpha: { start: 1, end: 0 },
       rotate: { min: -45, max: 45 },
       lifespan: 400,
-      on: true
+      speed: 2,
+      on: true,
+      follow: this
     })
   }
 
   destroy() {
     this.smokeParticles.destroy()
     super.destroy()
-  }
-
-  preUpdate() {
-    this.smokeEmitter.setPosition(this.x, this.y)
   }
 }

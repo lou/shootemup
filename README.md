@@ -16,11 +16,13 @@ A Shoot'em Up game coded with Phaser 3
 - [ ] Restart menu button
 - [ ] Leaderboard
 - [ ] Mobile controls
+- [ ] Improve enemies apparition (start with fewer enemies and improve difficulty with time)
 - [ ] More boats
 - [ ] More planes
 - [ ] Map Editor
 - [ ] Particles on Player hit by projectile
 - [ ] Particles on touret fire
-- [ ] Better graphics
+- [ ] Boats wakes
+- [ ] Better graphisms
 - [ ] Weather engine
 - [ ] Add sound

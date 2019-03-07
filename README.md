@@ -16,7 +16,7 @@ A Shoot'em Up game coded with Phaser 3
 - [ ] Restart menu button
 - [ ] Leaderboard
 - [ ] Mobile controls
-- [ ] Improve enemies apparition (start with fewer enemies and improve difficulty with time)
+- [ ] Improve enemies apparition (start with fewer enemies and improve difficulty over time)
 - [ ] More boats
 - [ ] More planes
 - [ ] Map Editor

@@ -12,7 +12,7 @@ A Shoot'em Up game coded with Phaser 3
 - [x] Smoke on touret killed
 - [x] Player missiles with bonus
 - [x] Player should downgrade on hit
-- [ ] Player bullets range
+- [x] Player bullets range
 - [ ] More boats
 - [ ] More planes
 - [ ] Map Editor

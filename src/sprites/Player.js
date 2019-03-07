@@ -140,6 +140,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   fireGun(bullets, offset = { x: 0, y: 0 }) {
     let bullet = bullets.get()
 
+    bullet.lifespan = { min: 600, max: 600 }
     if (bullet) {
       bullet.fire(
         { x: this.x + this.angle + offset.x, y: this.y - 30 + offset.y, rotation: this.rotation },

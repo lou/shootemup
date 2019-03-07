@@ -11,7 +11,7 @@ A Shoot'em Up game coded with Phaser 3
 - [x] Vehicles should start based on time not distance
 - [x] Smoke on touret killed
 - [x] Player missiles with bonus
-- [ ] Player should downgrade on hit
+- [x] Player should downgrade on hit
 - [ ] Player bullets range
 - [ ] More boats
 - [ ] More planes

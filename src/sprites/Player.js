@@ -75,7 +75,15 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.shield = true
   }
 
+  downgrade() {
+    if (this.missilesActivated) {
+      this.missilesActivated = false
+    } else {
+      this.guns = 1
+    }
+  }
   takeLife() {
+    this.downgrade()
     this.scene.cameras.main.shake(300, 0.01)
     this.scene.events.emit('addLife', -1)
     this.invincible = true

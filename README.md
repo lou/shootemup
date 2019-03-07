@@ -13,11 +13,12 @@ A Shoot'em Up game coded with Phaser 3
 - [x] Player missiles with bonus
 - [x] Player should downgrade on hit
 - [x] Player bullets range
+- [ ] Restart menu button
+- [ ] Leaderboard
+- [ ] Mobile controls
 - [ ] More boats
 - [ ] More planes
 - [ ] Map Editor
-- [ ] Mobile controls
-- [ ] Leaderboard
 - [ ] Particles on Player hit by projectile
 - [ ] Particles on touret fire
 - [ ] Better graphics

@@ -203,13 +203,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         this.body.velocity.x = Math.min(0, this.body.velocity.x + deceleration)
     }
 
-    if (cursors.space.isDown) {
-      this.fire()
-    }
-
-    if (cursors.space.isUp) {
-      this.missilesTimer.paused = true
-    }
+    this.fire()
 
     this.shieldSprite.setActive(this.shield).setVisible(this.shield)
     this.moveShield()

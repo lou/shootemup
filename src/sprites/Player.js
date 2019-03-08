@@ -176,14 +176,13 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.setAcceleration(0, 0)
     const acceleration = 2000
     const deceleration = 10
-    const touchOffset = 100
 
     this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
     this.setAngle(0)
     this.thruster.setPosition(this.x, this.y + 25)
-    if (cursors.up.isDown || this.pointer.isDown && this.pointer.worldY < this.y - touchOffset) {
+    if (cursors.up.isDown || this.pointer.isDown && this.pointer.worldY < this.y - 100) {
       this.setAccelerationY(-acceleration)
-    } else if (cursors.down.isDown || this.pointer.isDown && this.pointer.worldY > this.y + touchOffset) {
+    } else if (cursors.down.isDown || this.pointer.isDown && this.pointer.worldY > this.y + 100) {
       this.setAccelerationY(acceleration)
     } else {
       if (this.body.velocity.y > 0)
@@ -192,10 +191,10 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         this.body.velocity.y = Math.min(0, this.body.velocity.y + deceleration)
     }
 
-    if (cursors.left.isDown || this.pointer.isDown && this.pointer.worldX < this.x - touchOffset) {
+    if (cursors.left.isDown || this.pointer.isDown && this.pointer.worldX < this.x - 100) {
       this.setAccelerationX(-acceleration)
       this.setAngle(5)
-    } else if (cursors.right.isDown || this.pointer.isDown && this.pointer.worldX > this.x + touchOffset) {
+    } else if (cursors.right.isDown || this.pointer.isDown && this.pointer.worldX > this.x + 100) {
       this.setAccelerationX(acceleration)
       this.setAngle(-5)
     } else {
@@ -203,6 +202,10 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         this.body.velocity.x = Math.max(0, this.body.velocity.x - deceleration)
       else if (this.body.velocity.x < 0)
         this.body.velocity.x = Math.min(0, this.body.velocity.x + deceleration)
+    }
+
+    if (this.pointer.isDown) {
+      this.scene.physics.moveTo(this, this.pointer.worldX, this.pointer.worldY, 450)
     }
 
     this.fire()

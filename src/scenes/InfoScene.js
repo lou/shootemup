@@ -14,7 +14,7 @@ export default class InfoScene extends Phaser.Scene {
     this.graphics.fillStyle(0x000000, 1)
     this.graphics.fillRect(0, height-59, width, 60).setAlpha(0.7)
 
-    const offset = 190
+    const offset = 240
     this.add.image(width / 2 - offset, height - 32, 'life-icon').setScale(0.6)
     this.livesText = this.add.text(width / 2 - offset + 15, height - 45, this.lives, {
       fontFamily: 'Arial',

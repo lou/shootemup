@@ -62,6 +62,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       loop: true
     })
     this.missilesTimer.paused = true
+    this.pointer = this.scene.input.activePointer
   }
 
   moveShield() {
@@ -175,13 +176,14 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.setAcceleration(0, 0)
     const acceleration = 2000
     const deceleration = 10
+    const touchOffset = 100
 
     this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
     this.setAngle(0)
     this.thruster.setPosition(this.x, this.y + 25)
-    if (cursors.up.isDown) {
+    if (cursors.up.isDown || this.pointer.isDown && this.pointer.worldY < this.y - touchOffset) {
       this.setAccelerationY(-acceleration)
-    } else if (cursors.down.isDown) {
+    } else if (cursors.down.isDown || this.pointer.isDown && this.pointer.worldY > this.y + touchOffset) {
       this.setAccelerationY(acceleration)
     } else {
       if (this.body.velocity.y > 0)
@@ -190,10 +192,10 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         this.body.velocity.y = Math.min(0, this.body.velocity.y + deceleration)
     }
 
-    if (cursors.left.isDown) {
+    if (cursors.left.isDown || this.pointer.isDown && this.pointer.worldX < this.x - touchOffset) {
       this.setAccelerationX(-acceleration)
       this.setAngle(5)
-    } else if (cursors.right.isDown) {
+    } else if (cursors.right.isDown || this.pointer.isDown && this.pointer.worldX > this.x + touchOffset) {
       this.setAccelerationX(acceleration)
       this.setAngle(-5)
     } else {

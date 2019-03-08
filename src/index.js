@@ -10,8 +10,8 @@ const config = {
   scene: scenes,
   backgroundColor: '#030b14',
   scale: {
-    mode: Phaser.Scale.FIT,
-    autoCenter: Phaser.Scale.HEIGHT_CONTROLS_WIDTH
+    mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
+    autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
   },
   physics: {
     default: 'arcade',

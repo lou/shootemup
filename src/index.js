@@ -3,13 +3,13 @@ import { width, height } from './config/config'
 import scenes from './scenes/scenes'
 
 const config = {
-  width,
-  height,
   type: Phaser.AUTO,
   parent: 'phaser-game',
   scene: scenes,
   backgroundColor: '#030b14',
   scale: {
+    width,
+    height,
     mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
     autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
   },

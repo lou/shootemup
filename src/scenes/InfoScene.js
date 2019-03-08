@@ -14,14 +14,15 @@ export default class InfoScene extends Phaser.Scene {
     this.graphics.fillStyle(0x000000, 1)
     this.graphics.fillRect(0, height-59, width, 60).setAlpha(0.7)
 
-    this.add.image(30, height - 32, 'life-icon').setScale(0.6)
-    this.livesText = this.add.text(45, height - 45, this.lives, {
+    const offset = 190
+    this.add.image(width / 2 - offset, height - 32, 'life-icon').setScale(0.6)
+    this.livesText = this.add.text(width / 2 - offset + 15, height - 45, this.lives, {
       fontFamily: 'Arial',
       fontSize: '24px',
       color: '#FFF'
     })
 
-    this.scoreText = this.add.text(width - 30, height - 45, this.score, {
+    this.scoreText = this.add.text(width / 2 + offset, height - 45, this.score, {
       fontFamily: 'Arial',
       fontSize: '24px',
       color: '#FFF',

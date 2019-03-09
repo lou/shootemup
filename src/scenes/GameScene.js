@@ -6,7 +6,7 @@ import { boats } from '../sprites/enemies/boats'
 import Plane from '../sprites/enemies/planes/Plane'
 import Boat from '../sprites/enemies/boats/Boat'
 import Touret from '../sprites/enemies/boats/Touret'
-import { config, width, height } from '../config/config'
+import { config, width, height, worldWidth, worldHeight } from '../config/config'
 import ExplosiveBullet  from '../sprites/projectiles/ExplosiveBullet'
 import Missile  from '../sprites/projectiles/Missile'
 
@@ -38,8 +38,8 @@ export default class GameScene extends Phaser.Scene {
     }
     this.scene.launch('Info')
     this.started = true
-    this.physics.world.setBounds(0, 0, width*1.5, height*1.5)
-    this.cameras.main.setBounds(0, 0, width*1.5, height*1.5)
+    this.physics.world.setBounds(0, 0, worldHeight, worldHeight)
+    this.cameras.main.setBounds(0, 0, worldHeight, worldHeight)
 
     this.vehicles = config.waves[this.wave.index].enemies.map((enemy, index) => ({ id: index, ...enemy }))
 

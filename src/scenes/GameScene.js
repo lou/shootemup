@@ -38,8 +38,8 @@ export default class GameScene extends Phaser.Scene {
     }
     this.scene.launch('Info')
     this.started = true
-    this.physics.world.setBounds(0, 0, worldHeight, worldHeight)
-    this.cameras.main.setBounds(0, 0, worldHeight, worldHeight)
+    this.physics.world.setBounds(0, 0, worldWidth, worldHeight)
+    this.cameras.main.setBounds(0, 0, worldWidth, worldHeight)
 
     this.vehicles = config.waves[this.wave.index].enemies.map((enemy, index) => ({ id: index, ...enemy }))
 

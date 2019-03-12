@@ -5,16 +5,41 @@ export default class Vehicle extends ContainerLite {
   constructor(scene, key, options) {
     const vehicleImage = scene.textures.get(key).getSourceImage()
     const bodyOffset = options.bodyOffset || 0
+    let path = options.path
+    let target
 
+    if (options.follow) {
+      target = scene.planes.getChildren()[options.follow.target]
+      path = target.path
+
+      const direction = Math.PI/2 + Phaser.Math.Angle.BetweenPoints(target.path[0], target.path[1])
+
+      path = target.path.map(point => {
+        if (options.follow.offsetX) {
+          return {
+            x: point.x - options.follow.offsetX * Math.cos(direction),
+            y: point.y - options.follow.offsetX * Math.sin(direction)
+          }
+        } else if (options.follow.offsetY) {
+          return {
+            x: point.x - options.follow.offsetY * Math.cos(direction + 1.5708),
+            y: point.y - options.follow.offsetY * Math.sin(direction + 1.5708)
+          }
+        } else {
+          return point
+        }
+      })
+    }
     super(
       scene,
-      options.path[0],
-      options.path[1],
+      path[0].x,
+      path[0].y,
       vehicleImage.width + bodyOffset,
       vehicleImage.height + bodyOffset
     )
+    this.target = target
+    this.path = path
     this.keepRotation = options.keepRotation
-    this.path = options.path
     this.scene = scene
     this.speed = options.speed
     this.lights = {
@@ -23,7 +48,7 @@ export default class Vehicle extends ContainerLite {
       duration: Phaser.Math.Between(900, 1900),
       ...options.lights
     }
-    this.vehicle = scene.add.image(options.path[0], options.path[1], key)
+    this.vehicle = scene.add.image(this.path[0].x, this.path[0].y, key)
     this.vehicle.setTint(0x20567c)
     this.addLights()
     this.add([this.vehicle, this.lightBottom, this.lightLeft, this.lightRight])
@@ -33,13 +58,16 @@ export default class Vehicle extends ContainerLite {
   }
 
   update() {
-    if (this.path[2]) {
+    if (this.target) {
+      this.rotation = this.target.rotation
+    }
+    if (this.path[1]) {
       if (!this.keepRotation) {
         this.setRotation(
-          Phaser.Math.Angle.Between(this.path[0], this.path[1], this.path[2], this.path[3]) - Math.PI/2
+          Phaser.Math.Angle.BetweenPoints(this.path[0], this.path[1]) - Math.PI/2
         )
       }
-      this.scene.physics.moveTo(this, this.path[2], this.path[3], this.speed)
+      this.scene.physics.moveTo(this, this.path[1].x, this.path[1].y, this.speed)
     }
     this.scene.destroyOnOutOfBounds(this)
   }

@@ -3,8 +3,8 @@ import Plane from './Plane'
 export default class Bomber extends Plane {
   constructor(scene, options) {
     super(scene, 'bomber', {
-      speed: 80,
-      armor: 120,
+      speed: 60,
+      armor: 140,
       points: 1,
       ...options
     })

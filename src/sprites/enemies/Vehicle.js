@@ -8,22 +8,22 @@ export default class Vehicle extends ContainerLite {
     let path = options.path
     let target
 
-    if (options.follow) {
-      target = scene.planes.getChildren()[options.follow.target]
+    if (options.escort) {
+      target = scene.planes.getChildren().find(plane => plane.id === options.escort.targetId)
       path = target.path
 
       const direction = Math.PI/2 + Phaser.Math.Angle.BetweenPoints(target.path[0], target.path[1])
 
       path = target.path.map(point => {
-        if (options.follow.offsetX) {
+        if (options.escort.offsetX) {
           return {
-            x: point.x - options.follow.offsetX * Math.cos(direction),
-            y: point.y - options.follow.offsetX * Math.sin(direction)
+            x: point.x - options.escort.offsetX * Math.cos(direction),
+            y: point.y - options.escort.offsetX * Math.sin(direction)
           }
-        } else if (options.follow.offsetY) {
+        } else if (options.escort.offsetY) {
           return {
-            x: point.x - options.follow.offsetY * Math.cos(direction + 1.5708),
-            y: point.y - options.follow.offsetY * Math.sin(direction + 1.5708)
+            x: point.x - options.escort.offsetY * Math.cos(direction + 1.5708),
+            y: point.y - options.escort.offsetY * Math.sin(direction + 1.5708)
           }
         } else {
           return point
@@ -37,6 +37,7 @@ export default class Vehicle extends ContainerLite {
       vehicleImage.width + bodyOffset,
       vehicleImage.height + bodyOffset
     )
+    this.id = options.id
     this.target = target
     this.path = path
     this.keepRotation = options.keepRotation

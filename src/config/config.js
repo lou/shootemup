@@ -8,40 +8,45 @@ export const config = {
     {
       enemies: [
       {
+        id: 0,
         type: 'Plane::Bomber',
         startAt: 0,
         path: [{ x: worldWidth/3, y: 150 }, { x: worldWidth/2 + 300, y: worldHeight+150 }],
         bonus: 'life'
       },
       {
+        id: 1,
         startAt: 0,
         type: 'Plane::Carrier',
-        follow: {
-          target: 0,
+        escort: {
+          targetId: 0,
           offsetX: 150
         }
       },
       {
+        id: 2,
         startAt: 0,
         type: 'Plane::Carrier',
-        follow: {
-          target: 0,
+        escort: {
+          targetId: 0,
           offsetX: -150
         }
       },
       {
+        id: 3,
         startAt: 0,
         type: 'Plane::Carrier',
-        follow: {
-          target: 0,
+        escort: {
+          targetId: 0,
           offsetY: 150
         }
       },
       {
+        id: 4,
         startAt: 0,
         type: 'Plane::Carrier',
-        follow: {
-          target: 0,
+        escort: {
+          targetId: 0,
           offsetY: -150
         }
       },

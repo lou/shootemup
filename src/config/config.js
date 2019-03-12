@@ -11,182 +11,123 @@ export const config = {
         id: 0,
         type: 'Plane::Bomber',
         startAt: 0,
-        path: [{ x: worldWidth/3, y: 150 }, { x: worldWidth/2 + 300, y: worldHeight+150 }],
+        path: [{ x: worldWidth/3, y: -150 }, { x: worldWidth/2 + 300, y: worldHeight+150 }],
         bonus: 'Life'
       },
       {
         id: 1,
-        startAt: 0,
         type: 'Plane::Carrier',
         escort: {
           targetId: 0,
+          targetGroup: 'planes',
           position: 'left'
         }
       },
       {
         id: 2,
-        startAt: 0,
         type: 'Plane::Carrier',
         escort: {
           targetId: 0,
+          targetGroup: 'planes',
           position: 'right'
         }
       },
       {
         id: 3,
-        startAt: 0,
         type: 'Plane::Carrier',
         escort: {
           targetId: 0,
+          targetGroup: 'planes',
           offset: 100,
           position: 'top'
         }
       },
       {
         id: 4,
-        startAt: 0,
+        startAt: 8000,
         type: 'Plane::Carrier',
         escort: {
           targetId: 0,
+          targetGroup: 'planes',
           position: 'bottom'
         }
       },
       {
         id: 5,
-        type: 'Plane::Bomber',
-        startAt: 0,
-        path: [{ x: worldWidth/2, y: worldHeight+150 }, { x: worldWidth/3 + 300, y: -150 }],
-        bonus: 'Life'
+        startAt: 10000,
+        type: 'Plane::Carrier',
+        path: [{ x: worldWidth/2 - 100, y: -150 }, { x: worldWidth/2 - 100, y: worldHeight+150 }],
       },
       {
         id: 6,
-        startAt: 0,
+        startAt: 10000,
         type: 'Plane::Carrier',
-        escort: {
-          targetId: 5,
-          position: 'left'
-        }
+        path: [{ x: worldWidth/2 + 100, y: -150 }, { x: worldWidth/2 + 100, y: worldHeight+150 }],
       },
       {
         id: 7,
-        startAt: 0,
-        type: 'Plane::Carrier',
-        escort: {
-          targetId: 5,
-          position: 'right'
-        }
+        type: 'Plane::Bomber',
+        startAt: 20000,
+        path: [{ x: 500, y: -150 }, { x: 500, y: worldHeight+150 }],
       },
       {
         id: 8,
-        startAt: 0,
         type: 'Plane::Carrier',
-        escort: {
-          targetId: 5,
-          offset: 100,
-          position: 'top'
-        }
+        startAt: 1000,
+        path: [{ x: 400, y: -150}, {x: 400, y: worldHeight+150 }],
       },
       {
         id: 9,
+        type: 'Boat::Cruiser',
         startAt: 0,
-        type: 'Plane::Carrier',
+        path: [{ x: 0-150, y: 800 }, { x: worldWidth+150, y: 1000}]
+      },
+      {
+        id: 10,
+        type: 'Boat::Cruiser',
+        startAt: 0,
+        path: [{ x: 0-150, y: 1000 }, { x: worldWidth+150, y: 1500 }]
+      },
+      {
+        id: 11,
+        type: 'Boat::Cruiser',
+        startAt: 10000,
+        path: [{ x: -150, y: 800 }, { x: worldWidth+150, y: 1000 }]
+      },
+      {
+        id: 12,
+        type: 'Boat::Cruiser',
+        startAt: 10000,
+        path: [{ x: -150, y: 1000 }, { x: worldWidth+150, y: 1500 }]
+      },
+      {
+        id: 13,
+        type: 'Boat::Frigate',
+        path: [{ x: worldWidth+150, y: 600 }, { x: -150, y: 800 }],
+      },
+      {
+        id: 14,
+        type: 'Plane::Helicopter',
+        startAt: 10000,
         escort: {
-          targetId: 5,
-          position: 'bottom'
+          targetId: 12,
+          targetGroup: 'boats',
+          position: 'bottom',
+          offset: -40
         }
       },
-      // {
-      //   startAt: 10000,
-      //   type: 'Plane::Carrier',
-      //   path: [worldWidth/2 - 100, -150, worldWidth/2 - 100, worldHeight+150],
-      // },
-      // {
-      //   startAt: 10000,
-      //   type: 'Plane::Carrier',
-      //   path: [worldWidth/2 + 100, -150, worldWidth/2 + 100, worldHeight+150],
-      // },
-      // {
-      //   type: 'Plane::Bomber',
-      //   startAt: 20000,
-      //   path: [500, -150, 500, worldHeight+150],
-      // },
-      // {
-      //   type: 'Plane::Carrier',
-      //   startAt: 7000,
-      //   path: [400, -150, 400, worldHeight+150],
-      // },
-      // {
-      //   type: 'Boat::Cruiser',
-      //   startAt: 2000,
-      //   path: [0-150, 800, worldWidth+150, 1000]
-      // },
-      // {
-      //   type: 'Boat::Cruiser',
-      //   startAt: 0,
-      //   path: [0-150, 1000, worldWidth+150, 1500]
-      // },
-      // {
-      //   type: 'Boat::Cruiser',
-      //   startAt: 10000,
-      //   path: [-150, 800, worldWidth+150, 1000]
-      // },
-      // {
-      //   type: 'Boat::Cruiser',
-      //   startAt: 10000,
-      //   path: [-150, 1000, worldWidth+150, 1500]
-      // },
-      // {
-      //   type: 'Boat::Frigate',
-      //   startAt: 0,
-      //   path: [800, -150, 900, worldHeight+150],
-      // },
-      // {
-      //   type: 'Boat::Frigate',
-      //   startAt: 0,
-      //   path: [600, -150, 700, worldHeight+150],
-      // },
-      // {
-      //   type: 'Boat::Frigate',
-      //   startAt: 0,
-      //   path: [550, -150, 650, worldHeight+150],
-      // },
-      // {
-      //   type: 'Boat::Frigate',
-      //   path: [worldWidth+150, 600, -150, 800],
-      // },
-      // {
-      //   type: 'Plane::Helicopter',
-      //   startAt: 8000,
-      //   path: [550, -150, 650, worldHeight+150],
-      // },
-      // {
-      //   type: 'Plane::Helicopter',
-      //   startAt: 0,
-      //   path: [worldWidth+150, 600, -150, 800],
-      // },
-      // {
-      //   type: 'Plane::Helicopter',
-      //   startAt: 8000,
-      //   path: [450, -150, 450, worldHeight+150],
-      //   bonus: 'Life'
-      // },
-      // {
-      //   type: 'Plane::Helicopter',
-      //   startAt: 0,
-      //   path: [450, -150, 450, worldHeight+150]
-      // },
-      // {
-      //   type: 'Plane::Kamikaze',
-      //   startAt: 0,
-      //   path: [500, -150],
-      //   bonus: 'Shield'
-      // },
-      // {
-      //   type: 'Plane::Kamikaze',
-      //   startAt: 5000,
-      //   path: [500, -150],
-      //   bonus: 'Missile'
-      // }
+      {
+        type: 'Plane::Kamikaze',
+        startAt: 0,
+        path: [{ x: 500, y: -150 }],
+        bonus: 'Shield'
+      },
+      {
+        type: 'Plane::Kamikaze',
+        startAt: 5000,
+        path: [{ x: 500, y: -150 }],
+        bonus: 'Missile'
+      }
     ]
   }]
 }

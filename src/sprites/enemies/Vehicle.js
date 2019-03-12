@@ -22,9 +22,10 @@ export default class Vehicle extends ContainerLite {
     const vehicleSize = Math.max(vehicleImage.width, vehicleImage.height)
     const bodyOffset = options.bodyOffset || 0
     let path = options.path
+    let target
 
     if (options.escort) {
-      let target = scene.planes.getChildren().find(plane => plane.id === options.escort.targetId)
+      target = scene[options.escort.targetGroup].getChildren().find(vehicle => vehicle.id === options.escort.targetId)
 
       path = pathForEscort(options.escort, target, vehicleSize)
     }
@@ -39,7 +40,7 @@ export default class Vehicle extends ContainerLite {
     this.path = path
     this.keepRotation = options.keepRotation
     this.scene = scene
-    this.speed = options.speed
+    this.speed = options.escort ? target.speed : options.speed
     this.lights = {
       bottom: { y: -25 },
       side: { y: -6, x: 25 },
@@ -56,13 +57,14 @@ export default class Vehicle extends ContainerLite {
   }
 
   update() {
-    if (this.path[1]) {
+    if (!this.moving && this.path[1]) {
       if (!this.keepRotation) {
         this.setRotation(
           Phaser.Math.Angle.BetweenPoints(this.path[0], this.path[1]) - Math.PI/2
         )
       }
       this.scene.physics.moveTo(this, this.path[1].x, this.path[1].y, this.speed)
+      this.moving = true
     }
     this.scene.destroyOnOutOfBounds(this)
   }

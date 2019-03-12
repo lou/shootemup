@@ -12,9 +12,9 @@ export default class Frigate extends Boat {
       ...options
     })
     this.tourets = [
-      new Touret(scene, { x: options.path[0] - 7, y: options.path[1] + 25, fireSpeed: 1000 }),
-      new Touret(scene, { x: options.path[0] + 7, y: options.path[1] + 25, fireSpeed: 1000 }),
-      new Touret(scene, { x: options.path[0], y: options.path[1] - 25, fireSpeed: 4000, type: 'missiles',  speed: 400 })
+      new Touret(scene, { x: options.path[0].x - 7, y: options.path[0].y + 25, fireSpeed: 1000 }),
+      new Touret(scene, { x: options.path[0].x + 7, y: options.path[0].y + 25, fireSpeed: 1000 }),
+      new Touret(scene, { x: options.path[0].x, y: options.path[0].y - 25, fireSpeed: 4000, type: 'missiles',  speed: 400 })
     ]
     this.add(this.tourets)
   }

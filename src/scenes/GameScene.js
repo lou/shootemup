@@ -6,7 +6,7 @@ import { boats } from '../sprites/enemies/boats'
 import Plane from '../sprites/enemies/planes/Plane'
 import Boat from '../sprites/enemies/boats/Boat'
 import Touret from '../sprites/enemies/boats/Touret'
-import { config, width, height, worldWidth, worldHeight } from '../config/config'
+import { config, worldWidth, worldHeight } from '../config/config'
 import ExplosiveBullet  from '../sprites/projectiles/ExplosiveBullet'
 import Missile  from '../sprites/projectiles/Missile'
 
@@ -17,7 +17,13 @@ export default class GameScene extends Phaser.Scene {
 
   startWave() {
     this.vehicles.forEach(enemy => {
-      this.time.delayedCall(enemy.startAt || 0, () => {
+      let startAt = enemy.startAt || 0
+
+      if (enemy.escort) {
+        const target = this.vehicles.find(vehicle => vehicle.id == enemy.escort.targetId)
+        startAt = target.startAt
+      }
+      this.time.delayedCall(startAt, () => {
         const { type, start, ...options } = enemy
         const [namespace, className] = type.split('::')
         this.vehicles.find(vehicle => vehicle.id === enemy.id).started = true
@@ -77,8 +83,14 @@ export default class GameScene extends Phaser.Scene {
       bonus.consume()
     })
 
-    this.physics.add.collider(this.boats)
-    this.physics.add.collider(this.planes)
+    this.physics.add.collider(this.boats, this.boats, (boat1, boat2) => {
+      boat1.moving = false
+      boat2.moving = false
+    })
+    this.physics.add.collider(this.planes, this.planes, (plane1, plane2) => {
+      plane1.moving = false
+      plane2.moving = false
+    })
     this.physics.add.collider(this.bonuses)
 
     this.cursors = this.input.keyboard.createCursorKeys()

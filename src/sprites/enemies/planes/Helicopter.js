@@ -29,8 +29,8 @@ export default class Helicopter extends Plane {
     })
     this.add([
       new Weapon(scene, {
-        x: options.path[0],
-        y: options.path[1] + 30,
+        x: this.x,
+        y: this.y + 30,
         type: 'missiles',
         fireSpeed: 2000,
         speed: 400

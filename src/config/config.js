@@ -12,7 +12,7 @@ export const config = {
         type: 'Plane::Bomber',
         startAt: 0,
         path: [{ x: worldWidth/3, y: 150 }, { x: worldWidth/2 + 300, y: worldHeight+150 }],
-        bonus: 'life'
+        bonus: 'Life'
       },
       {
         id: 1,
@@ -20,7 +20,7 @@ export const config = {
         type: 'Plane::Carrier',
         escort: {
           targetId: 0,
-          offsetX: 150
+          position: 'left'
         }
       },
       {
@@ -29,7 +29,7 @@ export const config = {
         type: 'Plane::Carrier',
         escort: {
           targetId: 0,
-          offsetX: -150
+          position: 'right'
         }
       },
       {
@@ -38,7 +38,8 @@ export const config = {
         type: 'Plane::Carrier',
         escort: {
           targetId: 0,
-          offsetY: 150
+          offset: 100,
+          position: 'top'
         }
       },
       {
@@ -47,7 +48,51 @@ export const config = {
         type: 'Plane::Carrier',
         escort: {
           targetId: 0,
-          offsetY: -150
+          position: 'bottom'
+        }
+      },
+      {
+        id: 5,
+        type: 'Plane::Bomber',
+        startAt: 0,
+        path: [{ x: worldWidth/2, y: worldHeight+150 }, { x: worldWidth/3 + 300, y: -150 }],
+        bonus: 'Life'
+      },
+      {
+        id: 6,
+        startAt: 0,
+        type: 'Plane::Carrier',
+        escort: {
+          targetId: 5,
+          position: 'left'
+        }
+      },
+      {
+        id: 7,
+        startAt: 0,
+        type: 'Plane::Carrier',
+        escort: {
+          targetId: 5,
+          position: 'right'
+        }
+      },
+      {
+        id: 8,
+        startAt: 0,
+        type: 'Plane::Carrier',
+        escort: {
+          targetId: 5,
+          offset: 100,
+          position: 'top'
+        }
+      },
+      {
+        id: 9,
+        startAt: 0,
+        type: 'Plane::Carrier',
+        escort: {
+          targetId: 5,
+          position: 'bottom'
         }
       },
       // {

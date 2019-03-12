@@ -20,7 +20,7 @@ export default class GameScene extends Phaser.Scene {
       this.time.delayedCall(enemy.startAt || 0, () => {
         const { type, start, ...options } = enemy
         const [namespace, className] = type.split('::')
-        this.vehicles[enemy.id].started = true
+        this.vehicles.find(vehicle => vehicle.id === enemy.id).started = true
         if (namespace === 'Plane') {
           let plane = new planes[className](this, options)
           this.planes.add(plane)
@@ -41,7 +41,7 @@ export default class GameScene extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, worldWidth, worldHeight)
     this.cameras.main.setBounds(0, 0, worldWidth, worldHeight)
 
-    this.vehicles = config.waves[this.wave.index].enemies.map((enemy, index) => ({ id: index, ...enemy }))
+    this.vehicles = config.waves[this.wave.index].enemies.map(enemy => enemy )
 
     const ocean = this.add.tileSprite(0, 0, this.physics.world.bounds.width*2, this.physics.world.bounds.height*2, 'ocean')
     ocean.setTint(0x030b14)

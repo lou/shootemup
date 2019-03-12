@@ -1,34 +1,32 @@
 import Phaser from 'phaser'
 import ContainerLite from '../../plugins/gameobjects/containerlite/ContainerLite'
 
+const pathForEscort = (escort, target, vehicleSize) => {
+  const direction = Math.PI/2 + Phaser.Math.Angle.BetweenPoints(target.path[0], target.path[1])
+  let offset = vehicleSize + (escort.offset || 10)
+
+  return target.path.map(point => {
+    const offsetDirection = ['left', 'top'].includes(escort.position) ? 1 : -1
+    let angle = ['top', 'bottom'].includes(escort.position) ? direction + 1.5708 : direction
+
+    return ({
+      x: point.x - offset * offsetDirection * Math.cos(angle),
+      y: point.y - offset * offsetDirection * Math.sin(angle)
+    })
+  })
+}
+
 export default class Vehicle extends ContainerLite {
   constructor(scene, key, options) {
     const vehicleImage = scene.textures.get(key).getSourceImage()
+    const vehicleSize = Math.max(vehicleImage.width, vehicleImage.height)
     const bodyOffset = options.bodyOffset || 0
     let path = options.path
-    let target
 
     if (options.escort) {
-      target = scene.planes.getChildren().find(plane => plane.id === options.escort.targetId)
-      path = target.path
+      let target = scene.planes.getChildren().find(plane => plane.id === options.escort.targetId)
 
-      const direction = Math.PI/2 + Phaser.Math.Angle.BetweenPoints(target.path[0], target.path[1])
-
-      path = target.path.map(point => {
-        if (options.escort.offsetX) {
-          return {
-            x: point.x - options.escort.offsetX * Math.cos(direction),
-            y: point.y - options.escort.offsetX * Math.sin(direction)
-          }
-        } else if (options.escort.offsetY) {
-          return {
-            x: point.x - options.escort.offsetY * Math.cos(direction + 1.5708),
-            y: point.y - options.escort.offsetY * Math.sin(direction + 1.5708)
-          }
-        } else {
-          return point
-        }
-      })
+      path = pathForEscort(options.escort, target, vehicleSize)
     }
     super(
       scene,
@@ -38,7 +36,6 @@ export default class Vehicle extends ContainerLite {
       vehicleImage.height + bodyOffset
     )
     this.id = options.id
-    this.target = target
     this.path = path
     this.keepRotation = options.keepRotation
     this.scene = scene
@@ -59,9 +56,6 @@ export default class Vehicle extends ContainerLite {
   }
 
   update() {
-    if (this.target) {
-      this.rotation = this.target.rotation
-    }
     if (this.path[1]) {
       if (!this.keepRotation) {
         this.setRotation(

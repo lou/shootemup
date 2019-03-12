@@ -56,6 +56,11 @@ export default class Plane extends Vehicle {
     this.enemyEmitter.setPosition(this.x, this.y).start()
     this.hitParticles.destroy()
     this.scene.events.emit('addScore', this.points)
+    if (this.bonus) {
+      this.scene.bonuses.add(
+        new bonuses[this.bonus](this.scene, { x: this.x, y: this.y })
+      )
+    }
     this.destroy()
   }
 
@@ -68,11 +73,6 @@ export default class Plane extends Vehicle {
 
   destroy() {
     this.scene.planes.remove(this)
-    if (this.bonus) {
-      this.scene.bonuses.add(
-        new bonuses[this.bonus](this.scene, { x: this.x, y: this.y })
-      )
-    }
     this.shadow.destroy()
     super.destroy()
   }

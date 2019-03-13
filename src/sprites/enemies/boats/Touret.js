@@ -14,7 +14,7 @@ export default class Touret extends Phaser.Physics.Arcade.Image {
     this.setOrigin(0.5)
       .setDepth(1.5)
       .setTint(0x20567c)
-      .setScale(1.3)
+      .setScale(1.5)
     this.rotatable = true
     this.weapon = new Weapon(scene, { ...options, lifespan: 500 })
     this.smokeParticles = this.scene.add.particles('smoke')

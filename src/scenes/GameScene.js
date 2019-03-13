@@ -59,7 +59,7 @@ export default class GameScene extends Phaser.Scene {
 
     if (this.enemiesStarted === this.enemiesCount) {
       this.enemiesStarted = 0
-      this.time.delayedCall(30000, () => {
+      this.time.delayedCall(6000, () => {
         this.startWave()
       })
     }

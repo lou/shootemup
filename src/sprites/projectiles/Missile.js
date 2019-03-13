@@ -3,7 +3,7 @@ import Projectile from './Projectile'
 export default class Missile extends Projectile {
   constructor(scene) {
     super(scene, 'missile', {
-      force: 10,
+      force: 20,
       speed: 400
     })
     this.firedAt = 0

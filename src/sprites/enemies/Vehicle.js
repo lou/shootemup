@@ -1,49 +1,28 @@
 import Phaser from 'phaser'
 import ContainerLite from '../../plugins/gameobjects/containerlite/ContainerLite'
 
-const pathForEscort = (escort, target, vehicleSize) => {
-  const direction = Math.PI/2 + Phaser.Math.Angle.BetweenPoints(target.path[0], target.path[1])
-  let offset = vehicleSize + (escort.offset || 10)
-
-  return target.path.map(point => {
-    const offsetDirection = ['left', 'top'].includes(escort.position) ? 1 : -1
-    let angle = ['top', 'bottom'].includes(escort.position) ? direction + Phaser.Math.DegToRad(90) : direction
-
-    return ({
-      x: point.x - offset * offsetDirection * Math.cos(angle),
-      y: point.y - offset * offsetDirection * Math.sin(angle)
-    })
-  })
-}
-
 export default class Vehicle extends ContainerLite {
   constructor(scene, key, options) {
     const vehicleImage = scene.textures.get(key).getSourceImage()
     const vehicleSize = Math.max(vehicleImage.width, vehicleImage.height)
     const bodyOffset = options.bodyOffset || 0
-    let path = options.path
-    let target
 
-    if (options.escort) {
-      target = scene[options.escort.targetGroup].getChildren().find(vehicle => vehicle.id === options.escort.targetId)
-
-      path = pathForEscort(options.escort, target, vehicleSize)
-    }
     super(
       scene,
-      path[0].x,
-      path[0].y,
+      options.path[0].x,
+      options.path[0].y,
       vehicleImage.width + bodyOffset,
       vehicleImage.height + bodyOffset
     )
     this.id = options.id
-    this.target = target
+    this.target = options.target
     this.size = vehicleSize
-    this.path = path
+    this.path = options.path
     this.keepRotation = options.keepRotation
     this.scene = scene
-    this.speed = options.escort ? this.target.speed : options.speed
-    this.escort = options.escort
+    this.speed = options.speed
+    this.rotateAroundTarget = options.rotateAroundTarget
+    this.offsetTarget = options.offsetTarget
     this.lights = {
       bottom: { y: -25 },
       side: { y: -6, x: 25 },
@@ -60,8 +39,8 @@ export default class Vehicle extends ContainerLite {
   }
 
   update() {
-    if (this.escort && this.escort.rotateAround) {
-      Phaser.Math.RotateAroundDistance(this, this.target.x, this.target.y, 0.015, this.escort.offset || this.target.size)
+    if (this.rotateAroundTarget) {
+      Phaser.Math.RotateAroundDistance(this, this.target.x, this.target.y, 0.012, this.offsetTarget || this.target.size)
     } else {
       if (!this.moving && this.path[1]) {
         if (!this.keepRotation) {

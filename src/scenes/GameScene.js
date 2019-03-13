@@ -15,25 +15,59 @@ export default class GameScene extends Phaser.Scene {
     super('Game')
   }
 
-  startWave() {
-    this.vehicles.forEach(enemy => {
-      let startAt = enemy.startAt || 0
+  pathForEscort(escort, target, vehicleSize = 100) {
+    const direction = Math.PI/2 + Phaser.Math.Angle.BetweenPoints(target.path[0], target.path[1])
+    let offset = vehicleSize + (escort.offset || 10)
 
-      if (enemy.escort) {
-        const target = this.vehicles.find(vehicle => vehicle.id == enemy.escort.targetId)
-        startAt = target.startAt
-      }
-      this.time.delayedCall(startAt, () => {
-        const { type, start, ...options } = enemy
-        const [namespace, className] = type.split('::')
-        this.vehicles.find(vehicle => vehicle.id === enemy.id).started = true
-        if (namespace === 'Plane') {
-          let plane = new planes[className](this, options)
-          this.planes.add(plane)
-        } else if (namespace === 'Boat') {
-          let boat = new boats[className](this, options)
-          this.boats.add(boat)
-        }
+    return target.path.map(point => {
+      const offsetDirection = ['left', 'top'].includes(escort.position) ? 1 : -1
+      let angle = ['top', 'bottom'].includes(escort.position) ? direction + Phaser.Math.DegToRad(90) : direction
+
+      return ({
+        x: point.x - offset * offsetDirection * Math.cos(angle),
+        y: point.y - offset * offsetDirection * Math.sin(angle)
+      })
+    })
+  }
+
+  createVehicle(vehicleOptions) {
+    const { type, start, escort, ...options } = vehicleOptions
+    const [namespace, className] = type.split('::')
+    let plane
+    let boat
+
+    this.enemiesStarted += 1
+    if (namespace === 'Plane') {
+      plane = new planes[className](this, options)
+      this.planes.add(plane)
+    } else if (namespace === 'Boat') {
+      boat = new boats[className](this, options)
+      this.boats.add(boat)
+    }
+    if (escort) {
+      escort.forEach(escortOptions => {
+        const target = plane || boat
+        const path = this.pathForEscort(escortOptions, target)
+        this.createVehicle({
+          ...escortOptions,
+          path,
+          target,
+          speed: target.speed
+        })
+      })
+    }
+
+    if (this.enemiesStarted === this.enemiesCount) {
+      this.enemiesStarted = 0
+      this.time.delayedCall(30000, () => {
+        this.startWave()
+      })
+    }
+  }
+  startWave() {
+    this.enemiesConfig.forEach(enemyOptions => {
+      this.time.delayedCall(enemyOptions.startAt || 0, () => {
+        this.createVehicle(enemyOptions)
       })
     })
   }
@@ -44,10 +78,16 @@ export default class GameScene extends Phaser.Scene {
     }
     this.scene.launch('Info')
     this.started = true
+    this.enemiesStarted = 0
+    this.enemiesConfig = config.waves[this.wave.index].enemies
+    this.enemiesCount = this.enemiesConfig.reduce((accumulator, enemy) => {
+      let count = accumulator + 1
+      if (enemy.escort)
+        count += enemy.escort.length
+      return count
+    }, 0)
     this.physics.world.setBounds(0, 0, worldWidth, worldHeight)
     this.cameras.main.setBounds(0, 0, worldWidth, worldHeight)
-
-    this.vehicles = config.waves[this.wave.index].enemies.map(enemy => enemy )
 
     const ocean = this.add.tileSprite(0, 0, this.physics.world.bounds.width*2, this.physics.world.bounds.height*2, 'ocean')
     ocean.setTint(0x030b14)
@@ -139,12 +179,12 @@ export default class GameScene extends Phaser.Scene {
       this.clouds.y = -600
     }
 
-    if (this.vehicles.every(vehicle => vehicle.started)) {
-      this.vehicles = this.vehicles.map(vehicle => ({ ...vehicle, started: false }))
-      this.time.delayedCall(30000, () => {
-        this.startWave()
-      })
-    }
+    // if (this.vehicles.every(vehicle => vehicle.started)) {
+    //   this.vehicles = this.vehicles.map(vehicle => ({ ...vehicle, started: false }))
+    //   this.time.delayedCall(30000, () => {
+    //     this.startWave()
+    //   })
+    // }
     this.player.move(this.cursors, time)
   }
 }

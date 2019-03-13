@@ -73,7 +73,7 @@ export const config = {
       {
         id: 8,
         type: 'Plane::Carrier',
-        startAt: 1000,
+        startAt: 12000,
         path: [{ x: 400, y: -150}, {x: 400, y: worldHeight+150 }],
       },
       {

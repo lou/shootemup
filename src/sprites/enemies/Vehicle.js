@@ -7,7 +7,7 @@ const pathForEscort = (escort, target, vehicleSize) => {
 
   return target.path.map(point => {
     const offsetDirection = ['left', 'top'].includes(escort.position) ? 1 : -1
-    let angle = ['top', 'bottom'].includes(escort.position) ? direction + 1.5708 : direction
+    let angle = ['top', 'bottom'].includes(escort.position) ? direction + Phaser.Math.DegToRad(90) : direction
 
     return ({
       x: point.x - offset * offsetDirection * Math.cos(angle),

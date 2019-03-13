@@ -106,9 +106,13 @@ export default class GameScene extends Phaser.Scene {
 
     this.clouds = this.add.image(this.physics.world.bounds.width/2, 500, 'clouds')
       .setScale(1)
-      .setAngle(-30)
       .setDepth(10)
       .setTint(0x65afe3)
+    this.cloudsShadow = this.add.image(this.clouds.x, this.clouds.y, 'clouds')
+      .setScale(0.8)
+      .setDepth(2.1)
+      .setTint(0x030b14)
+      // .setTint(0xff0000)
 
     this.physics.add.overlap(this.player, this.hittables.getChildren(), (player, enemy) => {
       if (!player.invincible)
@@ -174,17 +178,14 @@ export default class GameScene extends Phaser.Scene {
   }
 
   update(time) {
-    this.clouds.y += 1
+    this.clouds.y += 1.3
+    this.cloudsShadow.setPosition(this.clouds.x + 30, this.clouds.y+ 60)
     if (this.clouds.y - this.clouds.height > this.physics.world.bounds.height) {
       this.clouds.y = -600
+      this.clouds.setScale(Phaser.Math.Between(0.5, 1.5)).setRotation(Phaser.Math.Between(0, 6))
+      this.cloudsShadow.setScale(this.clouds.scaleX).setRotation(this.clouds.rotation)
     }
 
-    // if (this.vehicles.every(vehicle => vehicle.started)) {
-    //   this.vehicles = this.vehicles.map(vehicle => ({ ...vehicle, started: false }))
-    //   this.time.delayedCall(30000, () => {
-    //     this.startWave()
-    //   })
-    // }
     this.player.move(this.cursors, time)
   }
 }

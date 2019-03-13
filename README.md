@@ -13,6 +13,8 @@ A Shoot'em Up game coded with Phaser 3
 - [x] Player missiles with bonus
 - [x] Player should downgrade on hit
 - [x] Player bullets range
+- [ ] Vehicle can escort other one
+- [ ] Lights on Player
 - [ ] Restart menu button
 - [ ] Leaderboard
 - [ ] Mobile controls

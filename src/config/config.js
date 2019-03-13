@@ -117,17 +117,36 @@ export const config = {
         }
       },
       {
+        id: 15,
         type: 'Plane::Kamikaze',
         startAt: 0,
         path: [{ x: 500, y: -150 }],
         bonus: 'Shield'
       },
       {
+        id: 16,
         type: 'Plane::Kamikaze',
         startAt: 5000,
         path: [{ x: 500, y: -150 }],
         bonus: 'Missile'
-      }
+      },
+      {
+        id: 17,
+        startAt: 5000,
+        type: 'Boat::Cruiser',
+        path: [{ x: 0-150, y: 1000 }, { x: worldWidth+150, y: 1500 }]
+      },
+      {
+        id: 18,
+        type: 'Plane::Helicopter',
+        startAt: 10000,
+        escort: {
+          targetId: 17,
+          targetGroup: 'boats',
+          rotateAround: true,
+          offset: 80
+        }
+      },
     ]
   }]
 }

@@ -37,10 +37,13 @@ export default class Vehicle extends ContainerLite {
       vehicleImage.height + bodyOffset
     )
     this.id = options.id
+    this.target = target
+    this.size = vehicleSize
     this.path = path
     this.keepRotation = options.keepRotation
     this.scene = scene
-    this.speed = options.escort ? target.speed : options.speed
+    this.speed = options.escort ? this.target.speed : options.speed
+    this.escort = options.escort
     this.lights = {
       bottom: { y: -25 },
       side: { y: -6, x: 25 },
@@ -57,14 +60,18 @@ export default class Vehicle extends ContainerLite {
   }
 
   update() {
-    if (!this.moving && this.path[1]) {
-      if (!this.keepRotation) {
-        this.setRotation(
-          Phaser.Math.Angle.BetweenPoints(this.path[0], this.path[1]) - Math.PI/2
-        )
+    if (this.escort && this.escort.rotateAround) {
+      Phaser.Math.RotateAroundDistance(this, this.target.x, this.target.y, 0.015, this.escort.offset || this.target.size)
+    } else {
+      if (!this.moving && this.path[1]) {
+        if (!this.keepRotation) {
+          this.setRotation(
+            Phaser.Math.Angle.BetweenPoints(this.path[0], this.path[1]) - Math.PI/2
+          )
+        }
+        this.scene.physics.moveTo(this, this.path[1].x, this.path[1].y, this.speed)
+        this.moving = true
       }
-      this.scene.physics.moveTo(this, this.path[1].x, this.path[1].y, this.speed)
-      this.moving = true
     }
     this.scene.destroyOnOutOfBounds(this)
   }

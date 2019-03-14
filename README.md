@@ -14,11 +14,11 @@ A Shoot'em Up game coded with Phaser 3
 - [x] Player should downgrade on hit
 - [x] Player bullets range
 - [x] Mobile controls
-- [ ] Vehicle can escort other one
+- [x] Vehicle can escort other one
+- [x] Improve enemies apparition (start with fewer enemies and improve difficulty over time)
 - [ ] Lights on Player
 - [ ] Restart menu button
 - [ ] Leaderboard
-- [ ] Improve enemies apparition (start with fewer enemies and improve difficulty over time)
 - [ ] More boats
 - [ ] More planes
 - [ ] Map Editor

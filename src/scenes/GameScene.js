@@ -108,9 +108,11 @@ export default class GameScene extends Phaser.Scene {
       .setScale(1)
       .setDepth(10)
       .setTint(0x65afe3)
+      .setAlpha(0.6)
     this.cloudsShadow = this.add.image(this.clouds.x, this.clouds.y, 'clouds')
       .setScale(0.8)
       .setDepth(2.1)
+      .setAlpha(0.7)
       .setTint(0x030b14)
       // .setTint(0xff0000)
 
@@ -185,7 +187,6 @@ export default class GameScene extends Phaser.Scene {
       this.clouds.setScale(Phaser.Math.Between(0.5, 1.5)).setRotation(Phaser.Math.Between(0, 6))
       this.cloudsShadow.setScale(this.clouds.scaleX).setRotation(this.clouds.rotation)
     }
-
     this.player.move(this.cursors, time)
   }
 }

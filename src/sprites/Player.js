@@ -180,9 +180,9 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
     this.setAngle(0)
     this.thruster.setPosition(this.x, this.y + 25)
-    if (cursors.up.isDown || this.pointer.isDown && this.pointer.worldY < this.y - 100) {
+    if (cursors.up.isDown) {
       this.setAccelerationY(-acceleration)
-    } else if (cursors.down.isDown || this.pointer.isDown && this.pointer.worldY > this.y + 100) {
+    } else if (cursors.down.isDown) {
       this.setAccelerationY(acceleration)
     } else {
       if (this.body.velocity.y > 0)
@@ -191,10 +191,10 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         this.body.velocity.y = Math.min(0, this.body.velocity.y + deceleration)
     }
 
-    if (cursors.left.isDown || this.pointer.isDown && this.pointer.worldX < this.x - 100) {
+    if (cursors.left.isDown) {
       this.setAccelerationX(-acceleration)
       this.setAngle(5)
-    } else if (cursors.right.isDown || this.pointer.isDown && this.pointer.worldX > this.x + 100) {
+    } else if (cursors.right.isDown) {
       this.setAccelerationX(acceleration)
       this.setAngle(-5)
     } else {
@@ -205,7 +205,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     }
 
     if (this.pointer.isDown) {
-      this.scene.physics.moveTo(this, this.pointer.worldX, this.pointer.worldY, 450)
+      this.scene.physics.moveTo(this, this.pointer.worldX, this.pointer.worldY, 600)
     }
 
     this.fire()

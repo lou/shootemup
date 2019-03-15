@@ -5,7 +5,7 @@ export default class Kamikaze extends Plane {
   constructor(scene, options) {
     super(scene, 'kamikaze', {
       speed: 100,
-      armor: 100,
+      armor: 120,
       points: 1,
       collidable: true,
       lights: {

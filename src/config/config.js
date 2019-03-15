@@ -40,7 +40,6 @@ export const config = {
         startAt: 20000,
         type: 'Plane::Bomber',
         path: [{ x: worldWidth/3, y: -150 }, { x: worldWidth/2 + 300, y: worldHeight+150 }],
-        bonus: 'Gun',
         escort: [
           {
             type: 'Plane::Carrier',
@@ -90,7 +89,7 @@ export const config = {
         type: 'Plane::Kamikaze',
         startAt: 45000,
         path: [{ x: 500, y: -150 }],
-        bonus: 'Missile'
+        bonus: 'Gun'
       },
       {
         type: 'Plane::Bomber',
@@ -166,7 +165,8 @@ export const config = {
           {
             type: 'Plane::Helicopter',
             rotateAroundTarget: true,
-            offsetTarget: 100
+            offsetTarget: 100,
+            bonus: 'Missile'
           },
           {
             type: 'Boat::Cruiser',
@@ -204,23 +204,46 @@ export const config = {
       },
       {
         type: 'Plane::Kamikaze',
-        startAt: 87000,
-        path: [{ x: 700, y: -150 }],
-      },
-      {
-        type: 'Plane::Kamikaze',
         startAt: 88000,
-        path: [{ x: 900, y: -150 }],
-      },
-      {
-        type: 'Plane::Kamikaze',
-        startAt: 89000,
         path: [{ x: 700, y: -150 }],
       },
       {
         type: 'Plane::Kamikaze',
         startAt: 90000,
         path: [{ x: 900, y: -150 }],
+      },
+      {
+        type: 'Plane::Kamikaze',
+        startAt: 92000,
+        path: [{ x: 700, y: -150 }],
+      },
+      {
+        type: 'Plane::Kamikaze',
+        startAt: 95000,
+        path: [{ x: 900, y: -150 }],
+      },
+      {
+        startAt: 80000,
+        type: 'Plane::Bomber',
+        path: [{ x: worldWidth+150, y: 650 }, { x: worldWidth/2 - 100, y: worldHeight+150 }],
+        escort: [
+          {
+            type: 'Plane::Carrier',
+            position: 'top'
+          },
+          {
+            type: 'Plane::Carrier',
+            position: 'right'
+          },
+          {
+            type: 'Plane::Carrier',
+            position: 'bottom'
+          },
+          {
+            type: 'Plane::Carrier',
+            position: 'left'
+          }
+        ]
       },
     ]
   }]

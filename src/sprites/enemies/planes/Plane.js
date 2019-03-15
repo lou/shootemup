@@ -74,6 +74,7 @@ export default class Plane extends Vehicle {
   destroy() {
     this.scene.planes.remove(this)
     this.shadow.destroy()
+    this.hitParticles.destroy()
     super.destroy()
   }
 }

@@ -60,6 +60,7 @@ export default class Touret extends Phaser.Physics.Arcade.Image {
   destroy() {
     this.weapon.destroy()
     this.smokeParticles.destroy()
+    this.hitParticles.destroy()
     super.destroy()
   }
 }

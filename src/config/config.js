@@ -109,7 +109,8 @@ export const config = {
           {
             type: 'Plane::Helicopter',
             rotateAroundTarget: true,
-            offsetTarget: 100
+            offsetTarget: 100,
+            bonus: 'Missile'
           },
           {
             type: 'Boat::Cruiser',
@@ -166,7 +167,7 @@ export const config = {
             type: 'Plane::Helicopter',
             rotateAroundTarget: true,
             offsetTarget: 100,
-            bonus: 'Missile'
+            bonus: 'Life'
           },
           {
             type: 'Boat::Cruiser',

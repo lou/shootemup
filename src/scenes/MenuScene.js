@@ -23,6 +23,19 @@ export default class MenuScene extends Phaser.Scene {
       }
     })
 
+    if (this.scene.get('Game').started) {
+      new UIButton({
+        scene: this,
+        y: height * 0.6,
+        text: 'Restart',
+        onClick: () => {
+          this.scene.sleep('Title')
+          this.scene.sleep()
+          this.scene.get('Game').scene.restart()
+        }
+      })
+    }
+
     new UIButton({
       scene: this,
       y: height * 0.5,

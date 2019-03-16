@@ -32,7 +32,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     this.missileLastFire = 1
 
-    this.shieldSprite = this.scene.add.sprite(x, y, 'bonus').setScale(0.8)
+    this.shieldSprite = this.scene.add.image(x, y, 'bonus').setScale(0.8)
 
     // TWEENS
     this.invincibleAnimation = scene.tweens.add({
@@ -115,10 +115,12 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   }
 
   hitBy(object) {
-    if (object instanceof Projectile) {
-      this.hitByProjectile(object)
-    } else {
-      this.hitByPlane(object)
+    if (!this.invincible) {
+      if (object instanceof Projectile) {
+        this.hitByProjectile(object)
+      } else {
+        this.hitByPlane(object)
+      }
     }
   }
 
@@ -212,5 +214,18 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     this.shieldSprite.setActive(this.shield).setVisible(this.shield)
     this.moveShield()
+  }
+
+  destroy() {
+    if (this.shieldSprite) {
+      this.shieldSprite.destroy()
+    }
+    this.thruster.destroy()
+    this.shadow.destroy()
+    this.bullets1.destroy()
+    this.bullets2.destroy()
+    this.missiles.destroy()
+    this.projectiles.destroy()
+    super.destroy()
   }
 }

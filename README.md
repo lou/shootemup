@@ -16,8 +16,8 @@ A Shoot'em Up game coded with Phaser 3
 - [x] Mobile controls
 - [x] Vehicle can escort other one
 - [x] Improve enemies apparition (start with fewer enemies and improve difficulty over time)
+- [x] Restart menu button
 - [ ] Lights on Player
-- [ ] Restart menu button
 - [ ] Leaderboard
 - [ ] More boats
 - [ ] More planes

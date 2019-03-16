@@ -27,7 +27,7 @@ export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
   }
 
   hit(enemy) {
-    if (enemy.active) {
+    if (this.active && enemy.active) {
       this.scene.events.emit('addScore', 1)
       enemy.armor -= this.force
       enemy.hitEmitter.explode(1, this.x, this.y)

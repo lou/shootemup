@@ -97,12 +97,9 @@ export default class GameScene extends Phaser.Scene {
     this.planes = this.physics.add.group({ runChildUpdate: true, classType: Plane })
     this.boats = this.physics.add.group({ runChildUpdate: true, classType: Boat })
     this.tourets = this.physics.add.group({ runChildUpdate: true, classType: Touret })
-    this.enemies = this.physics.add.group([this.tourets, this.planes])
     this.bonuses = this.physics.add.group({ runChildUpdate: true, classType: Bonus })
     this.bullets = this.physics.add.group({ runChildUpdate: true, classType: ExplosiveBullet })
     this.missiles = this.physics.add.group({ runChildUpdate: true, classType: Missile })
-    this.projectiles = this.physics.add.group([this.bullets, this.missiles])
-    this.hittables = this.physics.add.group([this.bullets, this.missiles, this.planes])
 
     this.clouds = this.add.image(this.physics.world.bounds.width/2, 500, 'clouds')
       .setScale(1)
@@ -116,18 +113,12 @@ export default class GameScene extends Phaser.Scene {
       .setTint(0x030b14)
       // .setTint(0xff0000)
 
-    this.physics.add.overlap(this.player, this.hittables.getChildren(), (player, enemy) => {
-      if (!player.invincible)
-        player.hitBy(enemy)
-    })
-    this.physics.add.overlap(this.enemies.getChildren(), this.player.projectiles.getChildren(), (enemy, bullet) => {
-      if (bullet.active) {
-        bullet.hit(enemy)
-      }
-    })
-    this.physics.add.overlap(this.player, this.bonuses.getChildren(), (_, bonus) => {
-      bonus.consume()
-    })
+    this.physics.add.overlap(this.player, this.bullets.getChildren(), (player, bullet) => player.hitBy(bullet))
+    this.physics.add.overlap(this.player, this.missiles.getChildren(), (player, missile) => player.hitBy(missile))
+    this.physics.add.overlap(this.player, this.planes.getChildren(), (player, plane) => player.hitBy(plane))
+    this.physics.add.overlap(this.tourets.getChildren(), this.player.projectiles.getChildren(), (touret, bullet) => bullet.hit(touret))
+    this.physics.add.overlap(this.planes.getChildren(), this.player.projectiles.getChildren(), (plane, bullet) => bullet.hit(plane))
+    this.physics.add.overlap(this.player, this.bonuses.getChildren(), (_, bonus) => bonus.consume())
 
     this.physics.add.collider(this.boats, this.boats, (boat1, boat2) => {
       boat1.moving = false

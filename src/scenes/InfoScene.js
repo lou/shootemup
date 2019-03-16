@@ -39,23 +39,19 @@ export default class InfoScene extends Phaser.Scene {
         this.scene.pause('Game')
         this.scene.run('Menu')
       })
+    this.game.events.on('addScore', (score) => {
+      this.score += score
+      this.scoreText.setText(this.score.toLocaleString())
+    })
 
-      this.game.events.on('addScore', (score) => {
-        this.score += score
-        this.scoreText.setText(this.score.toLocaleString())
-      })
-
-      this.game.events.on('addLife', life => {
-        this.lives += life
-        this.livesText.setText(this.lives.toLocaleString())
-        if (this.lives <= 0) {
-          this.game.player.projectiles.destroy()
-          this.game.enemies.destroy()
-          this.game.projectiles.destroy()
-          this.game.hittables.destroy()
-          this.scene.pause('Game')
-          this.scene.launch('GameOver')
-        }
-      })
+    this.game.events.on('addLife', life => {
+      this.lives += life
+      this.livesText.setText(this.lives.toLocaleString())
+      if (this.lives <= 0) {
+        this.game.player.projectiles.destroy()
+        this.scene.pause('Game')
+        this.scene.launch('GameOver')
+      }
+    })
   }
 }

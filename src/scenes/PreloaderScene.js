@@ -54,6 +54,12 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('smoke', 'assets/images/smoke.png')
     this.load.image('particle', 'assets/images/particle.png')
     this.load.image('thruster', 'assets/images/thruster.png')
+
+    this.load.image('ripple01', 'assets/images/enemies/boats/water_ripple_medium_000.png')
+    this.load.image('ripple02', 'assets/images/enemies/boats/water_ripple_medium_001.png')
+    this.load.image('ripple03', 'assets/images/enemies/boats/water_ripple_medium_002.png')
+    this.load.image('ripple04', 'assets/images/enemies/boats/water_ripple_medium_003.png')
+    this.load.image('ripple05', 'assets/images/enemies/boats/water_ripple_medium_004.png')
   }
 
   onProgress(value) {

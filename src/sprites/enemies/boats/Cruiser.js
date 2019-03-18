@@ -9,6 +9,7 @@ export default class Cruiser extends Boat {
         side: { x: 7, y: 30 },
         bottom: { y: -38 },
       },
+      rippleScale: 0.5,
       ...options,
     })
     this.tourets = [

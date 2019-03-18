@@ -9,6 +9,7 @@ export default class Frigate extends Boat {
         side: { x: 13, y: 30 },
         bottom: { y: -60 },
       },
+      rippleScale: 0.8,
       ...options,
     })
     this.tourets = [

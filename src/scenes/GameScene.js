@@ -90,15 +90,15 @@ export default class GameScene extends Phaser.Scene {
     this.physics.world.setBounds(0, 0, worldWidth, worldHeight)
     this.cameras.main.setBounds(0, 0, worldWidth, worldHeight)
 
-    const ocean = this.add.tileSprite(
-      0,
-      0,
-      this.physics.world.bounds.width * 2,
-      this.physics.world.bounds.height * 2,
-      'ocean'
-    )
-    ocean.setTint(0x030b14)
-
+    const ocean = this.add
+      .tileSprite(
+        0,
+        0,
+        this.physics.world.bounds.width * 2,
+        this.physics.world.bounds.height * 2,
+        'ocean'
+      )
+      .setTint(0x030b14)
     this.player = new Player(
       this,
       this.physics.world.bounds.width / 2,

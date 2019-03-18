@@ -26,8 +26,15 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.invincible = false
     this.thruster = scene.add
       .image(this.x, this.y, 'thruster')
-      .setScale(0.5)
+      .setScale(0.4)
       .setDepth(1.9)
+    scene.tweens.add({
+      targets: this.thruster,
+      alpha: 0.5,
+      duration: 500,
+      repeat: -1,
+      yoyo: true,
+    })
 
     this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
     this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
@@ -150,7 +157,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       bullet.fire(
         {
           x: this.x + this.angle + offset.x,
-          y: this.y - 30 + offset.y,
+          y: this.y - 40 + offset.y,
           rotation: this.rotation,
         },
         { x: this.x + offset.x, y: -10 + offset.y }
@@ -186,7 +193,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
   move(cursors, time) {
     this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
-    this.thruster.setPosition(this.x, this.y + 25)
+    this.thruster.setPosition(this.x, this.y + 32)
     this.setVelocity(0, 0)
 
     const dy = (cursors.up.isDown ? -1 : 0) + (cursors.down.isDown ? 1 : 0)
@@ -207,8 +214,6 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     }
 
     this.setVelocity(vx, vy)
-    this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
-    this.thruster.setPosition(this.x, this.y + 25)
 
     if (this.pointer.isDown) {
       const distance = Phaser.Math.Distance.Between(

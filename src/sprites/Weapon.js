@@ -1,4 +1,4 @@
-import Phaser from 'phaser'
+import Phaser from "phaser"
 
 export default class Weapon extends Phaser.GameObjects.Zone {
   constructor(scene, options) {
@@ -6,15 +6,20 @@ export default class Weapon extends Phaser.GameObjects.Zone {
     this.scene = scene
     scene.add.existing(this)
     scene.physics.world.enable(this)
-    this.type = options.type || 'bullets'
+    this.type = options.type || "bullets"
     this.fireSpeed = options.fireSpeed || 1000
     this.speed = options.speed || 200
-    this.detectionRange = options.detectionRange || 500
+    this.detectionRange = options.detectionRange || 700
     this.lifespan = options.lifespan
     scene.time.addEvent({
       delay: this.fireSpeed,
       callback: () => {
-        const distanceOfPlayer = Phaser.Math.Distance.Between(this.x, this.y, scene.player.x, scene.player.y)
+        const distanceOfPlayer = Phaser.Math.Distance.Between(
+          this.x,
+          this.y,
+          scene.player.x,
+          scene.player.y
+        )
 
         if (this.active && distanceOfPlayer <= this.detectionRange) {
           this.fire(scene.time.now)

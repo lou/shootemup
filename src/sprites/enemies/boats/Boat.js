@@ -15,5 +15,4 @@ export default class Boat extends Vehicle {
     this.tourets.forEach(touret => touret.destroy())
     super.destroy()
   }
-
 }

@@ -1,5 +1,5 @@
 import Vehicle from '../Vehicle'
-import { bonuses }  from '../../bonuses'
+import { bonuses } from '../../bonuses'
 import { hitConfig } from '../../projectiles/Projectile'
 
 export default class Plane extends Vehicle {
@@ -10,7 +10,8 @@ export default class Plane extends Vehicle {
     this.bonus = options.bonus || false
     this.enemyParticles = scene.add.particles(key)
     this.splashParticles = scene.add.particles('splash')
-    this.shadow = scene.add.image(this.x+10, this.y+10, key)
+    this.shadow = scene.add
+      .image(this.x + 10, this.y + 10, key)
       .setScale(0.6)
       .setDepth(1.9)
       .setAlpha(0.5)
@@ -30,8 +31,8 @@ export default class Plane extends Vehicle {
       on: false,
       deathCallback: () => {
         this.splashParticles.destroy()
-      }
-    });
+      },
+    })
 
     this.enemyEmitter = this.enemyParticles.createEmitter({
       name: 'enemy',
@@ -43,10 +44,10 @@ export default class Plane extends Vehicle {
       lifespan: 800,
       tint: 0x20567c,
       on: false,
-      deathCallback: (particles) => {
+      deathCallback: particles => {
         this.splashEmitter.explode(30, particles.x, particles.y)
         this.enemyParticles.destroy()
-      }
+      },
     })
     this.hitParticles = this.scene.add.particles('hit').setDepth(1.6)
     this.hitEmitter = this.hitParticles.createEmitter(hitConfig)
@@ -57,9 +58,7 @@ export default class Plane extends Vehicle {
     this.hitParticles.destroy()
     this.scene.events.emit('addScore', this.points)
     if (this.bonus) {
-      this.scene.bonuses.add(
-        new bonuses[this.bonus](this.scene, { x: this.x, y: this.y })
-      )
+      this.scene.bonuses.add(new bonuses[this.bonus](this.scene, { x: this.x, y: this.y }))
     }
     this.destroy()
   }

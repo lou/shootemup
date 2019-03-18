@@ -7,8 +7,8 @@ import Plane from '../sprites/enemies/planes/Plane'
 import Boat from '../sprites/enemies/boats/Boat'
 import Touret from '../sprites/enemies/boats/Touret'
 import { config, worldWidth, worldHeight } from '../config/config'
-import ExplosiveBullet  from '../sprites/projectiles/ExplosiveBullet'
-import Missile  from '../sprites/projectiles/Missile'
+import ExplosiveBullet from '../sprites/projectiles/ExplosiveBullet'
+import Missile from '../sprites/projectiles/Missile'
 
 export default class GameScene extends Phaser.Scene {
   constructor() {
@@ -16,17 +16,19 @@ export default class GameScene extends Phaser.Scene {
   }
 
   pathForEscort(escort, target, vehicleSize = 100) {
-    const direction = Math.PI/2 + Phaser.Math.Angle.BetweenPoints(target.path[0], target.path[1])
+    const direction = Math.PI / 2 + Phaser.Math.Angle.BetweenPoints(target.path[0], target.path[1])
     let offset = vehicleSize + (escort.offset || 10)
 
     return target.path.map(point => {
       const offsetDirection = ['left', 'top'].includes(escort.position) ? 1 : -1
-      let angle = ['top', 'bottom'].includes(escort.position) ? direction + Phaser.Math.DegToRad(90) : direction
+      let angle = ['top', 'bottom'].includes(escort.position)
+        ? direction + Phaser.Math.DegToRad(90)
+        : direction
 
-      return ({
+      return {
         x: point.x - offset * offsetDirection * Math.cos(angle),
-        y: point.y - offset * offsetDirection * Math.sin(angle)
-      })
+        y: point.y - offset * offsetDirection * Math.sin(angle),
+      }
     })
   }
 
@@ -52,7 +54,7 @@ export default class GameScene extends Phaser.Scene {
           ...escortOptions,
           path,
           target,
-          speed: target.speed
+          speed: target.speed,
         })
       })
     }
@@ -74,7 +76,7 @@ export default class GameScene extends Phaser.Scene {
 
   create() {
     this.wave = {
-      index: 0
+      index: 0,
     }
     this.scene.launch('Info')
     this.started = true
@@ -82,17 +84,27 @@ export default class GameScene extends Phaser.Scene {
     this.enemiesConfig = config.waves[this.wave.index].enemies
     this.enemiesCount = this.enemiesConfig.reduce((accumulator, enemy) => {
       let count = accumulator + 1
-      if (enemy.escort)
-        count += enemy.escort.length
+      if (enemy.escort) count += enemy.escort.length
       return count
     }, 0)
     this.physics.world.setBounds(0, 0, worldWidth, worldHeight)
     this.cameras.main.setBounds(0, 0, worldWidth, worldHeight)
 
-    const ocean = this.add.tileSprite(0, 0, this.physics.world.bounds.width*2, this.physics.world.bounds.height*2, 'ocean')
+    const ocean = this.add.tileSprite(
+      0,
+      0,
+      this.physics.world.bounds.width * 2,
+      this.physics.world.bounds.height * 2,
+      'ocean'
+    )
     ocean.setTint(0x030b14)
 
-    this.player = new Player(this, this.physics.world.bounds.width / 2, this.physics.world.bounds.height - 100, 'plane')
+    this.player = new Player(
+      this,
+      this.physics.world.bounds.width / 2,
+      this.physics.world.bounds.height - 100,
+      'plane'
+    )
     this.cameras.main.startFollow(this.player, true, 1, 1)
     this.planes = this.physics.add.group({ runChildUpdate: true, classType: Plane })
     this.boats = this.physics.add.group({ runChildUpdate: true, classType: Boat })
@@ -101,23 +113,39 @@ export default class GameScene extends Phaser.Scene {
     this.bullets = this.physics.add.group({ runChildUpdate: true, classType: ExplosiveBullet })
     this.missiles = this.physics.add.group({ runChildUpdate: true, classType: Missile })
 
-    this.clouds = this.add.image(this.physics.world.bounds.width/2, 500, 'clouds')
+    this.clouds = this.add
+      .image(this.physics.world.bounds.width / 2, 500, 'clouds')
       .setScale(1)
       .setDepth(10)
       .setTint(0x65afe3)
       .setAlpha(0.6)
-    this.cloudsShadow = this.add.image(this.clouds.x, this.clouds.y, 'clouds')
+    this.cloudsShadow = this.add
+      .image(this.clouds.x, this.clouds.y, 'clouds')
       .setScale(0.8)
       .setDepth(2.1)
       .setAlpha(0.7)
       .setTint(0x030b14)
-      // .setTint(0xff0000)
+    // .setTint(0xff0000)
 
-    this.physics.add.overlap(this.player, this.bullets.getChildren(), (player, bullet) => player.hitBy(bullet))
-    this.physics.add.overlap(this.player, this.missiles.getChildren(), (player, missile) => player.hitBy(missile))
-    this.physics.add.overlap(this.player, this.planes.getChildren(), (player, plane) => player.hitBy(plane))
-    this.physics.add.overlap(this.tourets.getChildren(), this.player.projectiles.getChildren(), (touret, bullet) => bullet.hit(touret))
-    this.physics.add.overlap(this.planes.getChildren(), this.player.projectiles.getChildren(), (plane, bullet) => bullet.hit(plane))
+    this.physics.add.overlap(this.player, this.bullets.getChildren(), (player, bullet) =>
+      player.hitBy(bullet)
+    )
+    this.physics.add.overlap(this.player, this.missiles.getChildren(), (player, missile) =>
+      player.hitBy(missile)
+    )
+    this.physics.add.overlap(this.player, this.planes.getChildren(), (player, plane) =>
+      player.hitBy(plane)
+    )
+    this.physics.add.overlap(
+      this.tourets.getChildren(),
+      this.player.projectiles.getChildren(),
+      (touret, bullet) => bullet.hit(touret)
+    )
+    this.physics.add.overlap(
+      this.planes.getChildren(),
+      this.player.projectiles.getChildren(),
+      (plane, bullet) => bullet.hit(plane)
+    )
     this.physics.add.overlap(this.player, this.bonuses.getChildren(), (_, bonus) => bonus.consume())
 
     this.physics.add.collider(this.boats, this.boats, (boat1, boat2) => {
@@ -152,27 +180,29 @@ export default class GameScene extends Phaser.Scene {
   destroyOnOutOfBounds(sprite, destroy = true) {
     const size = Math.max(sprite.width, sprite.height)
 
-    if (!sprite.started && (
-      sprite.y > 0 &&
-      sprite.y < this.physics.world.bounds.height &&
-      sprite.x > 0 &&
-      sprite.x < this.physics.world.bounds.width
-    )) {
+    if (
+      !sprite.started &&
+      (sprite.y > 0 &&
+        sprite.y < this.physics.world.bounds.height &&
+        sprite.x > 0 &&
+        sprite.x < this.physics.world.bounds.width)
+    ) {
       sprite.started = true
     }
-    if (sprite.started && (
-      sprite.y - size - 0 > this.physics.world.bounds.height ||
-      sprite.x - size - 0 > this.physics.world.bounds.width ||
-      sprite.y < -size - 0 ||
-      sprite.x < -size - 0
-    )) {
+    if (
+      sprite.started &&
+      (sprite.y - size - 0 > this.physics.world.bounds.height ||
+        sprite.x - size - 0 > this.physics.world.bounds.width ||
+        sprite.y < -size - 0 ||
+        sprite.x < -size - 0)
+    ) {
       sprite.destroy()
     }
   }
 
   update(time) {
     this.clouds.y += 1.3
-    this.cloudsShadow.setPosition(this.clouds.x + 30, this.clouds.y+ 60)
+    this.cloudsShadow.setPosition(this.clouds.x + 30, this.clouds.y + 60)
     if (this.clouds.y - this.clouds.height > this.physics.world.bounds.height) {
       this.clouds.y = -600
       this.clouds.setScale(Phaser.Math.Between(0.5, 1.5)).setRotation(Phaser.Math.Between(0, 6))

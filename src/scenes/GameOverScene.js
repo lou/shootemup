@@ -1,21 +1,21 @@
-import Phaser from 'phaser';
-import { width, height } from '../config/config';
-import UIButton from '../classes/components/UIButton';
+import Phaser from 'phaser'
+import { width, height } from '../config/config'
+import UIButton from '../classes/components/UIButton'
 
 export default class GameOverScene extends Phaser.Scene {
   constructor() {
-    super('GameOver');
+    super('GameOver')
   }
 
   create() {
-    const text = this.add.text(0, 0, "GAME OVER", {
+    const text = this.add.text(0, 0, 'GAME OVER', {
       fontFamily: 'Arial Black',
       fontSize: '42px',
       fill: '#FFF',
-      align: 'center'
+      align: 'center',
     })
     text.setY(250)
-    text.setX(width/2 - text.width/2)
+    text.setX(width / 2 - text.width / 2)
     const infoScene = this.scene.get('Info')
 
     infoScene.menuText.destroy()
@@ -27,7 +27,7 @@ export default class GameOverScene extends Phaser.Scene {
       text: 'Play Again',
       onClick: _ => {
         this.scene.start('Game')
-      }
+      },
     })
 
     new UIButton({
@@ -40,7 +40,7 @@ export default class GameOverScene extends Phaser.Scene {
         this.scene.stop('Game')
         this.scene.stop('Info')
         this.scene.start('Title')
-      }
+      },
     })
   }
 }

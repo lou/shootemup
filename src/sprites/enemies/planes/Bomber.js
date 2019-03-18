@@ -6,7 +6,7 @@ export default class Bomber extends Plane {
       speed: 60,
       armor: 180,
       points: 1,
-      ...options
+      ...options,
     })
   }
 }

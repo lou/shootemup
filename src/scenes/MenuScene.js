@@ -20,7 +20,7 @@ export default class MenuScene extends Phaser.Scene {
         } else {
           this.scene.start('Game')
         }
-      }
+      },
     })
 
     if (this.scene.get('Game').started) {
@@ -32,7 +32,7 @@ export default class MenuScene extends Phaser.Scene {
           this.scene.sleep('Title')
           this.scene.sleep()
           this.scene.get('Game').scene.restart()
-        }
+        },
       })
     }
 
@@ -40,12 +40,11 @@ export default class MenuScene extends Phaser.Scene {
       scene: this,
       y: height * 0.5,
       text: 'Fullscreen',
-      onClick: () => this.scale.toggleFullscreen()
+      onClick: () => this.scale.toggleFullscreen(),
     })
 
     window.document.addEventListener('fullscreenchange', () => {
-      if (!document.fullscreenElement)
-        this.scale.stopFullscreen()
+      if (!document.fullscreenElement) this.scale.stopFullscreen()
     })
   }
 }

@@ -3,6 +3,5 @@ import Frigate from './Frigate'
 
 export const boats = {
   Cruiser,
-  Frigate
+  Frigate,
 }
-

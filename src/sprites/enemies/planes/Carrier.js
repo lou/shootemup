@@ -6,7 +6,7 @@ export default class Carrier extends Plane {
       speed: 80,
       armor: 80,
       points: 1,
-      ...options
+      ...options,
     })
   }
 }

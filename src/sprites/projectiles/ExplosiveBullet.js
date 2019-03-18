@@ -5,7 +5,7 @@ export default class ExplosiveBullet extends Projectile {
     super(scene, 'bullet', {
       force: 1,
       lifespan: { min: 2000, max: 5500 },
-      explosive: true
+      explosive: true,
     })
     this.setScale(0.9)
   }

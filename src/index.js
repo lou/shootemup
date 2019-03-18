@@ -11,14 +11,14 @@ const config = {
     width,
     height,
     mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
-    autoCenter: Phaser.Scale.CENTER_HORIZONTALLY
+    autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
   },
   physics: {
     default: 'arcade',
     arcade: {
       // debug: true
-    }
-  }
+    },
+  },
 }
 
 class Game extends Phaser.Game {

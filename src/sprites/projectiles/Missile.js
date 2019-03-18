@@ -4,7 +4,7 @@ export default class Missile extends Projectile {
   constructor(scene) {
     super(scene, 'missile', {
       force: 20,
-      speed: 400
+      speed: 400,
     })
     this.firedAt = 0
     this.setTint(0x65afe3)
@@ -17,7 +17,7 @@ export default class Missile extends Projectile {
       lifespan: 400,
       speed: 2,
       on: true,
-      follow: this
+      follow: this,
     })
   }
 

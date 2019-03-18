@@ -1,7 +1,7 @@
-import Phaser from "phaser"
-import Bullet from "./projectiles/Bullet"
-import Missile from "./projectiles/Missile"
-import Projectile from "./projectiles/Projectile"
+import Phaser from 'phaser'
+import Bullet from './projectiles/Bullet'
+import Missile from './projectiles/Missile'
+import Projectile from './projectiles/Projectile'
 
 export default class Player extends Phaser.Physics.Arcade.Image {
   constructor(scene, x, y, key) {
@@ -25,28 +25,20 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.missilesActivated = false
     this.invincible = false
     this.thruster = scene.add
-      .image(this.x, this.y, "thruster")
+      .image(this.x, this.y, 'thruster')
       .setScale(0.5)
       .setDepth(1.9)
 
-    this.bullets1 = scene.physics.add
-      .group({ classType: Bullet, runChildUpdate: true })
-      .setDepth(2)
-    this.bullets2 = scene.physics.add
-      .group({ classType: Bullet, runChildUpdate: true })
-      .setDepth(2)
+    this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
+    this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
     this.missiles = scene.physics.add
       .group({ classType: Missile, runChildUpdate: true })
       .setDepth(2)
-    this.projectiles = scene.physics.add.group([
-      this.bullets1,
-      this.bullets2,
-      this.missiles
-    ])
+    this.projectiles = scene.physics.add.group([this.bullets1, this.bullets2, this.missiles])
 
     this.missileLastFire = 1
 
-    this.shieldSprite = this.scene.add.image(x, y, "bonus").setScale(0.8)
+    this.shieldSprite = this.scene.add.image(x, y, 'bonus').setScale(0.8)
 
     // TWEENS
     this.invincibleAnimation = scene.tweens.add({
@@ -58,7 +50,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       onComplete: () => {
         this.setTint(0x20567c)
         this.invincible = false
-      }
+      },
     })
     this.invincibleAnimation.pause()
 
@@ -66,14 +58,14 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       targets: this.shieldSprite,
       angle: 360,
       duration: 5000,
-      repeat: -1
+      repeat: -1,
     })
     this.missilesTimer = this.scene.time.addEvent({
       delay: 800,
       callback: () => {
         if (this.missilesActivated) this.fireMissiles()
       },
-      loop: true
+      loop: true,
     })
     this.missilesTimer.paused = true
     this.pointer = this.scene.input.activePointer
@@ -100,7 +92,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   takeLife() {
     this.downgrade()
     this.scene.cameras.main.shake(300, 0.01)
-    this.scene.events.emit("addLife", -1)
+    this.scene.events.emit('addLife', -1)
     this.invincible = true
 
     // Add a delay call to prevent Tween not calling restart immediatly
@@ -159,7 +151,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         {
           x: this.x + this.angle + offset.x,
           y: this.y - 30 + offset.y,
-          rotation: this.rotation
+          rotation: this.rotation,
         },
         { x: this.x + offset.x, y: -10 + offset.y }
       )
@@ -174,7 +166,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         {
           x: this.x + 18 * this.missileLastFire,
           y: this.y + 20,
-          rotation: this.rotation
+          rotation: this.rotation,
         },
         { x: this.x + 18 * this.missileLastFire, y: 0 }
       )
@@ -226,12 +218,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         this.pointer.worldY
       )
       if (distance > 5)
-        this.scene.physics.moveTo(
-          this,
-          this.pointer.worldX,
-          this.pointer.worldY,
-          this.speed
-        )
+        this.scene.physics.moveTo(this, this.pointer.worldX, this.pointer.worldY, this.speed)
     }
 
     this.fire()

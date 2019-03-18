@@ -27,7 +27,7 @@ export default class Vehicle extends ContainerLite {
       bottom: { y: -25 },
       side: { y: -6, x: 25 },
       duration: Phaser.Math.Between(900, 1900),
-      ...options.lights
+      ...options.lights,
     }
     this.vehicle = scene.add.image(this.path[0].x, this.path[0].y, key)
     this.vehicle.setTint(0x20567c)
@@ -40,12 +40,18 @@ export default class Vehicle extends ContainerLite {
 
   update() {
     if (this.rotateAroundTarget) {
-      Phaser.Math.RotateAroundDistance(this, this.target.x, this.target.y, 0.012, this.offsetTarget || this.target.size)
+      Phaser.Math.RotateAroundDistance(
+        this,
+        this.target.x,
+        this.target.y,
+        0.012,
+        this.offsetTarget || this.target.size
+      )
     } else {
       if (!this.moving && this.path[1]) {
         if (!this.keepRotation) {
           this.setRotation(
-            Phaser.Math.Angle.BetweenPoints(this.path[0], this.path[1]) - Math.PI/2
+            Phaser.Math.Angle.BetweenPoints(this.path[0], this.path[1]) - Math.PI / 2
           )
         }
         this.scene.physics.moveTo(this, this.path[1].x, this.path[1].y, this.speed)
@@ -62,26 +68,33 @@ export default class Vehicle extends ContainerLite {
       alpha: 0.1,
       duration: this.lights.duration,
       repeat: -1,
-      yoyo: true
-    });
-    this.lightLeft = this.scene.add.image(this.x + this.lights.side.x, this.y + this.lights.side.y, 'light')
+      yoyo: true,
+    })
+    this.lightLeft = this.scene.add.image(
+      this.x + this.lights.side.x,
+      this.y + this.lights.side.y,
+      'light'
+    )
     this.lightLeft.setTint(0xff0505)
     this.scene.tweens.add({
       targets: this.lightLeft,
       alpha: 0.1,
       duration: this.lights.duration,
       repeat: -1,
-      yoyo: true
-    });
-    this.lightRight = this.scene.add.image(this.x  - this.lights.side.x, this.y + this.lights.side.y, 'light')
+      yoyo: true,
+    })
+    this.lightRight = this.scene.add.image(
+      this.x - this.lights.side.x,
+      this.y + this.lights.side.y,
+      'light'
+    )
     this.lightRight.setTint(0x40ff00)
     this.scene.tweens.add({
       targets: this.lightRight,
       alpha: 0.1,
       duration: this.lights.duration,
       repeat: -1,
-      yoyo: true
-    });
-
+      yoyo: true,
+    })
   }
 }

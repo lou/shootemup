@@ -1,4 +1,4 @@
-import Phaser from "phaser"
+import Phaser from 'phaser'
 
 export default class Weapon extends Phaser.GameObjects.Zone {
   constructor(scene, options) {
@@ -6,7 +6,7 @@ export default class Weapon extends Phaser.GameObjects.Zone {
     this.scene = scene
     scene.add.existing(this)
     scene.physics.world.enable(this)
-    this.type = options.type || "bullets"
+    this.type = options.type || 'bullets'
     this.fireSpeed = options.fireSpeed || 1000
     this.speed = options.speed || 200
     this.detectionRange = options.detectionRange || 700
@@ -25,7 +25,7 @@ export default class Weapon extends Phaser.GameObjects.Zone {
           this.fire(scene.time.now)
         }
       },
-      loop: true
+      loop: true,
     })
   }
 

@@ -20,13 +20,12 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
       on: false,
       radius: true,
       lifespan: 700,
-      deathCallback: () => this.bonusParticles.destroy()
+      deathCallback: () => this.bonusParticles.destroy(),
     })
-
   }
 
   update() {
-    this.setCircle(this.width/2)
+    this.setCircle(this.width / 2)
     this.setScale(0.5)
     this.rotation += 0.01
     this.setVelocityY(this.speed)

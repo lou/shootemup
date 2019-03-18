@@ -12,34 +12,38 @@ export default class InfoScene extends Phaser.Scene {
     this.game = this.scene.get('Game')
     this.graphics = this.add.graphics()
     this.graphics.fillStyle(0x000000, 1)
-    this.graphics.fillRect(0, height-59, width, 60).setAlpha(0.7)
+    this.graphics.fillRect(0, height - 59, width, 60).setAlpha(0.7)
 
     const offset = 240
     this.add.image(width / 2 - offset, height - 32, 'life-icon').setScale(0.6)
     this.livesText = this.add.text(width / 2 - offset + 15, height - 45, this.lives, {
       fontFamily: 'Arial',
       fontSize: '24px',
-      color: '#FFF'
+      color: '#FFF',
     })
 
-    this.scoreText = this.add.text(width / 2 + offset, height - 45, this.score, {
-      fontFamily: 'Arial',
-      fontSize: '24px',
-      color: '#FFF',
-    }).setOrigin(1, 0)
-    this.menuText = this.add.text(width / 2, height - 42, 'MENU', {
-      fontFamily: 'Arial',
-      fontSize: '18px',
-      color: '#000',
-      backgroundColor: '#FFF',
-      padding: { top: 4, left: 10 },
-    }).setOrigin(0.5, 0)
+    this.scoreText = this.add
+      .text(width / 2 + offset, height - 45, this.score, {
+        fontFamily: 'Arial',
+        fontSize: '24px',
+        color: '#FFF',
+      })
+      .setOrigin(1, 0)
+    this.menuText = this.add
+      .text(width / 2, height - 42, 'MENU', {
+        fontFamily: 'Arial',
+        fontSize: '18px',
+        color: '#000',
+        backgroundColor: '#FFF',
+        padding: { top: 4, left: 10 },
+      })
+      .setOrigin(0.5, 0)
       .setInteractive()
       .on('pointerdown', () => {
         this.scene.pause('Game')
         this.scene.run('Menu')
       })
-    this.game.events.on('addScore', (score) => {
+    this.game.events.on('addScore', score => {
       this.score += score
       this.scoreText.setText(this.score.toLocaleString())
     })

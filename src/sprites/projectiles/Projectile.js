@@ -21,7 +21,7 @@ export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
         maxParticles: 30,
         radial: true,
         tint: 0xfffbde,
-        on: false
+        on: false,
       })
     }
   }
@@ -37,25 +37,27 @@ export default class Pojectile extends Phaser.Physics.Arcade.Sprite {
 
   fire(shooter, target) {
     this.setPosition(shooter.x, shooter.y)
-    const angle = Math.atan((target.x-this.x) / (target.y-this.y))
+    const angle = Math.atan((target.x - this.x) / (target.y - this.y))
     const direction = target.y > this.y ? 1 : -1
 
-    this.setVelocityX(this.speed*Math.sin(angle)*direction)
-    this.setVelocityY(this.speed*Math.cos(angle)*direction)
+    this.setVelocityX(this.speed * Math.sin(angle) * direction)
+    this.setVelocityY(this.speed * Math.cos(angle) * direction)
 
-    this.rotation = Phaser.Math.Angle.BetweenPoints(shooter, target) - Math.PI/2
+    this.rotation = Phaser.Math.Angle.BetweenPoints(shooter, target) - Math.PI / 2
   }
 
   update(time) {
-    if (!this.firedAt)
-      this.firedAt = time
+    if (!this.firedAt) this.firedAt = time
     if (this.active.false) {
       this.setVelocity(0, 0)
       this.firedAt = null
     }
     this.scene.destroyOnOutOfBounds(this, false)
 
-    if (this.lifespan && time - this.firedAt >= Phaser.Math.Between(this.lifespan.min, this.lifespan.max)) {
+    if (
+      this.lifespan &&
+      time - this.firedAt >= Phaser.Math.Between(this.lifespan.min, this.lifespan.max)
+    ) {
       if (this.explosive) {
         this.explosionEmitter.explode(20, this.x, this.y)
       }

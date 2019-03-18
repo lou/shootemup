@@ -10,9 +10,9 @@ export default class Helicopter extends Plane {
       keepRotation: true,
       lights: {
         side: { x: 15, y: 3 },
-        bottom: { y: -28 }
+        bottom: { y: -28 },
       },
-      ...options
+      ...options,
     })
 
     this.blades = scene.add.image(this.x, this.y + 5, 'blades')
@@ -25,7 +25,7 @@ export default class Helicopter extends Plane {
       targets: this.blades,
       angle: 360,
       duration: 150,
-      repeat: -1
+      repeat: -1,
     })
     this.add([
       new Weapon(scene, {
@@ -33,8 +33,8 @@ export default class Helicopter extends Plane {
         y: this.y + 30,
         type: 'missiles',
         fireSpeed: 2000,
-        speed: 400
-      })
+        speed: 400,
+      }),
     ])
   }
 
@@ -45,10 +45,8 @@ export default class Helicopter extends Plane {
 
   update() {
     this.setRotation(
-      Phaser.Math.Angle.Between(
-        this.x, this.y,
-        this.scene.player.x, this.scene.player.y
-      ) - Math.PI/2
+      Phaser.Math.Angle.Between(this.x, this.y, this.scene.player.x, this.scene.player.y) -
+        Math.PI / 2
     )
     super.update()
   }

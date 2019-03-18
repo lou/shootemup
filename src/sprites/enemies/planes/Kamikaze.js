@@ -1,4 +1,4 @@
-import Phaser from 'phaser';
+import Phaser from 'phaser'
 import Plane from './Plane'
 
 export default class Kamikaze extends Plane {
@@ -10,19 +10,17 @@ export default class Kamikaze extends Plane {
       collidable: true,
       lights: {
         side: { x: 18, y: 6 },
-        bottom: { y: -19 }
+        bottom: { y: -19 },
       },
-      ...options
-    });
+      ...options,
+    })
     this.killOnHit = true
   }
 
   update() {
     this.setRotation(
-      Phaser.Math.Angle.Between(
-        this.x, this.y,
-        this.scene.player.x, this.scene.player.y
-      ) - Math.PI/2
+      Phaser.Math.Angle.Between(this.x, this.y, this.scene.player.x, this.scene.player.y) -
+        Math.PI / 2
     )
     this.scene.physics.moveTo(this, this.scene.player.x, this.scene.player.y, this.speed)
     super.update()

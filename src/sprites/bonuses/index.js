@@ -7,6 +7,5 @@ export const bonuses = {
   Life,
   Shield,
   Gun,
-  Missile
+  Missile,
 }
-

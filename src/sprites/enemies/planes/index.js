@@ -7,5 +7,5 @@ export const planes = {
   Kamikaze,
   Carrier,
   Bomber,
-  Helicopter
+  Helicopter,
 }

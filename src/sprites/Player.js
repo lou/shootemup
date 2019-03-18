@@ -1,7 +1,7 @@
-import Phaser from 'phaser'
-import Bullet  from './projectiles/Bullet'
-import Missile  from './projectiles/Missile'
-import Projectile from './projectiles/Projectile'
+import Phaser from "phaser"
+import Bullet from "./projectiles/Bullet"
+import Missile from "./projectiles/Missile"
+import Projectile from "./projectiles/Projectile"
 
 export default class Player extends Phaser.Physics.Arcade.Image {
   constructor(scene, x, y, key) {
@@ -10,11 +10,12 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     scene.add.existing(this)
     scene.physics.world.enable(this)
     this.setCollideWorldBounds(true)
-    this.setCircle(this.width/2)
-    this.setMaxVelocity(250, 300)
+    this.setCircle(this.width / 2)
     this.setTint(0x20567c)
+    this.speed = 400
     this.setDepth(2)
-    this.shadow = scene.add.image(this.x+10, this.y+10, key)
+    this.shadow = scene.add
+      .image(this.x + 10, this.y + 10, key)
       .setScale(0.9)
       .setDepth(1.9)
       .setAlpha(0.5)
@@ -23,16 +24,29 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.guns = 1
     this.missilesActivated = false
     this.invincible = false
-    this.thruster = scene.add.image(this.x, this.y, 'thruster').setScale(0.5).setDepth(1.9)
+    this.thruster = scene.add
+      .image(this.x, this.y, "thruster")
+      .setScale(0.5)
+      .setDepth(1.9)
 
-    this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
-    this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
-    this.missiles = scene.physics.add.group({ classType: Missile, runChildUpdate: true }).setDepth(2)
-    this.projectiles = scene.physics.add.group([this.bullets1, this.bullets2, this.missiles])
+    this.bullets1 = scene.physics.add
+      .group({ classType: Bullet, runChildUpdate: true })
+      .setDepth(2)
+    this.bullets2 = scene.physics.add
+      .group({ classType: Bullet, runChildUpdate: true })
+      .setDepth(2)
+    this.missiles = scene.physics.add
+      .group({ classType: Missile, runChildUpdate: true })
+      .setDepth(2)
+    this.projectiles = scene.physics.add.group([
+      this.bullets1,
+      this.bullets2,
+      this.missiles
+    ])
 
     this.missileLastFire = 1
 
-    this.shieldSprite = this.scene.add.image(x, y, 'bonus').setScale(0.8)
+    this.shieldSprite = this.scene.add.image(x, y, "bonus").setScale(0.8)
 
     // TWEENS
     this.invincibleAnimation = scene.tweens.add({
@@ -45,15 +59,15 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         this.setTint(0x20567c)
         this.invincible = false
       }
-    });
+    })
     this.invincibleAnimation.pause()
 
     this.shieldAnimation = scene.tweens.add({
       targets: this.shieldSprite,
       angle: 360,
       duration: 5000,
-      repeat: -1,
-    });
+      repeat: -1
+    })
     this.missilesTimer = this.scene.time.addEvent({
       delay: 800,
       callback: () => {
@@ -86,7 +100,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   takeLife() {
     this.downgrade()
     this.scene.cameras.main.shake(300, 0.01)
-    this.scene.events.emit('addLife', -1)
+    this.scene.events.emit("addLife", -1)
     this.invincible = true
 
     // Add a delay call to prevent Tween not calling restart immediatly
@@ -101,15 +115,11 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     if (this.shield) {
       this.shield = false
       this.invincible = true
-      this.scene.time.delayedCall(
-        600,
-        _ => {
-          this.setTint(0x20567c)
-          this.invincible = false
-        }
-      )
-    }
-    else {
+      this.scene.time.delayedCall(600, _ => {
+        this.setTint(0x20567c)
+        this.invincible = false
+      })
+    } else {
       this.takeLife()
     }
   }
@@ -146,8 +156,12 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     bullet.lifespan = { min: 600, max: 600 }
     if (bullet) {
       bullet.fire(
-        { x: this.x + this.angle + offset.x, y: this.y - 30 + offset.y, rotation: this.rotation },
-        { x: this.x + offset.x, y: - 10 + offset.y }
+        {
+          x: this.x + this.angle + offset.x,
+          y: this.y - 30 + offset.y,
+          rotation: this.rotation
+        },
+        { x: this.x + offset.x, y: -10 + offset.y }
       )
     }
   }
@@ -157,7 +171,11 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     if (missile) {
       missile.fire(
-        { x: this.x + 18 * this.missileLastFire, y: this.y + 20, rotation: this.rotation },
+        {
+          x: this.x + 18 * this.missileLastFire,
+          y: this.y + 20,
+          rotation: this.rotation
+        },
         { x: this.x + 18 * this.missileLastFire, y: 0 }
       )
       this.missileLastFire *= -1
@@ -165,7 +183,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   }
 
   fire() {
-    if (this.guns > 1){
+    if (this.guns > 1) {
       this.fireGun(this.bullets1, { x: +5, y: 5 })
       this.fireGun(this.bullets2, { x: -5, y: 5 })
     } else {
@@ -175,39 +193,45 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   }
 
   move(cursors, time) {
-    this.setAcceleration(0, 0)
-    const acceleration = 2000
-    const deceleration = 10
-
     this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
-    this.setAngle(0)
     this.thruster.setPosition(this.x, this.y + 25)
-    if (cursors.up.isDown) {
-      this.setAccelerationY(-acceleration)
-    } else if (cursors.down.isDown) {
-      this.setAccelerationY(acceleration)
+    this.setVelocity(0, 0)
+
+    const dy = (cursors.up.isDown ? -1 : 0) + (cursors.down.isDown ? 1 : 0)
+    const dx = (cursors.left.isDown ? -1 : 0) + (cursors.right.isDown ? 1 : 0)
+    let vx
+    let vy
+
+    if (dy === 0) {
+      vx = this.speed * dx
+      vy = 0
+    } else if (dx === 0) {
+      vx = 0
+      vy = this.speed * dy
     } else {
-      if (this.body.velocity.y > 0)
-        this.body.velocity.y = Math.max(0, this.body.velocity.y - deceleration)
-      else if (this.body.velocity.y < 0)
-        this.body.velocity.y = Math.min(0, this.body.velocity.y + deceleration)
+      const rotation = Math.atan2(dy, dx)
+      vx = this.speed * Math.cos(rotation)
+      vy = this.speed * Math.sin(rotation)
     }
 
-    if (cursors.left.isDown) {
-      this.setAccelerationX(-acceleration)
-      this.setAngle(5)
-    } else if (cursors.right.isDown) {
-      this.setAccelerationX(acceleration)
-      this.setAngle(-5)
-    } else {
-      if (this.body.velocity.x > 0)
-        this.body.velocity.x = Math.max(0, this.body.velocity.x - deceleration)
-      else if (this.body.velocity.x < 0)
-        this.body.velocity.x = Math.min(0, this.body.velocity.x + deceleration)
-    }
+    this.setVelocity(vx, vy)
+    this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
+    this.thruster.setPosition(this.x, this.y + 25)
 
     if (this.pointer.isDown) {
-      this.scene.physics.moveTo(this, this.pointer.worldX, this.pointer.worldY, 600)
+      const distance = Phaser.Math.Distance.Between(
+        this.x,
+        this.y,
+        this.pointer.worldX,
+        this.pointer.worldY
+      )
+      if (distance > 5)
+        this.scene.physics.moveTo(
+          this,
+          this.pointer.worldX,
+          this.pointer.worldY,
+          this.speed
+        )
     }
 
     this.fire()

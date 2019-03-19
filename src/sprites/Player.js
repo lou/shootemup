@@ -35,6 +35,12 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       repeat: -1,
       yoyo: true,
     })
+    // this.lights = {
+    //   bottom: { y: -25 },
+    //   side: { y: -6, x: 25 },
+    //   duration: 1500,
+    // }
+    this.addLights()
 
     this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
     this.bullets2 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)
@@ -194,6 +200,9 @@ export default class Player extends Phaser.Physics.Arcade.Image {
   move(cursors, time) {
     this.shadow.setPosition(this.x + 10, this.y + 10).setRotation(this.rotation)
     this.thruster.setPosition(this.x, this.y + 32)
+    this.lightBottom.setPosition(this.x, this.y + 23)
+    this.lightLeft.setPosition(this.x - 20, this.y  + 17)
+    this.lightRight.setPosition(this.x + 20, this.y + 17)
     this.setVelocity(0, 0)
 
     const dy = (cursors.up.isDown ? -1 : 0) + (cursors.down.isDown ? 1 : 0)
@@ -226,8 +235,12 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     }
 
     if (this.body.velocity.x > 0) {
+      this.lightRight.setPosition(this.x + 20, this.lightRight.y + 5)
+      this.lightLeft.setPosition(this.x - 20, this.lightLeft.y  - 5)
       this.setTexture('plane_right')
     } else if (this.body.velocity.x < 0) {
+      this.lightRight.setPosition(this.x + 20, this.lightRight.y - 5)
+      this.lightLeft.setPosition(this.x - 20, this.lightLeft.y  + 5)
       this.setTexture('plane_left')
     } else {
       this.setTexture('plane')
@@ -250,4 +263,42 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     this.projectiles.destroy()
     super.destroy()
   }
+
+  addLights() {
+    this.lightBottom = this.scene.add.image(this.x, this.y + 18, 'light').setDepth(2.1)
+    this.scene.tweens.add({
+      targets: this.lightBottom,
+      alpha: 0.1,
+      duration: 1500,
+      repeat: -1,
+      yoyo: true,
+    })
+    this.lightLeft = this.scene.add.image(
+      this.x + 18,
+      this.y + 10,
+      'light'
+    ).setDepth(2.1)
+    this.lightLeft.setTint(0xff0505)
+    this.scene.tweens.add({
+      targets: this.lightLeft,
+      alpha: 0.1,
+      duration: 1500,
+      repeat: -1,
+      yoyo: true,
+    })
+    this.lightRight = this.scene.add.image(
+      this.x - 18,
+      this.y + 10,
+      'light'
+    ).setDepth(2.1)
+    this.lightRight.setTint(0x40ff00)
+    this.scene.tweens.add({
+      targets: this.lightRight,
+      alpha: 0.1,
+      duration: 1500,
+      repeat: -1,
+      yoyo: true,
+    })
+  }
+
 }

@@ -18,13 +18,13 @@ A Shoot'em Up game coded with Phaser 3
 - [x] Improve enemies apparition (start with fewer enemies and improve difficulty over time)
 - [x] Restart menu button
 - [x] Lights on Player
+- [x] Boats wakes
 - [ ] Leaderboard
 - [ ] More boats
 - [ ] More planes
 - [ ] Map Editor
 - [ ] Particles on Player hit by projectile
 - [ ] Particles on touret fire
-- [ ] Boats wakes
 - [ ] Better graphisms
 - [ ] Weather engine
 - [ ] Add sound

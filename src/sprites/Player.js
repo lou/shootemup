@@ -20,7 +20,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       .setDepth(1.9)
       .setAlpha(0.5)
       .setTint(0x030b14)
-    this.shield = false
+    this.shield = true
     this.guns = 1
     this.missilesActivated = false
     this.invincible = false
@@ -51,7 +51,7 @@ export default class Player extends Phaser.Physics.Arcade.Image {
 
     this.missileLastFire = 1
 
-    this.shieldSprite = this.scene.add.image(x, y, 'bonus').setScale(0.8)
+    this.shieldSprite = this.scene.add.image(x, y, 'bonus')
 
     // TWEENS
     this.invincibleAnimation = scene.tweens.add({

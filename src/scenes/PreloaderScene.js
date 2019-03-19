@@ -30,6 +30,8 @@ export default class PreloaderScene extends Phaser.Scene {
     // load assets needed in our game
     this.load.image('ocean', 'assets/images/ocean.jpg')
     this.load.image('plane', 'assets/images/rafale.svg')
+    this.load.image('plane_right', 'assets/images/rafale_right.svg')
+    this.load.image('plane_left', 'assets/images/rafale_left.svg')
     this.load.image('light', 'assets/images/light.png')
     this.load.image('shield', 'assets/images/shield.png')
     this.load.image('bullet', 'assets/images/bullet.png')

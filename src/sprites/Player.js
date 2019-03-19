@@ -212,7 +212,6 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       vx = this.speed * Math.cos(rotation)
       vy = this.speed * Math.sin(rotation)
     }
-
     this.setVelocity(vx, vy)
 
     if (this.pointer.isDown) {
@@ -226,6 +225,13 @@ export default class Player extends Phaser.Physics.Arcade.Image {
         this.scene.physics.moveTo(this, this.pointer.worldX, this.pointer.worldY, this.speed)
     }
 
+    if (this.body.velocity.x > 0) {
+      this.setTexture('plane_right')
+    } else if (this.body.velocity.x < 0) {
+      this.setTexture('plane_left')
+    } else {
+      this.setTexture('plane')
+    }
     this.fire()
 
     this.shieldSprite.setActive(this.shield).setVisible(this.shield)

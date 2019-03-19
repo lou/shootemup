@@ -6,7 +6,7 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
     this.scene = scene
     this.speed = options.speed || 50
     this.image = scene.add.sprite(options.x, options.y, options.type)
-    this.image.setScale(0.6).setDepth(4)
+    this.image.setScale(0.7).setDepth(4)
     this.started = true
     this.setDepth(4.1)
     scene.add.existing(this)
@@ -26,9 +26,9 @@ export default class Bonus extends Phaser.Physics.Arcade.Image {
 
   update() {
     this.setCircle(this.width / 2)
-    this.setScale(0.5)
+      .setScale(0.6)
+      .setVelocityY(this.speed)
     this.rotation += 0.01
-    this.setVelocityY(this.speed)
     this.image.x = this.x + 1
     this.image.y = this.y + 1
     this.scene.destroyOnOutOfBounds(this)

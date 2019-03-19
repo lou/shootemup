@@ -35,11 +35,6 @@ export default class Player extends Phaser.Physics.Arcade.Image {
       repeat: -1,
       yoyo: true,
     })
-    // this.lights = {
-    //   bottom: { y: -25 },
-    //   side: { y: -6, x: 25 },
-    //   duration: 1500,
-    // }
     this.addLights()
 
     this.bullets1 = scene.physics.add.group({ classType: Bullet, runChildUpdate: true }).setDepth(2)

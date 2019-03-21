@@ -1,5 +1,5 @@
 import Phaser from 'phaser'
-import { width } from '../config/config'
+import { width, height } from '../config/config'
 
 export default class TitleScene extends Phaser.Scene {
   constructor() {
@@ -7,13 +7,15 @@ export default class TitleScene extends Phaser.Scene {
   }
 
   create() {
+    const w = Math.min(width, innerWidth)
+    const h = Math.min(height, innerHeight)
     const text = this.add.text(0, 0, 'Rafale', {
       fontFamily: 'Arial Black',
       fontSize: '42px',
       fill: '#FFF',
       align: 'center',
     })
-    text.setY(250).setX(width / 2 - text.width / 2)
+    text.setY(h * 0.3).setX(w / 2 - text.width / 2)
     this.scene.run('Menu')
   }
 }

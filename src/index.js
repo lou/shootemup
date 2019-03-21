@@ -8,8 +8,8 @@ const config = {
   scene: scenes,
   backgroundColor: '#030b14',
   scale: {
-    width,
-    height,
+    width: Math.min(width, window.innerWidth),
+    height: Math.min(height, window.innerHeight),
     mode: Phaser.Scale.HEIGHT_CONTROLS_WIDTH,
     autoCenter: Phaser.Scale.CENTER_HORIZONTALLY,
   },

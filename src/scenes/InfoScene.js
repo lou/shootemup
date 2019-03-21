@@ -7,30 +7,33 @@ export default class InfoScene extends Phaser.Scene {
   }
 
   create() {
+    const w = Math.min(width, innerWidth)
+    const h = Math.min(height, innerHeight)
+
     this.lives = 3
     this.score = 0
     this.game = this.scene.get('Game')
     this.graphics = this.add.graphics()
     this.graphics.fillStyle(0x000000, 1)
-    this.graphics.fillRect(0, height - 59, width, 60).setAlpha(0.7)
+    this.graphics.fillRect(0, h - 59, w, 60).setAlpha(0.7)
 
-    const offset = 240
-    this.add.image(width / 2 - offset, height - 32, 'life-icon').setScale(0.6)
-    this.livesText = this.add.text(width / 2 - offset + 15, height - 45, this.lives, {
+    const offset = 140
+    this.add.image(w / 2 - offset, h - 32, 'life-icon').setScale(0.6)
+    this.livesText = this.add.text(w / 2 - offset + 15, h - 45, this.lives, {
       fontFamily: 'Arial',
       fontSize: '24px',
       color: '#FFF',
     })
 
     this.scoreText = this.add
-      .text(width / 2 + offset, height - 45, this.score, {
+      .text(w / 2 + offset, h - 45, this.score, {
         fontFamily: 'Arial',
         fontSize: '24px',
         color: '#FFF',
       })
       .setOrigin(1, 0)
     this.menuText = this.add
-      .text(width / 2, height - 42, 'MENU', {
+      .text(w / 2, h - 42, 'MENU', {
         fontFamily: 'Arial',
         fontSize: '18px',
         color: '#000',

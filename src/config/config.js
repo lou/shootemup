@@ -1,7 +1,5 @@
-export const width = 700
+export const width = 900
 export const height = 1200
-export const worldWidth = 800
-export const worldHeight = 1400
 
 export const config = {
   waves: [
@@ -11,8 +9,8 @@ export const config = {
           startAt: 1000,
           type: "Plane::Carrier",
           path: [
-            { x: worldWidth / 2 - 100, y: -150 },
-            { x: worldWidth / 2 - 100, y: worldHeight + 150 }
+            { x: width / 2 - 100, y: -150 },
+            { x: width / 2 - 100, y: height + 150 }
           ],
           escort: [
             {
@@ -33,21 +31,21 @@ export const config = {
           startAt: 5000,
           type: "Plane::Bomber",
           path: [
-            { x: worldWidth / 5, y: -150 },
-            { x: worldWidth / 1.5 + 300, y: worldHeight + 150 }
+            { x: width / 5, y: -150 },
+            { x: width / 1.5 + 300, y: height + 150 }
           ]
         },
         {
           startAt: 6500,
           type: "Plane::Bomber",
-          path: [{ x: worldWidth, y: -150 }, { x: -150, y: worldHeight - 150 }]
+          path: [{ x: width, y: -150 }, { x: -150, y: height - 150 }]
         },
         {
           startAt: 20000,
           type: "Plane::Bomber",
           path: [
-            { x: worldWidth / 3, y: -150 },
-            { x: worldWidth / 2 + 300, y: worldHeight + 150 }
+            { x: width / 3, y: -150 },
+            { x: width / 2 + 300, y: height + 150 }
           ],
           escort: [
             {
@@ -67,12 +65,12 @@ export const config = {
         {
           startAt: 20000,
           type: "Boat::Cruiser",
-          path: [{ x: 0 - 150, y: 50 }, { x: worldWidth + 150, y: 1100 }]
+          path: [{ x: 0 - 150, y: 50 }, { x: width + 150, y: 1100 }]
         },
         {
           startAt: 25000,
           type: "Boat::Cruiser",
-          path: [{ x: worldWidth + 150, y: -150 }, { x: -150, y: 800 }],
+          path: [{ x: width + 150, y: -150 }, { x: -150, y: 800 }],
           escort: [
             {
               type: "Boat::Cruiser",
@@ -88,16 +86,16 @@ export const config = {
           startAt: 40000,
           type: "Plane::Carrier",
           path: [
-            { x: worldWidth / 2 - 100, y: -150 },
-            { x: worldWidth / 2 - 100, y: worldHeight + 150 }
+            { x: width / 2 - 100, y: -150 },
+            { x: width / 2 - 100, y: height + 150 }
           ]
         },
         {
           startAt: 45000,
           type: "Plane::Carrier",
           path: [
-            { x: worldWidth / 2 + 100, y: -150 },
-            { x: worldWidth / 2 + 100, y: worldHeight + 150 }
+            { x: width / 2 + 100, y: -150 },
+            { x: width / 2 + 100, y: height + 150 }
           ]
         },
         {
@@ -109,17 +107,17 @@ export const config = {
         {
           type: "Plane::Bomber",
           startAt: 45000,
-          path: [{ x: 500, y: -150 }, { x: 500, y: worldHeight + 150 }]
+          path: [{ x: 500, y: -150 }, { x: 500, y: height + 150 }]
         },
         {
           type: "Plane::Carrier",
           startAt: 50000,
-          path: [{ x: 400, y: -150 }, { x: 400, y: worldHeight + 150 }]
+          path: [{ x: 400, y: -150 }, { x: 400, y: height + 150 }]
         },
         {
           type: "Boat::Cruiser",
           startAt: 55000,
-          path: [{ x: -150, y: 300 }, { x: worldWidth + 150, y: 600 }],
+          path: [{ x: -150, y: 300 }, { x: width + 150, y: 600 }],
           escort: [
             {
               type: "Plane::Helicopter",
@@ -144,12 +142,12 @@ export const config = {
         {
           type: "Boat::Cruiser",
           startAt: 60000,
-          path: [{ x: worldWidth + 150, y: 500 }, { x: -150, y: 1500 }]
+          path: [{ x: width + 150, y: 500 }, { x: -150, y: 1500 }]
         },
         {
           type: "Boat::Frigate",
           startAt: 60000,
-          path: [{ x: 600, y: -150 }, { x: 50, y: worldHeight + 150 }]
+          path: [{ x: 600, y: -150 }, { x: 50, y: height + 150 }]
         },
         {
           type: "Plane::Kamikaze",
@@ -175,7 +173,7 @@ export const config = {
         {
           type: "Boat::Frigate",
           startAt: 75000,
-          path: [{ x: 600, y: -150 }, { x: 100, y: worldHeight + 150 }],
+          path: [{ x: 600, y: -150 }, { x: 100, y: height + 150 }],
           escort: [
             {
               type: "Plane::Helicopter",
@@ -205,24 +203,24 @@ export const config = {
           startAt: 80000,
           type: "Plane::Carrier",
           path: [
-            { x: worldWidth / 2 - 100, y: -150 },
-            { x: worldWidth / 2 - 100, y: worldHeight + 150 }
+            { x: width / 2 - 100, y: -150 },
+            { x: width / 2 - 100, y: height + 150 }
           ]
         },
         {
           startAt: 80000,
           type: "Plane::Carrier",
           path: [
-            { x: worldWidth / 2 + 100, y: -150 },
-            { x: worldWidth / 2 + 100, y: worldHeight + 150 }
+            { x: width / 2 + 100, y: -150 },
+            { x: width / 2 + 100, y: height + 150 }
           ]
         },
         {
           startAt: 80000,
           type: "Plane::Bomber",
           path: [
-            { x: worldWidth, y: -150 },
-            { x: worldWidth / 2 - 100, y: worldHeight + 150 }
+            { x: width, y: -150 },
+            { x: width / 2 - 100, y: height + 150 }
           ],
           bonus: "Gun"
         },
@@ -250,8 +248,8 @@ export const config = {
           startAt: 80000,
           type: "Plane::Bomber",
           path: [
-            { x: worldWidth + 150, y: 650 },
-            { x: worldWidth / 2 - 100, y: worldHeight + 150 }
+            { x: width + 150, y: 650 },
+            { x: width / 2 - 100, y: height + 150 }
           ],
           escort: [
             {

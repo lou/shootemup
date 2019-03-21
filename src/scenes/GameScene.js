@@ -6,7 +6,7 @@ import { boats } from '../sprites/enemies/boats'
 import Plane from '../sprites/enemies/planes/Plane'
 import Boat from '../sprites/enemies/boats/Boat'
 import Touret from '../sprites/enemies/boats/Touret'
-import { config, worldWidth, worldHeight } from '../config/config'
+import { config, width, height } from '../config/config'
 import ExplosiveBullet from '../sprites/projectiles/ExplosiveBullet'
 import Missile from '../sprites/projectiles/Missile'
 
@@ -87,10 +87,10 @@ export default class GameScene extends Phaser.Scene {
       if (enemy.escort) count += enemy.escort.length
       return count
     }, 0)
-    this.physics.world.setBounds(0, 0, worldWidth, worldHeight)
-    this.cameras.main.setBounds(0, 0, worldWidth, worldHeight)
+    this.physics.world.setBounds(0, 0, width, height)
+    this.cameras.main.setBounds(0, 0, width, height)
 
-    const ocean = this.add
+    this.add
       .tileSprite(
         0,
         0,

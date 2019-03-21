@@ -8,6 +8,8 @@ export default class GameOverScene extends Phaser.Scene {
   }
 
   create() {
+    const w = Math.min(width, innerWidth)
+    const h = Math.min(height, innerHeight)
     const text = this.add.text(0, 0, 'GAME OVER', {
       fontFamily: 'Arial Black',
       fontSize: '42px',
@@ -15,15 +17,15 @@ export default class GameOverScene extends Phaser.Scene {
       align: 'center',
     })
     text.setY(250)
-    text.setX(width / 2 - text.width / 2)
+    text.setX(w / 2 - text.width / 2)
     const infoScene = this.scene.get('Info')
 
     infoScene.menuText.destroy()
 
     new UIButton({
       scene: this,
-      x: width / 2,
-      y: height * 0.5,
+      x: w / 2,
+      y: h * 0.5,
       text: 'Play Again',
       onClick: _ => {
         this.scene.start('Game')
@@ -32,8 +34,8 @@ export default class GameOverScene extends Phaser.Scene {
 
     new UIButton({
       scene: this,
-      x: width / 2,
-      y: height * 0.6,
+      x: w / 2,
+      y: h * 0.6,
       text: 'Menu',
       onClick: _ => {
         this.scene.get('Game').started = false

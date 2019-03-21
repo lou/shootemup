@@ -24,7 +24,7 @@ export default class UIButton extends Phaser.GameObjects.Container {
     })
     this.gameText
       .setInteractive()
-      .setX(width / 2 - this.gameText.width / 2)
+      .setX(Math.min(width, innerWidth) / 2 - this.gameText.width / 2)
       .setY(this.y)
       .setFixedSize(300, 20)
 

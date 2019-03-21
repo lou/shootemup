@@ -8,20 +8,22 @@ export default class PreloaderScene extends Phaser.Scene {
   }
 
   preload() {
+    const w = Math.min(width, innerWidth)
+    const h = Math.min(height, innerHeight)
     // add logo image
-    const logo = this.add.image(width / 2, height / 3, 'logo')
+    const logo = this.add.image(w / 2, h / 3, 'logo')
 
     // display progress bar
     this.bar = new Bar({
       scene: this,
-      x: width / 2,
-      y: height * 0.7,
+      x: w / 2,
+      y: h * 0.7,
       color: 0x222222,
     })
 
-    this.progText = this.add.text(width / 2, height * 0.7, '0%', {
+    this.progText = this.add.text(w / 2, h * 0.7, '0%', {
       color: '#ffffff',
-      fontSize: width / 20,
+      fontSize: w / 20,
     })
 
     this.progText.setOrigin(0.5, 0.5)
@@ -33,7 +35,6 @@ export default class PreloaderScene extends Phaser.Scene {
     this.load.image('plane_right', 'assets/images/rafale_right.svg')
     this.load.image('plane_left', 'assets/images/rafale_left.svg')
     this.load.image('light', 'assets/images/light.png')
-    this.load.image('shield', 'assets/images/shield.png')
     this.load.image('bullet', 'assets/images/bullet.png')
     this.load.image('missile', 'assets/images/missile.png')
     this.load.image('hit', 'assets/images/hit.png')

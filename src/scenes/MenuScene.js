@@ -8,9 +8,10 @@ export default class MenuScene extends Phaser.Scene {
   }
 
   create() {
+    const h = Math.min(height, innerHeight)
     new UIButton({
       scene: this,
-      y: height * 0.4,
+      y: h * 0.4,
       text: !this.scene.get('Game').started ? 'Play' : 'Resume',
       onClick: () => {
         this.scene.sleep('Title')
@@ -26,7 +27,7 @@ export default class MenuScene extends Phaser.Scene {
     if (this.scene.get('Game').started) {
       new UIButton({
         scene: this,
-        y: height * 0.6,
+        y: h * 0.6,
         text: 'Restart',
         onClick: () => {
           this.scene.sleep('Title')
@@ -38,7 +39,7 @@ export default class MenuScene extends Phaser.Scene {
 
     new UIButton({
       scene: this,
-      y: height * 0.5,
+      y: h * 0.5,
       text: 'Fullscreen',
       onClick: () => this.scale.toggleFullscreen(),
     })

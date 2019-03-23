@@ -27,7 +27,7 @@ export default class MenuScene extends Phaser.Scene {
     if (this.scene.get('Game').started) {
       new UIButton({
         scene: this,
-        y: h * 0.6,
+        y: h * 0.5,
         text: 'Restart',
         onClick: () => {
           this.scene.sleep('Title')
@@ -37,12 +37,14 @@ export default class MenuScene extends Phaser.Scene {
       })
     }
 
-    new UIButton({
-      scene: this,
-      y: h * 0.5,
-      text: 'Fullscreen',
-      onClick: () => this.scale.toggleFullscreen(),
-    })
+    if (this.sys.game.device.fullscreen.available) {
+      new UIButton({
+        scene: this,
+        y: h * 0.6,
+        text: 'Fullscreen',
+        onClick: () => this.scale.toggleFullscreen(),
+      })
+    }
 
     window.document.addEventListener('fullscreenchange', () => {
       if (!document.fullscreenElement) this.scale.stopFullscreen()

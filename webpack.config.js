@@ -4,12 +4,12 @@ const path = require('path');
 module.exports = {
   entry: [
     'babel-polyfill',
-    './src/index.js',
+    './src/index.js'
   ],
 
   output: {
     path: path.resolve(__dirname, 'build'),
-    publicPath: '/build/',
+    publicPath: '/shootemup/build',
     filename: 'project.bundle.js',
   },
 

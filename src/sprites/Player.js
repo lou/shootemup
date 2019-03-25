@@ -10,10 +10,10 @@ export default class Player extends Phaser.Physics.Arcade.Image {
     scene.add.existing(this)
     scene.physics.world.enable(this)
     this.setCollideWorldBounds(true)
-    this.setCircle(this.width / 2)
-    this.setTint(0x20567c)
+      .setCircle(this.width / 2)
+      .setTint(0x20567c)
+      .setDepth(2)
     this.speed = 400
-    this.setDepth(2)
     this.shadow = scene.add
       .image(this.x + 10, this.y + 10, key)
       .setScale(0.9)
